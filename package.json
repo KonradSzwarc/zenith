@@ -1,18 +1,31 @@
 {
   "name": "@dev-skills-hub/zenith",
+  "description": "Template for creating a comprehensive virtual resume for developers.",
   "type": "module",
   "private": true,
   "version": "0.0.1",
+  "engines": {
+    "node": ">=20",
+    "npm": ">=9",
+    "pnpm": "please-use-npm",
+    "yarn": "please-use-npm"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier --write ."
   },
   "dependencies": {
-    "astro": "^4.8.7",
-    "@astrojs/check": "^0.7.0",
-    "typescript": "^5.4.5"
+    "@astrojs/check": "0.7.0",
+    "@astrojs/ts-plugin": "1.8.0",
+    "astro": "4.8.7"
+  },
+  "devDependencies": {
+    "prettier": "3.2.5",
+    "prettier-plugin-astro": "0.13.0",
+    "typescript": "5.4.5"
   }
 }
