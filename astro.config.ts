@@ -1,3 +1,4 @@
+import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
 
@@ -8,5 +9,6 @@ export default defineConfig({
       /** We use a custom css file with @layer directives, so resume styles can be customized per page. */
       applyBaseStyles: false,
     }),
+    mdx(),
   ],
 });
