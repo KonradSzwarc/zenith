@@ -3,6 +3,8 @@
     "EditorConfig.EditorConfig",
     "astro-build.astro-vscode",
     "astro-build.houston",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode"
   ],
   "unwantedRecommendations": []
