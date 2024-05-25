@@ -24,7 +24,8 @@
     "@astrojs/mdx": "3.0.1",
     "@astrojs/tailwind": "5.1.0",
     "@astrojs/ts-plugin": "1.8.0",
-    "astro": "4.8.7"
+    "astro": "4.8.7",
+    "mime": "4.0.3"
   },
   "devDependencies": {
     "@eslint/js": "9.3.0",

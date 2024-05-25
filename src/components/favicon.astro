@@ -1,0 +1,26 @@
+---
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+import mime from 'mime/lite';
+
+interface Props {
+  src?: ImageMetadata;
+}
+
+const { src } = Astro.props;
+
+const faviconFormats = ['png', 'svg', 'gif'];
+
+const { type, href } = await (async () => {
+  if (!src) {
+    return { type: 'image/svg+xml', href: '/fallback-favicon.svg' };
+  }
+
+  const format = faviconFormats.includes(src.format) ? src.format : 'png';
+  const favicon = await getImage({ src, format, width: 32, height: 32 });
+
+  return { type: mime.getType(format), href: favicon.src };
+})();
+---
+
+<link rel="icon" type={type} href={href} />

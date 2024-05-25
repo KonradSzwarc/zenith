@@ -79,20 +79,21 @@ export const collections = {
     }),
   }),
   metadata: defineCollection({
-    type: 'content',
-    schema: z.object({
-      title: z.string(),
-      description: z.string(),
-      favicon: z.string().optional(),
-      language: z.string().default('en'),
-      openGraph: z
-        .object({
-          image: z.string().optional(),
-          title: z.string().optional(),
-          description: z.string().optional(),
-        })
-        .optional(),
-    }),
+    type: 'data',
+    schema: ({ image }) =>
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        favicon: image().optional(),
+        language: z.string().default('en'),
+        openGraph: z
+          .object({
+            image: image().optional(),
+            title: z.string().optional(),
+            description: z.string().optional(),
+          })
+          .optional(),
+      }),
   }),
   projects: defineCollection({
     type: 'content',

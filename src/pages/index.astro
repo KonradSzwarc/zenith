@@ -1,36 +1,49 @@
+---
+import { getEntry } from 'astro:content';
+
+import Favicon from '@/components/favicon.astro';
+
+const { data: meta } = await getEntry('metadata', 'main');
+---
+
 <!doctype html>
-<html lang="en">
+<html lang={meta.language}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Welcome to Astro.</title>
+    <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <Favicon src={meta.favicon} />
+    <meta property="og:title" content={meta.openGraph?.title ?? meta.title} />
+    <meta property="og:description" content={meta.openGraph?.description ?? meta.description} />
+    {meta.openGraph?.image && <meta property="og:image" content={meta.openGraph.image.src} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
   <body class="bg-background text-foreground antialiased">
     <main class="mx-auto my-10 h-dvh w-full max-w-screen-xl rounded-3xl bg-white p-10 shadow-2xl">Hello World!</main>
+    <style is:global>
+      :root {
+        --background: 210, 40%, 96%;
+        --foreground: 222.2 84% 4.9%;
+
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1; /* fix for Chrome */
+
+        --font-sans: Inter;
+        @supports (font-variation-settings: normal) {
+          --font-sans: InterVariable;
+        }
+      }
+
+      .dark {
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
+      }
+    </style>
   </body>
 </html>
-<style is:global>
-  :root {
-    --background: 210, 40%, 96%;
-    --foreground: 222.2 84% 4.9%;
-
-    font-feature-settings:
-      'liga' 1,
-      'calt' 1; /* fix for Chrome */
-
-    --font-sans: Inter;
-    @supports (font-variation-settings: normal) {
-      --font-sans: InterVariable;
-    }
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-  }
-</style>
