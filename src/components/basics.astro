@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+import Icon from './icon.astro';
+
+interface Props {
+  basics: CollectionEntry<'basics'>;
+  socials: CollectionEntry<'socials'>[];
+}
+
+const {
+  basics: { data: basics, render: renderBasics },
+  socials,
+} = Astro.props;
+
+const { Content } = await renderBasics();
+---
+
+<section>
+  <div class="flex gap-6">
+    {
+      basics.image && (
+        <Image loading="eager" class="h-fit rounded-xl" src={basics.image} alt={basics.name} width={200} height={200} />
+      )
+    }
+    <div class="flex-auto">
+      <div class="flex items-start justify-between">
+        <div>
+          <h1 class="text-3xl font-black text-slate-900">{basics.name}</h1>
+          <h2 class="mt-0.5 text-xl font-medium text-slate-700">{basics.label}</h2>
+        </div>
+        <ul class="flex gap-3">
+          {
+            socials.map((social) => (
+              <li>
+                <a
+                  aria-label={social.data.label}
+                  href={social.data.url}
+                  class="flex size-9 items-center justify-center rounded bg-slate-200 transition-colors hover:bg-slate-300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon class="size-4 text-slate-600" name={social.data.icon} aria-hidden />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="prose prose-slate mt-4 max-w-none">
+        <Content />
+      </div>
+      {
+        basics.resume && (
+          <a
+            href={basics.resume.url}
+            class="mt-6 inline-block rounded bg-slate-900 px-4 py-2 text-white transition-colors hover:bg-slate-800"
+            download={basics.resume.filename}
+          >
+            {basics.resume.label}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>

@@ -1,30 +1,26 @@
 ---
 import { getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
-import Favicon from '@/components/favicon.astro';
+import Basics from '@/components/basics.astro';
+import Metadata from '@/components/metadata.astro';
 
-const { data: meta } = await getEntry('metadata', 'main');
+const metadata = await getEntry('metadata', 'main');
+const basics = await getEntry('basics', 'main');
+const socials = await getCollection('socials');
 ---
 
 <!doctype html>
-<html lang={meta.language}>
+<html lang={metadata.data.language}>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{meta.title}</title>
-    <meta name="description" content={meta.description} />
-    <Favicon src={meta.favicon} />
-    <meta property="og:title" content={meta.openGraph?.title ?? meta.title} />
-    <meta property="og:description" content={meta.openGraph?.description ?? meta.description} />
-    {meta.openGraph?.image && <meta property="og:image" content={meta.openGraph.image.src} />}
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
+    <Metadata metadata={metadata} />
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
   <body class="bg-background text-foreground antialiased sm:p-6 md:p-8 lg:p-10">
-    <main class="mx-auto w-full max-w-screen-xl bg-white p-10 shadow-2xl sm:rounded-3xl">Hello World!</main>
+    <main class="mx-auto w-full max-w-screen-xl bg-white p-10 shadow-2xl sm:rounded-3xl">
+      <Basics basics={basics} socials={socials} />
+    </main>
     <style is:global>
       :root {
         --background: 210, 40%, 96%;

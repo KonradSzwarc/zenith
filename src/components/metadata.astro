@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import Favicon from '@/components/favicon.astro';
+
+interface Props {
+  metadata: CollectionEntry<'metadata'>;
+}
+
+const {
+  metadata: { data: meta },
+} = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<meta name="generator" content={Astro.generator} />
+<title>{meta.title}</title>
+<meta name="description" content={meta.description} />
+<Favicon src={meta.favicon} />
+<meta property="og:title" content={meta.openGraph?.title ?? meta.title} />
+<meta property="og:description" content={meta.openGraph?.description ?? meta.description} />
+{meta.openGraph?.image && <meta property="og:image" content={meta.openGraph.image.src} />}
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />

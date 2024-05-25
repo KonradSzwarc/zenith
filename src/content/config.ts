@@ -41,7 +41,7 @@ export const collections = {
           .object({
             url: z.string(),
             label: z.string(),
-            filename: z.string().optional(),
+            filename: z.string(),
           })
           .optional(),
       }),
@@ -139,10 +139,10 @@ export const collections = {
       }),
   }),
   socials: defineCollection({
-    type: 'content',
+    type: 'data',
     schema: z.object({
       label: z.string(),
-      icon: z.string().optional(),
+      icon: z.string(),
       url: z.string().url(),
     }),
   }),
