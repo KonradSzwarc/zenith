@@ -28,5 +28,10 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
 
   /** Sets color theme provided by the Astro team, if we have it installed. */
-  "workbench.colorTheme": "Houston"
+  "workbench.colorTheme": "Houston",
+
+  /** Wraps long lines in Markdown and MDX files. */
+  "[md][mdx]": {
+    "editor.wordWrap": "on"
+  }
 }

@@ -21,7 +21,7 @@ export const collections = {
         image: image().optional(),
         issuer: z.string().optional(),
         links: z.array(linkSchema).optional(),
-        skills: z.array(reference('skills')),
+        skills: z.array(reference('skills')).optional(),
       }),
   }),
   basics: defineCollection({
@@ -31,13 +31,13 @@ export const collections = {
         name: z.string(),
         label: z.string().optional(),
         image: image().optional(),
-        birthDate: z.date().optional(),
+        birthdate: z.date().optional(),
         email: z.string().email().optional(),
         phone: z.string().optional(),
         country: z.string().optional(),
         city: z.string().optional(),
         details: z.array(labelledValueSchema).optional(),
-        cv: z
+        resume: z
           .object({
             url: z.string(),
             label: z.string(),
@@ -57,7 +57,7 @@ export const collections = {
         endDate: z.date().or(z.string()).optional(),
         details: z.array(labelledValueSchema).optional(),
         links: z.array(linkSchema).optional(),
-        skills: z.array(reference('skills')),
+        skills: z.array(reference('skills')).optional(),
       }),
   }),
   favorites: defineCollection({
@@ -105,7 +105,7 @@ export const collections = {
         endDate: z.date().or(z.string()).optional(),
         details: z.array(labelledValueSchema).optional(),
         links: z.array(linkSchema).optional(),
-        skills: z.array(reference('skills')),
+        skills: z.array(reference('skills')).optional(),
       }),
   }),
   references: defineCollection({
@@ -120,13 +120,23 @@ export const collections = {
   }),
   skills: defineCollection({
     type: 'content',
-    schema: z.object({
-      name: z.string(),
-      icon: z.string().optional(),
-      color: z.string().optional(),
-      level: z.number().int().nonnegative().optional(),
-      url: z.string().url().optional(),
-    }),
+    schema: ({ image }) =>
+      z.object({
+        name: z.string(),
+        icon: image().or(z.string()).optional(),
+        color: z.string().optional(),
+        level: z
+          .custom<`${number}/${number}`>(
+            (value) => {
+              const [current, max] = value.split('/').map(Number);
+
+              return !isNaN(current) && !isNaN(max) && current <= max;
+            },
+            { message: "Skill level must be in the format 'current/max' where current <= max." },
+          )
+          .optional(),
+        url: z.string().url().optional(),
+      }),
   }),
   socials: defineCollection({
     type: 'content',
@@ -147,7 +157,7 @@ export const collections = {
         endDate: z.date().or(z.string()).optional(),
         details: z.array(labelledValueSchema).optional(),
         links: z.array(linkSchema).optional(),
-        skills: z.array(reference('skills')),
+        skills: z.array(reference('skills')).optional(),
       }),
   }),
 };
