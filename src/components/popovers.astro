@@ -2,6 +2,17 @@
   [popover] {
     margin: 0 !important;
     position: absolute;
+    animation: show 200ms ease-out 50ms forwards;
+    opacity: 0;
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 </style>
 <script>
@@ -9,8 +20,8 @@
 
   const popovers = document.querySelectorAll('[popover]');
 
-  function updatePosition(invoker: HTMLElement, popover: HTMLElement) {
-    computePosition(invoker, popover, {
+  function updatePosition(trigger: HTMLElement, popover: HTMLElement) {
+    computePosition(trigger, popover, {
       middleware: [offset(8), flip(), shift({ padding: 8 })],
       placement: 'top',
     }).then(({ x, y }) => {
@@ -25,26 +36,26 @@
 
   function positionPopover(event: Event) {
     const popover = event.target as HTMLElement;
-    const id = popover.getAttribute('id');
+    const popoverId = popover.getAttribute('id');
 
-    if (!id) {
+    if (!popoverId) {
       throw new Error('Popover must have an id');
     }
 
-    const invoker = document.querySelector(`[popovertarget="${id}"`) as HTMLElement;
+    const trigger = document.querySelector(`[popovertarget="${popoverId}"`) as HTMLElement;
 
-    if (!invoker) {
+    if (!trigger) {
       throw new Error('Popover must have a target');
     }
 
-    if ('newState' in event && event.newState === 'open' && invoker) {
-      updatePosition(invoker, popover);
-      cleanups[id] = autoUpdate(invoker, popover, () => updatePosition(invoker, popover));
+    if ('newState' in event && event.newState === 'open' && trigger) {
+      updatePosition(trigger, popover);
+      cleanups[popoverId] = autoUpdate(trigger, popover, () => updatePosition(trigger, popover));
     }
 
     if ('newState' in event && event.newState === 'closed') {
-      cleanups[id]?.();
-      delete cleanups[id];
+      cleanups[popoverId]?.();
+      delete cleanups[popoverId];
     }
   }
 

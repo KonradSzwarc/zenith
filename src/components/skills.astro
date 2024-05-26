@@ -31,11 +31,11 @@ for (const skillSet of skillSets) {
   >
     <span class="relative text-white">{title}</span>
   </h2>
-  <div class="space-y-6">
+  <div class="space-y-8">
     {
       skillSets.map((skillSet) => (
         <div class="mt-4">
-          <h3 class="mb-2 text-xl font-semibold">{skillSet.title}</h3>
+          <h3 class="mb-2 text-xl font-bold text-slate-900">{skillSet.title}</h3>
           {skillSet.withLevel ? (
             <ul class="grid items-end gap-8">
               {skillSet.skills.map((skill) => (

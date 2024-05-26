@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { nanoid } from 'nanoid';
 
 import { cn } from '@/utils/cn';
 
@@ -10,20 +11,45 @@ interface Props {
 }
 
 const {
-  skill: { data: skill },
+  skill: { data: skill, body: skillBody, render: renderSkill },
 } = Astro.props;
 
-const Component = skill.url ? 'a' : 'div';
+const id = nanoid();
+const Description = skillBody.trim().length > 0 && (await renderSkill()).Content;
+const textClass = cn('py-1 text-sm font-semibold text-slate-700', !Description && 'pr-2');
 ---
 
-<Component
-  class={cn(
-    'flex items-center gap-2 rounded bg-slate-100 px-2 py-1',
-    skill.url ? 'transition-colors hover:bg-slate-200' : 'cursor-default',
-  )}
+<div
+  class="flex items-center gap-2 overflow-hidden rounded bg-slate-100 pl-2"
   style={skill.color && { color: skill.color }}
-  href={skill.url}
 >
   {skill.icon && <Icon name={skill.icon} class="size-4" />}
-  <span class="text-sm font-semibold text-slate-700">{skill.name}</span>
-</Component>
+  {
+    skill.url ? (
+      <a class={cn(textClass, 'hover:underline')} href={skill.url} target="_blank" rel="noopener noreferrer">
+        {skill.name}
+      </a>
+    ) : (
+      <span class={textClass}>{skill.name}</span>
+    )
+  }
+  {
+    Description && (
+      <>
+        <button
+          class="group flex size-7 items-center justify-center bg-slate-200 transition-colors hover:bg-slate-300/80"
+          popovertarget={`skill-tag-popover-${id}`}
+        >
+          <Icon name="fa6-solid:circle-info" class="size-4 text-slate-400" />
+        </button>
+        <div
+          popover
+          id={`skill-tag-popover-${id}`}
+          class="prose prose-sm max-w-80 rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 shadow-md"
+        >
+          <Description />
+        </div>
+      </>
+    )
+  }
+</div>
