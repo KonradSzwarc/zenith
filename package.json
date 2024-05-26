@@ -25,11 +25,13 @@
     "@astrojs/tailwind": "5.1.0",
     "@astrojs/ts-plugin": "1.8.0",
     "astro": "4.8.7",
+    "date-fns": "3.6.0",
     "mime": "4.0.3"
   },
   "devDependencies": {
     "@eslint/js": "9.3.0",
     "@tailwindcss/typography": "0.5.13",
+    "@total-typescript/ts-reset": "0.5.1",
     "eslint": "9.3.0",
     "eslint-config-flat-gitignore": "0.1.5",
     "eslint-config-prettier": "9.1.0",

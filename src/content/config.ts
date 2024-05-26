@@ -36,7 +36,7 @@ export const collections = {
         phone: z.string().optional(),
         country: z.string().optional(),
         city: z.string().optional(),
-        details: z.array(labelledValueSchema).optional(),
+        details: z.array(labelledValueSchema).default([]),
         resume: z
           .object({
             url: z.string(),

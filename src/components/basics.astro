@@ -1,6 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import { intervalToDuration } from 'date-fns';
+
+import { joinNonEmpty } from '@/utils/join-non-empty';
 
 import Icon from './icon.astro';
 
@@ -15,53 +18,81 @@ const {
 } = Astro.props;
 
 const { Content } = await renderBasics();
+
+const details = [
+  basics.birthdate && {
+    label: 'Age',
+    value: `${intervalToDuration({ start: basics.birthdate, end: new Date() }).years} years`,
+  },
+  (basics.city || basics.country) && { label: 'Location', value: joinNonEmpty([basics.city, basics.country], ', ') },
+  basics.email && { label: 'Email', value: basics.email },
+  basics.phone && { label: 'Phone', value: basics.phone },
+  ...basics.details,
+].filter(Boolean);
 ---
 
 <section>
-  <div class="flex gap-6">
+  <div class="flex">
     {
       basics.image && (
-        <Image loading="eager" class="h-fit rounded-xl" src={basics.image} alt={basics.name} width={200} height={200} />
+        <Image
+          loading="eager"
+          class="size-20 h-fit rounded-xl"
+          src={basics.image}
+          alt={basics.name}
+          width={160}
+          height={160}
+        />
       )
     }
-    <div class="flex-auto">
-      <div class="flex items-start justify-between">
-        <div>
-          <h1 class="text-3xl font-black text-slate-900">{basics.name}</h1>
-          <h2 class="mt-0.5 text-xl font-medium text-slate-700">{basics.label}</h2>
-        </div>
-        <ul class="flex gap-3">
-          {
-            socials.map((social) => (
-              <li>
-                <a
-                  aria-label={social.data.label}
-                  href={social.data.url}
-                  class="flex size-9 items-center justify-center rounded bg-slate-200 transition-colors hover:bg-slate-300"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Icon class="size-4 text-slate-600" name={social.data.icon} aria-hidden />
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-      <div class="prose prose-slate mt-4 max-w-none">
-        <Content />
-      </div>
-      {
-        basics.resume && (
-          <a
-            href={basics.resume.url}
-            class="mt-6 inline-block rounded bg-slate-900 px-4 py-2 text-white transition-colors hover:bg-slate-800"
-            download={basics.resume.filename}
-          >
-            {basics.resume.label}
-          </a>
-        )
-      }
+    <div class="ml-4 self-center">
+      <h1 class="text-3xl font-black text-slate-900">{basics.name}</h1>
+      <h2 class="mt-0.5 text-xl font-medium text-slate-700">{basics.label}</h2>
     </div>
+    <ul class="ml-auto flex gap-3 pl-4">
+      {
+        socials.map((social) => (
+          <li>
+            <a
+              aria-label={social.data.label}
+              href={social.data.url}
+              class="flex size-9 items-center justify-center rounded bg-slate-200 transition-colors hover:bg-slate-300"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon class="size-4 text-slate-600" name={social.data.icon} aria-hidden />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
+
+  <div class="prose prose-slate mt-4 max-w-none text-justify">
+    <Content />
+  </div>
+  <dl class="mt-4 grid grid-cols-3 gap-x-6 gap-y-4">
+    {
+      details.map(
+        (detail) =>
+          detail && (
+            <div class="flex gap-1">
+              <dt class="font-medium text-slate-900 after:content-[':']">{detail.label}</dt>
+              <dd class="text-slate-700">{detail.value}</dd>
+            </div>
+          ),
+      )
+    }
+  </dl>
+  {
+    basics.resume && (
+      <a
+        href={basics.resume.url}
+        class="mt-8 inline-block rounded-md bg-slate-900 px-4 py-2 font-medium text-white transition-colors hover:bg-slate-900/90"
+        download={basics.resume.filename}
+      >
+        {basics.resume.label}
+      </a>
+    )
+  }
 </section>
