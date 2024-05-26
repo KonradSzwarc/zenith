@@ -24,11 +24,13 @@
     "@astrojs/mdx": "3.0.1",
     "@astrojs/tailwind": "5.1.0",
     "@astrojs/ts-plugin": "1.8.0",
+    "@floating-ui/dom": "1.6.5",
     "astro": "4.8.7",
     "astro-icon": "1.1.0",
     "clsx": "2.1.1",
     "date-fns": "3.6.0",
     "mime": "4.0.3",
+    "nanoid": "5.0.7",
     "tailwind-merge": "2.3.0"
   },
   "devDependencies": {

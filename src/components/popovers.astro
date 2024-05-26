@@ -1,0 +1,54 @@
+<style is:global>
+  [popover] {
+    margin: 0 !important;
+    position: absolute;
+  }
+</style>
+<script>
+  import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
+
+  const popovers = document.querySelectorAll('[popover]');
+
+  function updatePosition(invoker: HTMLElement, popover: HTMLElement) {
+    computePosition(invoker, popover, {
+      middleware: [offset(8), flip(), shift({ padding: 8 })],
+      placement: 'top',
+    }).then(({ x, y }) => {
+      Object.assign(popover.style, {
+        left: `${x}px`,
+        top: `${y}px`,
+      });
+    });
+  }
+
+  const cleanups: Record<string, () => void> = {};
+
+  function positionPopover(event: Event) {
+    const popover = event.target as HTMLElement;
+    const id = popover.getAttribute('id');
+
+    if (!id) {
+      throw new Error('Popover must have an id');
+    }
+
+    const invoker = document.querySelector(`[popovertarget="${id}"`) as HTMLElement;
+
+    if (!invoker) {
+      throw new Error('Popover must have a target');
+    }
+
+    if ('newState' in event && event.newState === 'open' && invoker) {
+      updatePosition(invoker, popover);
+      cleanups[id] = autoUpdate(invoker, popover, () => updatePosition(invoker, popover));
+    }
+
+    if ('newState' in event && event.newState === 'closed') {
+      cleanups[id]?.();
+      delete cleanups[id];
+    }
+  }
+
+  popovers.forEach((popover) => {
+    popover.addEventListener('toggle', positionPopover);
+  });
+</script>

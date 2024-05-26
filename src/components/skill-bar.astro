@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { nanoid } from 'nanoid';
 
 import Icon from './icon.astro';
 
@@ -8,18 +9,22 @@ interface Props {
 }
 
 const {
-  skill: { data: skill },
+  skill: { data: skill, body: skillBody, render: renderSkill },
 } = Astro.props;
+
+const id = nanoid();
 
 if (!skill.level) {
   throw new Error(`Skill "${skill.name}" is missing a "level" field.`);
 }
 
 const [level, maxLevel] = skill.level.split('/').map(Number) as [number, number];
+
+const Description = skillBody.trim().length > 0 && (await renderSkill()).Content;
 ---
 
 <div class="flex flex-col gap-1.5" style={skill.color && { color: skill.color }}>
-  <div class="flex gap-1.5">
+  <div class="flex items-center gap-1.5">
     {skill.icon && <Icon name={skill.icon} class="mt-1 size-4" />}
     {
       skill.url ? (
@@ -33,6 +38,25 @@ const [level, maxLevel] = skill.level.split('/').map(Number) as [number, number]
         </a>
       ) : (
         <span class="text-base font-medium text-slate-700">{skill.name}</span>
+      )
+    }
+    {
+      Description && (
+        <>
+          <button class="ml-auto" popovertarget={`skill-bar-popover-${id}`}>
+            <Icon
+              name="fa6-solid:circle-info"
+              class="size-4 text-slate-400 transition-colors hover:text-slate-400/80"
+            />
+          </button>
+          <div
+            popover
+            id={`skill-bar-popover-${id}`}
+            class="prose prose-sm max-w-80 rounded-lg bg-white px-4 py-3 text-slate-700 shadow-lg"
+          >
+            <Description />
+          </div>
+        </>
       )
     }
   </div>
