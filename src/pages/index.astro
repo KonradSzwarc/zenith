@@ -4,6 +4,7 @@ import { getCollection, getEntry } from 'astro:content';
 import Basics from '@/components/basics.astro';
 import Metadata from '@/components/metadata.astro';
 import Popovers from '@/components/popovers.astro';
+import Section from '@/components/section.astro';
 import Skills from '@/components/skills.astro';
 import { selectEntriesBySlug } from '@/utils/select-entries-by-slug';
 
@@ -53,7 +54,7 @@ const skillSets = [
   <body class="bg-background text-foreground antialiased sm:p-6 md:p-8 lg:p-10">
     <main class="mx-auto w-full max-w-screen-xl space-y-20 bg-white p-10 shadow-2xl sm:rounded-3xl">
       <Basics basics={basics} socials={socials} />
-      <Skills title="Skills" skillSets={skillSets} />
+      <Section title="Skills"><Skills skillSets={skillSets} /></Section>
       <Popovers />
     </main>
     <style is:global>
