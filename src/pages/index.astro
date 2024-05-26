@@ -1,13 +1,45 @@
 ---
-import { getEntry } from 'astro:content';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
 import Basics from '@/components/basics.astro';
 import Metadata from '@/components/metadata.astro';
+import Skills from '@/components/skills.astro';
+import { selectEntriesBySlug } from '@/utils/select-entries-by-slug';
 
 const metadata = await getEntry('metadata', 'main');
 const basics = await getEntry('basics', 'main');
 const socials = await getCollection('socials');
+const skills = await getCollection('skills');
+const skillSets = [
+  {
+    title: 'Technologies',
+    withLevel: true,
+    skills: selectEntriesBySlug(skills, [
+      'astro',
+      'drizzle-orm',
+      'eslint',
+      'next',
+      'playwright',
+      'postgresql',
+      'react-testing-library',
+      'react',
+      'shadcn',
+      'tailwind',
+      'tanstack-query',
+      'trpc',
+      'typescript',
+      'vitest',
+    ]),
+  },
+  {
+    title: 'Services',
+    skills: selectEntriesBySlug(skills, ['neon', 'sentry', 'stripe', 'vercel']),
+  },
+  {
+    title: 'Languages',
+    skills: selectEntriesBySlug(skills, ['english', 'spanish']),
+  },
+];
 ---
 
 <!doctype html>
@@ -18,8 +50,9 @@ const socials = await getCollection('socials');
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
   <body class="bg-background text-foreground antialiased sm:p-6 md:p-8 lg:p-10">
-    <main class="mx-auto w-full max-w-screen-xl bg-white p-10 shadow-2xl sm:rounded-3xl">
+    <main class="mx-auto w-full max-w-screen-xl space-y-20 bg-white p-10 shadow-2xl sm:rounded-3xl">
       <Basics basics={basics} socials={socials} />
+      <Skills title="Skills" skillSets={skillSets} />
     </main>
     <style is:global>
       :root {

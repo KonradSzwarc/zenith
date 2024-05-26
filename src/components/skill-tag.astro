@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import { cn } from '@/utils/cn';
+
+import Icon from './icon.astro';
+
+interface Props {
+  skill: CollectionEntry<'skills'>;
+}
+
+const {
+  skill: { data: skill },
+} = Astro.props;
+
+const Component = skill.url ? 'a' : 'div';
+---
+
+<Component
+  class={cn(
+    'flex items-center gap-2 rounded bg-slate-100 px-2 py-1',
+    skill.url ? 'transition-colors hover:bg-slate-200' : 'cursor-default',
+  )}
+  style={skill.color && { color: skill.color }}
+  href={skill.url}
+>
+  {skill.icon && <Icon name={skill.icon} class="size-4" />}
+  <span class="text-sm font-semibold text-slate-700">{skill.name}</span>
+</Component>

@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import SkillBar from './skill-bar.astro';
+import SkillTag from './skill-tag.astro';
+
+interface Props {
+  title: string;
+  skillSets: { title?: string; withLevel?: boolean; skills: CollectionEntry<'skills'>[] }[];
+}
+
+const { title, skillSets } = Astro.props;
+
+for (const skillSet of skillSets) {
+  if (skillSet.withLevel) {
+    const skillsWithoutLevel = skillSet.skills.filter((skill) => !skill.data.level);
+
+    if (skillsWithoutLevel.length > 0) {
+      skillSet.withLevel = false;
+      console.warn(
+        `Skills ${skillsWithoutLevel.map((skill) => `"${skill.slug}"`).join(', ')} in the skill set "${skillSet.title}" do not have a level. Disabling levels for this skill set.`,
+      );
+    }
+  }
+}
+---
+
+<section>
+  <h2
+    class="relative mb-4 inline-block px-5 py-1 text-3xl font-black before:absolute before:-inset-1 before:block before:-skew-y-3 before:rounded before:bg-slate-900"
+  >
+    <span class="relative text-white">{title}</span>
+  </h2>
+  <div class="space-y-6">
+    {
+      skillSets.map((skillSet) => (
+        <div class="mt-4">
+          <h3 class="mb-2 text-xl font-semibold">{skillSet.title}</h3>
+          {skillSet.withLevel ? (
+            <ul class="grid items-end gap-8">
+              {skillSet.skills.map((skill) => (
+                <SkillBar skill={skill} />
+              ))}
+            </ul>
+          ) : (
+            <ul class="flex flex-wrap gap-3">
+              {skillSet.skills.map((skill) => (
+                <SkillTag skill={skill} />
+              ))}
+            </ul>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</section>
+<style>
+  ul.grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+</style>

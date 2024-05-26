@@ -1,20 +1,37 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
+import type { ComponentProps } from 'astro/types';
+import { Icon as AstroIcon } from 'astro-icon/components';
 
 import { getElementAttributes } from '@/utils/get-element-attributes';
 import { removeTopElement } from '@/utils/remove-top-element';
 
-interface Props extends HTMLAttributes<'svg'> {
+interface Props extends ComponentProps<typeof AstroIcon> {
   name: string;
 }
 
 const { name, ...props } = Astro.props;
 
-const [set, icon] = name.split(':');
+const result = await (async () => {
+  if (!name.includes(':')) {
+    return { name, props };
+  }
 
-const svg = await fetch(`https://api.iconify.design/${set}/${icon}.svg`).then((res) => res.text());
-const args = getElementAttributes(svg);
-const content = removeTopElement(svg);
+  const [set, icon] = name.split(':');
+
+  const svg = await fetch(`https://api.iconify.design/${set}/${icon}.svg`).then((res) => res.text());
+  const args = getElementAttributes(svg);
+  const content = removeTopElement(svg);
+
+  return { props: { ...args, ...props }, content };
+})();
 ---
 
-<svg {...args} {...props}><Fragment set:html={content} /></svg>
+{
+  result.name ? (
+    <AstroIcon name={result.name} {...props} />
+  ) : (
+    <svg {...result.props}>
+      <Fragment set:html={result.content} />
+    </svg>
+  )
+}

@@ -49,7 +49,7 @@ const details = [
       <h1 class="text-3xl font-black text-slate-900">{basics.name}</h1>
       <h2 class="mt-0.5 text-xl font-medium text-slate-700">{basics.label}</h2>
     </div>
-    <ul class="ml-auto flex gap-3 pl-4">
+    <ul class="ml-auto flex items-start gap-3 pl-4">
       {
         socials.map((social) => (
           <li>
@@ -64,6 +64,17 @@ const details = [
             </a>
           </li>
         ))
+      }
+      {
+        basics.resume && (
+          <a
+            href={basics.resume.url}
+            class="flex h-9 items-center rounded-md bg-indigo-600 px-4 font-medium text-white transition-colors hover:bg-indigo-600/90"
+            download={basics.resume.filename}
+          >
+            {basics.resume.label}
+          </a>
+        )
       }
     </ul>
   </div>
@@ -84,15 +95,4 @@ const details = [
       )
     }
   </dl>
-  {
-    basics.resume && (
-      <a
-        href={basics.resume.url}
-        class="mt-8 inline-block rounded-md bg-slate-900 px-4 py-2 font-medium text-white transition-colors hover:bg-slate-900/90"
-        download={basics.resume.filename}
-      >
-        {basics.resume.label}
-      </a>
-    )
-  }
 </section>

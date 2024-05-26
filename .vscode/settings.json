@@ -12,6 +12,11 @@
     "source.fixAll.eslint": "explicit"
   },
 
+  /** Triggers autocompletion when editing strings. */
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+
   /** Enables ESLint for JavaScript, TypeScript, and Astro files. */
   "eslint.useFlatConfig": true,
   "eslint.runtime": "node",

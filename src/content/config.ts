@@ -120,23 +120,22 @@ export const collections = {
   }),
   skills: defineCollection({
     type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        name: z.string(),
-        icon: image().or(z.string()).optional(),
-        color: z.string().optional(),
-        level: z
-          .custom<`${number}/${number}`>(
-            (value) => {
-              const [current, max] = value.split('/').map(Number);
+    schema: z.object({
+      name: z.string(),
+      icon: z.string().optional(),
+      color: z.string().optional(),
+      level: z
+        .custom<`${number}/${number}`>(
+          (value) => {
+            const [current, max] = value.split('/').map(Number);
 
-              return !isNaN(current) && !isNaN(max) && current <= max;
-            },
-            { message: "Skill level must be in the format 'current/max' where current <= max." },
-          )
-          .optional(),
-        url: z.string().url().optional(),
-      }),
+            return !isNaN(current) && !isNaN(max) && current <= max;
+          },
+          { message: "Skill level must be in the format 'current/max' where current <= max." },
+        )
+        .optional(),
+      url: z.string().url().optional(),
+    }),
   }),
   socials: defineCollection({
     type: 'data',

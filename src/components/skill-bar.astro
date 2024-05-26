@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import Icon from './icon.astro';
+
+interface Props {
+  skill: CollectionEntry<'skills'>;
+}
+
+const {
+  skill: { data: skill },
+} = Astro.props;
+
+if (!skill.level) {
+  throw new Error(`Skill "${skill.name}" is missing a "level" field.`);
+}
+
+const [level, maxLevel] = skill.level.split('/').map(Number) as [number, number];
+---
+
+<div class="flex flex-col gap-1.5" style={skill.color && { color: skill.color }}>
+  <div class="flex gap-1.5">
+    {skill.icon && <Icon name={skill.icon} class="mt-1 size-4" />}
+    {
+      skill.url ? (
+        <a
+          class="text-base font-medium text-slate-700 hover:underline"
+          href={skill.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {skill.name}
+        </a>
+      ) : (
+        <span class="text-base font-medium text-slate-700">{skill.name}</span>
+      )
+    }
+  </div>
+  <div>
+    <div class="flex gap-1">
+      {
+        Array.from({ length: maxLevel }, (_, i) => (
+          <div class={`h-2 flex-1 rounded-sm ${i < level ? 'bg-slate-500' : 'bg-slate-200'}`} />
+        ))
+      }
+    </div>
+  </div>
+</div>
