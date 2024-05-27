@@ -8,13 +8,13 @@ import { joinNonEmpty } from '@/utils/join-non-empty';
 import Icon from './icon.astro';
 
 interface Props {
-  basics: CollectionEntry<'basics'>;
-  socials: CollectionEntry<'socials'>[];
+  basicsEntry: CollectionEntry<'basics'>;
+  socialEntries: CollectionEntry<'socials'>[];
 }
 
 const {
-  basics: { data: basics, render: renderBasics },
-  socials,
+  basicsEntry: { data: basics, render: renderBasics },
+  socialEntries,
 } = Astro.props;
 
 const { Content } = await renderBasics();
@@ -51,16 +51,16 @@ const details = [
     </div>
     <ul class="ml-auto flex items-start gap-3 pl-4">
       {
-        socials.map((social) => (
+        socialEntries.map(({ data: social }) => (
           <li>
             <a
-              aria-label={social.data.label}
-              href={social.data.url}
+              aria-label={social.label}
+              href={social.url}
               class="flex size-9 items-center justify-center rounded bg-slate-200 transition-colors hover:bg-slate-300"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Icon class="size-4 text-slate-600" name={social.data.icon} aria-hidden />
+              <Icon class="size-4 text-slate-600" name={social.icon} aria-hidden />
             </a>
           </li>
         ))

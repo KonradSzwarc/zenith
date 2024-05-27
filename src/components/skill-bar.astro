@@ -7,11 +7,11 @@ import { cn } from '@/utils/cn';
 import Icon from './icon.astro';
 
 interface Props {
-  skill: CollectionEntry<'skills'>;
+  skillEntry: CollectionEntry<'skills'>;
 }
 
 const {
-  skill: { data: skill, body: skillBody, render: renderSkill },
+  skillEntry: { data: skill, body: skillBody, render: renderSkill },
 } = Astro.props;
 
 if (!skill.level) {

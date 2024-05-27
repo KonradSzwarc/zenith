@@ -5,14 +5,14 @@ import SkillBar from './skill-bar.astro';
 import SkillTag from './skill-tag.astro';
 
 interface Props {
-  skillSets: { title?: string; withLevel?: boolean; skills: CollectionEntry<'skills'>[] }[];
+  skillSets: { title?: string; withLevel?: boolean; skillEntries: CollectionEntry<'skills'>[] }[];
 }
 
 const { skillSets } = Astro.props;
 
 for (const skillSet of skillSets) {
   if (skillSet.withLevel) {
-    const skillsWithoutLevel = skillSet.skills.filter((skill) => !skill.data.level);
+    const skillsWithoutLevel = skillSet.skillEntries.filter(({ data }) => !data.level);
 
     if (skillsWithoutLevel.length > 0) {
       skillSet.withLevel = false;
@@ -27,18 +27,18 @@ for (const skillSet of skillSets) {
 <div class="space-y-8">
   {
     skillSets.map((skillSet) => (
-      <div class="mt-4">
+      <div>
         <h3 class="mb-2 text-xl font-bold text-slate-900">{skillSet.title}</h3>
         {skillSet.withLevel ? (
           <ul class="grid items-end gap-8">
-            {skillSet.skills.map((skill) => (
-              <SkillBar skill={skill} />
+            {skillSet.skillEntries.map((skillEntry) => (
+              <SkillBar skillEntry={skillEntry} />
             ))}
           </ul>
         ) : (
           <ul class="flex flex-wrap gap-3">
-            {skillSet.skills.map((skill) => (
-              <SkillTag skill={skill} />
+            {skillSet.skillEntries.map((skillEntry) => (
+              <SkillTag skillEntry={skillEntry} />
             ))}
           </ul>
         )}

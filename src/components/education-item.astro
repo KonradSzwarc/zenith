@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+import { context } from '@/context';
+interface Props {
+  educationEntry: CollectionEntry<'education'>;
+}
+
+const {
+  educationEntry: { data: education, render: renderEducation },
+} = Astro.props;
+
+const { Content } = await renderEducation();
+
+const startDate = context.formatDate(education.startDate);
+const endDate = education.endDate ? context.formatDate(education.endDate) : 'Current';
+---
+
+<div>
+  <div class="mb-2 w-fit rounded bg-slate-200 px-2 py-1 text-sm font-semibold text-slate-900 sm:mb-0 sm:rounded-l-none">
+    {startDate} - {endDate}
+  </div>
+  <div class="sm:p-5">
+    <div class="flex items-center">
+      {
+        education.image && (
+          <Image
+            class="mr-3 hidden size-14 sm:block"
+            src={education.image}
+            alt={education.institution}
+            width={112}
+            height={112}
+          />
+        )
+      }
+      <div>
+        <h3 class="text-base font-bold text-slate-900 sm:text-lg">{education.title}</h3>
+        <p class="text-sm font-semibold text-slate-700 sm:text-base">{education.institution}</p>
+      </div>
+    </div>
+    <div class="prose prose-sm prose-slate mt-3 max-w-none text-justify sm:prose-base"><Content /></div>
+  </div>
+</div>
