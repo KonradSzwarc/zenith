@@ -1,8 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import { getEntries } from 'astro:content';
 
 import { context } from '@/context';
+
+import Linkable from './linkable.astro';
+import SkillTag from './skill-tag.astro';
+
 interface Props {
   educationEntry: CollectionEntry<'education'>;
 }
@@ -15,30 +20,64 @@ const { Content } = await renderEducation();
 
 const startDate = context.formatDate(education.startDate);
 const endDate = education.endDate ? context.formatDate(education.endDate) : 'Current';
+const skillEntries = (education.skills ? await getEntries(education.skills) : []).map((entry) => ({
+  ...entry,
+  body: '',
+}));
 ---
 
 <div>
-  <div class="mb-2 w-fit rounded bg-slate-200 px-2 py-1 text-sm font-semibold text-slate-900 sm:mb-0 sm:rounded-l-none">
+  <div
+    class="mb-2 w-fit rounded bg-slate-800 px-2 py-1 text-sm font-semibold text-white sm:relative sm:-left-0.5 sm:mb-0 sm:rounded-l-none"
+  >
     {startDate} - {endDate}
   </div>
-  <div class="sm:p-5">
-    <div class="flex items-center">
+  <div class="sm:p-5 sm:pr-0">
+    <div class="flex items-start">
       {
-        education.image && (
+        education.institution.image && (
           <Image
             class="mr-3 hidden size-14 sm:block"
-            src={education.image}
-            alt={education.institution}
+            src={education.institution.image}
+            alt={education.institution.name}
             width={112}
             height={112}
           />
         )
       }
-      <div>
-        <h3 class="text-base font-bold text-slate-900 sm:text-lg">{education.title}</h3>
-        <p class="text-sm font-semibold text-slate-700 sm:text-base">{education.institution}</p>
+      <div class="mt-0.5 flex-1">
+        <h3 class="text-base font-bold text-slate-900 sm:text-lg">
+          {education.title}
+        </h3>
+        <Linkable class="text-sm font-semibold text-slate-700 sm:text-base" href={education.institution.url}>
+          {education.institution.name}</Linkable
+        >
       </div>
     </div>
+    {
+      education.details && (
+        <dl class="mt-4 flex flex-wrap gap-x-6 text-sm sm:text-base">
+          {education.details.map((detail) => (
+            <div class="flex flex-wrap">
+              <dt class="pr-1 font-medium text-slate-900 after:content-[':']">{detail.label}</dt>
+              <dd class="text-slate-700">{detail.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
     <div class="prose prose-sm prose-slate mt-3 max-w-none text-justify sm:prose-base"><Content /></div>
+    {
+      skillEntries.length > 0 && (
+        <div class="mt-4 flex flex-col gap-1">
+          <div class="text-sm font-semibold text-slate-700 sm:text-base">Related skills:</div>
+          <div class="flex flex-wrap gap-3">
+            {skillEntries.map((skillEntry) => (
+              <SkillTag skillEntry={skillEntry} />
+            ))}
+          </div>
+        </div>
+      )
+    }
   </div>
 </div>

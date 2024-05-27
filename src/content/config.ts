@@ -51,12 +51,14 @@ export const collections = {
     schema: ({ image }) =>
       z.object({
         title: z.string(),
-        institution: z.string(),
-        image: image().optional(),
+        institution: z.object({
+          name: z.string(),
+          image: image().optional(),
+          url: z.string().url().optional(),
+        }),
         startDate: z.date(),
         endDate: z.date().optional(),
         details: z.array(labelledValueSchema).optional(),
-        links: z.array(linkSchema).optional(),
         skills: z.array(reference('skills')).optional(),
       }),
   }),

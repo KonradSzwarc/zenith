@@ -5,6 +5,7 @@ import { nanoid } from 'nanoid';
 import { cn } from '@/utils/cn';
 
 import Icon from './icon.astro';
+import Linkable from './linkable.astro';
 
 interface Props {
   skillEntry: CollectionEntry<'skills'>;
@@ -16,7 +17,6 @@ const {
 
 const id = nanoid();
 const Description = skillBody.trim().length > 0 && (await renderSkill()).Content;
-const textClass = cn('py-1 text-sm font-semibold text-slate-700', !Description && 'pr-2');
 ---
 
 <div
@@ -24,15 +24,9 @@ const textClass = cn('py-1 text-sm font-semibold text-slate-700', !Description &
   style={skill.color && { color: skill.color }}
 >
   {skill.icon && <Icon name={skill.icon} class="size-4" />}
-  {
-    skill.url ? (
-      <a class={cn(textClass, 'hover:underline')} href={skill.url} target="_blank" rel="noopener noreferrer">
-        {skill.name}
-      </a>
-    ) : (
-      <span class={textClass}>{skill.name}</span>
-    )
-  }
+  <Linkable class={cn('py-1 text-sm font-semibold text-slate-700', !Description && 'pr-2')} href={skill.url}>
+    {skill.name}
+  </Linkable>
   {
     Description && (
       <>

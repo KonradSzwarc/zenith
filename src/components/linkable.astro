@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import { cn } from '@/utils/cn';
+
+interface Props extends HTMLAttributes<'a'> {}
+
+const { class: className, ...props } = Astro.props;
+---
+
+{
+  props.href ? (
+    <a target="_blank" rel="noopener noreferrer" {...props} class={cn(className, 'hover:underline')}>
+      <slot />
+    </a>
+  ) : (
+    <span {...props}>
+      <slot />
+    </span>
+  )
+}
