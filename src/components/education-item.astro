@@ -46,7 +46,7 @@ const skillEntries = (education.skills ? await getEntries(education.skills) : []
           />
         )
       }
-      <div class="mt-0.5 flex-1">
+      <div class="py-0.5">
         <h3 class="text-base font-bold text-slate-900 sm:text-lg">
           {education.title}
         </h3>
@@ -60,7 +60,7 @@ const skillEntries = (education.skills ? await getEntries(education.skills) : []
         <dl class="mt-4 flex flex-wrap gap-x-6 text-sm sm:text-base">
           {education.details.map((detail) => (
             <div class="flex flex-wrap">
-              <dt class="pr-1 font-medium text-slate-900 after:content-[':']">{detail.label}</dt>
+              <dt class="pr-1 font-semibold text-slate-900 after:content-[':']">{detail.label}</dt>
               <dd class="text-slate-700 hover:[&_a]:underline" set:html={markdownToHtml(detail.value)} />
             </div>
           ))}

@@ -33,12 +33,12 @@ const details = [
 ---
 
 <section>
-  <div class="flex">
+  <div class="flex flex-col items-center lg:flex-row lg:items-start">
     {
       basics.image && (
         <Image
           loading="eager"
-          class="size-20 h-fit rounded-xl"
+          class="size-28 h-fit rounded-xl lg:size-20"
           src={basics.image}
           alt={basics.name}
           width={160}
@@ -46,54 +46,54 @@ const details = [
         />
       )
     }
-    <div class="ml-4 self-center">
-      <h1 class="text-3xl font-black text-slate-900">{basics.name}</h1>
-      <h2 class="mt-0.5 text-xl font-medium text-slate-700">{basics.label}</h2>
+    <div class="mt-4 self-center text-center lg:ml-4 lg:mt-0 lg:space-y-0.5 lg:text-left">
+      <h1 class="text-2xl font-black text-slate-900 sm:text-3xl">{basics.name}</h1>
+      <h2 class="text-lg font-medium text-slate-700 sm:text-xl">{basics.label}</h2>
     </div>
-    <ul class="ml-auto flex items-start gap-3 pl-4">
-      {
-        socialEntries.map(({ data: social }) => (
-          <li>
-            <a
-              aria-label={social.label}
-              href={social.url}
-              class="flex size-9 items-center justify-center rounded bg-slate-200 transition-colors hover:bg-slate-300"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon class="size-4 text-slate-600" name={social.icon} aria-hidden />
-            </a>
-          </li>
-        ))
-      }
+    <div class="mt-3 flex flex-col items-center gap-4 lg:ml-auto lg:mt-0 lg:flex-row lg:items-start lg:gap-3 lg:pl-4">
+      <ul class="flex w-full gap-3">
+        {
+          socialEntries.map(({ data: social }) => (
+            <li class="flex-1">
+              <a
+                aria-label={social.label}
+                href={social.url}
+                class="flex h-8 min-w-8 items-center justify-center rounded bg-slate-200 transition-colors hover:bg-slate-300 lg:size-9"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon class="size-4 text-slate-600" name={social.icon} aria-hidden />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
       {
         basics.resume && (
           <a
             href={basics.resume.url}
-            class="flex h-9 items-center rounded-md bg-indigo-600 px-4 font-medium text-white transition-colors hover:bg-indigo-600/90"
+            class="flex h-9 items-center text-nowrap rounded-md bg-indigo-600 px-4 font-medium text-white transition-colors hover:bg-indigo-600/90"
             download={basics.resume.filename}
           >
             {basics.resume.label}
           </a>
         )
       }
-    </ul>
+    </div>
   </div>
-
-  <div class="prose prose-slate mt-4 max-w-none text-justify">
+  <div class="prose prose-sm prose-slate mt-8 max-w-none text-justify sm:prose-base lg:mt-4">
     <Content />
   </div>
-  <dl class="mt-4 grid grid-cols-3 gap-x-6 gap-y-4">
-    {
-      details.map(
-        (detail) =>
-          detail && (
-            <div class="flex gap-1">
-              <dt class="font-medium text-slate-900 after:content-[':']">{detail.label}</dt>
-              <dd class="text-slate-700 hover:[&_a]:underline" set:html={markdownToHtml(detail.value)} />
-            </div>
-          ),
-      )
-    }
-  </dl>
+  {
+    details.length > 0 && (
+      <dl class="mt-6 flex flex-wrap gap-x-12 gap-y-3 text-sm sm:gap-y-4 sm:text-base">
+        {details.map((detail) => (
+          <div data-definition class="flex w-fit flex-wrap gap-1">
+            <dt class="font-semibold text-slate-900 after:content-[':']">{detail.label}</dt>
+            <dd class="text-slate-700 hover:[&_a]:underline" set:html={markdownToHtml(detail.value)} />
+          </div>
+        ))}
+      </dl>
+    )
+  }
 </section>

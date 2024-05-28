@@ -14,7 +14,7 @@ const { class: className, ...props } = Astro.props;
       <slot />
     </a>
   ) : (
-    <span {...props}>
+    <span {...props} class={className}>
       <slot />
     </span>
   )
