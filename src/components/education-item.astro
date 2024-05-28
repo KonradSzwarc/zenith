@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getEntries } from 'astro:content';
 
 import { context } from '@/context';
+import { markdownToHtml } from '@/utils/markdown-to-html';
 
 import Linkable from './linkable.astro';
 import SkillTag from './skill-tag.astro';
@@ -60,7 +61,7 @@ const skillEntries = (education.skills ? await getEntries(education.skills) : []
           {education.details.map((detail) => (
             <div class="flex flex-wrap">
               <dt class="pr-1 font-medium text-slate-900 after:content-[':']">{detail.label}</dt>
-              <dd class="text-slate-700">{detail.value}</dd>
+              <dd class="text-slate-700 hover:[&_a]:underline" set:html={markdownToHtml(detail.value)} />
             </div>
           ))}
         </dl>

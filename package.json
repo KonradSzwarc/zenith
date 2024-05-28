@@ -29,6 +29,7 @@
     "astro-icon": "1.1.0",
     "clsx": "2.1.1",
     "date-fns": "3.6.0",
+    "marked": "12.0.2",
     "mime": "4.0.3",
     "nanoid": "5.0.7",
     "tailwind-merge": "2.3.0"
