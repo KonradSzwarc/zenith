@@ -151,8 +151,11 @@ export const collections = {
     schema: ({ image }) =>
       z.object({
         position: z.string(),
-        organization: z.string(),
-        image: image().optional(),
+        organization: z.object({
+          name: z.string(),
+          image: image().optional(),
+          url: z.string().url().optional(),
+        }),
         startDate: z.date(),
         endDate: z.date().optional(),
         details: z.array(labelledValueSchema).optional(),

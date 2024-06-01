@@ -10,18 +10,18 @@ import Linkable from './linkable.astro';
 import SkillTag from './skill-tag.astro';
 
 interface Props {
-  educationEntry: CollectionEntry<'education'>;
+  workEntry: CollectionEntry<'work'>;
 }
 
 const {
-  educationEntry: { data: education, render: renderEducation },
+  workEntry: { data: work, render: renderWork },
 } = Astro.props;
 
-const { Content } = await renderEducation();
+const { Content } = await renderWork();
 
-const startDate = context.formatDate(education.startDate);
-const endDate = education.endDate ? context.formatDate(education.endDate) : 'Current';
-const skillEntries = (education.skills ? await getEntries(education.skills) : []).map((entry) => ({
+const startDate = context.formatDate(work.startDate);
+const endDate = work.endDate ? context.formatDate(work.endDate) : 'Current';
+const skillEntries = (work.skills ? await getEntries(work.skills) : []).map((entry) => ({
   ...entry,
   body: '',
 }));
@@ -30,11 +30,11 @@ const skillEntries = (education.skills ? await getEntries(education.skills) : []
 <div>
   <div class="flex items-start">
     {
-      education.institution.image && (
+      work.organization.image && (
         <Image
           class="mr-4 hidden size-20 rounded sm:block lg:size-14"
-          src={education.institution.image}
-          alt={education.institution.name}
+          src={work.organization.image}
+          alt={work.organization.name}
           width={112}
           height={112}
         />
@@ -43,10 +43,10 @@ const skillEntries = (education.skills ? await getEntries(education.skills) : []
     <div class="flex w-full flex-col-reverse items-start justify-between lg:flex-row">
       <div>
         <h3 class="text-lg font-bold text-slate-900 sm:text-xl">
-          {education.title}
+          {work.position}
         </h3>
-        <Linkable class="text-base font-semibold text-slate-700 sm:text-lg" href={education.institution.url}>
-          {education.institution.name}</Linkable
+        <Linkable class="text-base font-semibold text-slate-700 sm:text-lg" href={work.organization.url}>
+          {work.organization.name}</Linkable
         >
       </div>
       <div class="w-fit whitespace-nowrap rounded text-sm font-semibold lg:bg-slate-800 lg:px-2 lg:py-1 lg:text-white">
@@ -55,9 +55,9 @@ const skillEntries = (education.skills ? await getEntries(education.skills) : []
     </div>
   </div>
   {
-    education.details && (
+    work.details && (
       <dl class="mt-4 flex flex-wrap gap-x-6 text-sm sm:text-base">
-        {education.details.map((detail) => (
+        {work.details.map((detail) => (
           <div class="flex flex-wrap">
             <dt class="pr-1 font-semibold text-slate-900 after:content-[':']">{detail.label}</dt>
             <dd class="text-slate-700 hover:[&_a]:underline" set:html={markdownToHtml(detail.value)} />
@@ -66,7 +66,7 @@ const skillEntries = (education.skills ? await getEntries(education.skills) : []
       </dl>
     )
   }
-  <div class="prose prose-sm prose-slate mt-3 max-w-none text-justify sm:prose-base"><Content /></div>
+  <div class="prose prose-sm prose-slate mt-3 max-w-none text-justify sm:prose-base prose-ul:ps-4"><Content /></div>
   {
     skillEntries.length > 0 && (
       <div class="mt-4 flex flex-col gap-1">

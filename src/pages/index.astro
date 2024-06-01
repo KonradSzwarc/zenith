@@ -8,6 +8,7 @@ import Metadata from '@/components/metadata.astro';
 import Popovers from '@/components/popovers.astro';
 import Section from '@/components/section.astro';
 import Skills from '@/components/skills.astro';
+import Work from '@/components/work.astro';
 import { context } from '@/context';
 import { selectEntriesBySlug } from '@/utils/select-entries-by-slug';
 
@@ -51,6 +52,7 @@ const skillSets = [
   },
 ];
 const education = await getCollection('education');
+const work = await getCollection('work');
 ---
 
 <!doctype html>
@@ -65,6 +67,7 @@ const education = await getCollection('education');
       <Basics basicsEntry={basics} socialEntries={socials} />
       <Section title="Skills"><Skills skillSets={skillSets} /></Section>
       <Section title="Education"><Education educationEntries={education} /></Section>
+      <Section title="Work"><Work workEntries={work} /></Section>
       <Popovers />
     </main>
     <style is:global>
