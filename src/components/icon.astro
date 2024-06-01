@@ -11,27 +11,41 @@ interface Props extends ComponentProps<typeof AstroIcon> {
 
 const { name, ...props } = Astro.props;
 
-const result = await (async () => {
-  if (!name.includes(':')) {
+async function getIconData() {
+  /** Is a path of an icon placed in src/icons. */
+  const isLocalIcon = !name.includes(':');
+
+  /** Is a name of an icon that needs to be fetched. */
+  const isRemoteIcon = name.includes(':') && name.split(':').length === 2;
+
+  if (!isLocalIcon && !isRemoteIcon) {
+    throw new Error(
+      `Invalid icon name: ${name}. Remote icons must be in "set:icon" format. Local icons cannot contain ":" in their name.`,
+    );
+  }
+
+  if (isLocalIcon) {
     return { name, props };
   }
 
-  const [set, icon] = name.split(':');
-
+  const [set, icon] = name.split(':') as [string, string];
   const svg = await fetch(`https://api.iconify.design/${set}/${icon}.svg`).then((res) => res.text());
-  const args = getElementAttributes(svg);
-  const content = removeTopElement(svg);
 
-  return { props: { ...args, ...props }, content };
-})();
+  return {
+    props: { ...getElementAttributes(svg), ...props },
+    content: removeTopElement(svg),
+  };
+}
+
+const data = await getIconData();
 ---
 
 {
-  result.name ? (
-    <AstroIcon name={result.name} {...props} />
+  data.name ? (
+    <AstroIcon name={data.name} {...props} />
   ) : (
-    <svg {...result.props}>
-      <Fragment set:html={result.content} />
+    <svg {...data.props}>
+      <Fragment set:html={data.content} />
     </svg>
   )
 }
