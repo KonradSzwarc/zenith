@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { getEntries } from 'astro:content';
+
+import { context } from '@/context';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+
+import Linkable from './linkable.astro';
+import SkillTag from './skill-tag.astro';
+
+interface Props {
+  entry: CollectionEntry<'education'> | CollectionEntry<'work'>;
+}
+
+const {
+  entry: { data, render },
+} = Astro.props;
+
+const { Content } = await render();
+
+const { title, place } =
+  'title' in data ? { title: data.title, place: data.institution } : { title: data.position, place: data.organization };
+
+const startDate = context.formatDate(data.startDate);
+const endDate = data.endDate ? context.formatDate(data.endDate) : 'Current';
+const skillEntries = (data.skills ? await getEntries(data.skills) : []).map((entry) => ({ ...entry, body: '' }));
+---
+
+<div>
+  <div class="mb-5 flex items-start gap-4">
+    {
+      place.image && (
+        <Image
+          class="hidden size-20 rounded object-contain sm:block"
+          src={place.image}
+          alt={place.name}
+          width={112}
+          height={112}
+        />
+      )
+    }
+    <div>
+      <h3 class="text-lg font-bold text-slate-900 sm:text-xl">
+        {title}
+      </h3>
+      <Linkable class="text-sm font-medium text-slate-900 sm:text-base" href={place.url}> {place.name}</Linkable>
+      <div class="text-sm font-normal text-slate-600 sm:text-base">
+        {startDate} - {endDate}
+      </div>
+    </div>
+  </div>
+  <div class:list={[place.image && 'md:pl-24']}>
+    {
+      data.details && (
+        <dl class="mb-3 flex flex-wrap gap-x-10 text-sm sm:text-base">
+          {data.details.map((detail) => (
+            <div class="flex flex-wrap">
+              <dt class="pr-1 font-semibold text-slate-900 after:content-[':']">{detail.label}</dt>
+              <dd class="text-slate-700 hover:[&_a]:underline" set:html={markdownToHtml(detail.value)} />
+            </div>
+          ))}
+        </dl>
+      )
+    }
+    <div class="prose prose-sm prose-slate max-w-none text-justify sm:prose-base prose-ul:ps-4 prose-li:ps-0">
+      <Content />
+    </div>
+    {
+      skillEntries.length > 0 && (
+        <div class="mt-5 space-y-1.5">
+          <div class="text-sm font-semibold text-slate-900 sm:text-base">Skills I developed:</div>
+          <div class="flex gap-x-3 gap-y-2">
+            {skillEntries.map((skillEntry) => (
+              <SkillTag skillEntry={skillEntry} />
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </div>
+</div>

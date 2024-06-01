@@ -1,9 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-import { dateRangeSorter } from '@/utils/date-range-sorter';
-
-import WorkItem from './work-item.astro';
+import Timeline from './timeline.astro';
 
 interface Props {
   workEntries: CollectionEntry<'work'>[];
@@ -12,20 +10,4 @@ interface Props {
 const { workEntries } = Astro.props;
 ---
 
-<div class="space-y-10">
-  {
-    workEntries
-      .map((workEntry) => ({
-        workEntry,
-        startDate: workEntry.data.startDate,
-        endDate: workEntry.data.endDate,
-      }))
-      .toSorted(dateRangeSorter)
-      .map(({ workEntry }, i) => (
-        <>
-          <WorkItem workEntry={workEntry} />
-          {i < workEntries.length - 1 && <hr />}
-        </>
-      ))
-  }
-</div>
+<Timeline entries={workEntries} />

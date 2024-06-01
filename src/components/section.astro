@@ -7,10 +7,11 @@ const { title } = Astro.props;
 ---
 
 <section>
-  <h2
-    class="relative mb-10 inline-block px-5 py-1 text-3xl font-black before:absolute before:-inset-1 before:block before:-skew-y-3 before:rounded before:bg-slate-900"
-  >
-    <span class="relative text-white">{title}</span>
-  </h2>
+  <div class="relative mb-8 w-fit">
+    <hr class="absolute bottom-0 h-3 w-full bg-indigo-200" />
+    <h2 class="relative pr-2 text-3xl font-black text-slate-950 sm:text-4xl">
+      {title}
+    </h2>
+  </div>
   <slot />
 </section>

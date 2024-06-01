@@ -1,9 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-import { dateRangeSorter } from '@/utils/date-range-sorter';
-
-import EducationItem from './education-item.astro';
+import Timeline from './timeline.astro';
 
 interface Props {
   educationEntries: CollectionEntry<'education'>[];
@@ -12,20 +10,4 @@ interface Props {
 const { educationEntries } = Astro.props;
 ---
 
-<div class="space-y-10">
-  {
-    educationEntries
-      .map((educationEntry) => ({
-        educationEntry,
-        startDate: educationEntry.data.startDate,
-        endDate: educationEntry.data.endDate,
-      }))
-      .toSorted(dateRangeSorter)
-      .map(({ educationEntry }, i) => (
-        <>
-          <EducationItem educationEntry={educationEntry} />
-          {i < educationEntries.length - 1 && <hr />}
-        </>
-      ))
-  }
-</div>
+<Timeline entries={educationEntries} />
