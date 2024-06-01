@@ -46,6 +46,7 @@ function tailwindPlugin() {
       settings: {
         tailwindcss: {
           config: 'tailwind.config.ts',
+          callees: ['cn'],
         },
       },
     },

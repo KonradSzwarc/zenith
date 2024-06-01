@@ -24,7 +24,7 @@ const Description = skillBody.trim().length > 0 && (await renderSkill()).Content
   style={skill.color && { color: skill.color }}
 >
   {skill.icon && <Icon name={skill.icon} class="size-4" />}
-  <Linkable class={cn('py-1 text-sm font-semibold text-slate-700', !Description && 'pr-2')} href={skill.url}>
+  <Linkable class={cn('py-1 text-sm font-medium text-slate-700', !Description && 'pr-2')} href={skill.url}>
     {skill.name}
   </Linkable>
   {

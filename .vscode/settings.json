@@ -28,6 +28,9 @@
   /** Disables formatting if we remove Prettier config file. */
   "prettier.requireConfig": true,
 
+  /** Enables Tailwind intellisense in cn function. */
+  "tailwindCSS.experimental.classRegex": [["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]],
+
   /** Uses TypeScript version installed within the project for intellisense. */
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,

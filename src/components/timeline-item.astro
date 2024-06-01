@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getEntries } from 'astro:content';
 
 import { context } from '@/context';
+import { cn } from '@/utils/cn';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 
 import Linkable from './linkable.astro';
@@ -50,7 +51,7 @@ const skillEntries = (data.skills ? await getEntries(data.skills) : []).map((ent
       </div>
     </div>
   </div>
-  <div class:list={[place.image && 'md:pl-24']}>
+  <div class={cn(place.image && 'md:pl-24')}>
     {
       data.details && (
         <dl class="mb-3 flex flex-wrap gap-x-10 text-sm sm:text-base">

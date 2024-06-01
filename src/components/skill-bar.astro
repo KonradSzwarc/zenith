@@ -2,6 +2,8 @@
 import type { CollectionEntry } from 'astro:content';
 import { nanoid } from 'nanoid';
 
+import { cn } from '@/utils/cn';
+
 import Icon from './icon.astro';
 import Linkable from './linkable.astro';
 
@@ -20,12 +22,16 @@ if (!skill.level) {
 const id = nanoid();
 const [level, maxLevel] = skill.level.split('/').map(Number) as [number, number];
 const Description = skillBody.trim().length > 0 && (await renderSkill()).Content;
+
+// Icon height + margin must equal text line height so they align properly.
+const iconClass = cn('my-0.5 size-4 sm:my-1');
+const textClass = cn('text-sm font-medium text-slate-700 sm:text-base');
 ---
 
 <div class="flex flex-col gap-1.5" style={skill.color && { color: skill.color }}>
   <div class="flex items-start gap-1.5">
-    {skill.icon && <Icon name={skill.icon} class="mt-1 size-4" />}
-    <Linkable class="text-base font-medium text-slate-700" href={skill.url}>
+    {skill.icon && <Icon name={skill.icon} class={iconClass} />}
+    <Linkable class={textClass} href={skill.url}>
       {skill.name}
     </Linkable>
     {
@@ -34,7 +40,7 @@ const Description = skillBody.trim().length > 0 && (await renderSkill()).Content
           <button class="ml-auto" popovertarget={`skill-bar-popover-${id}`}>
             <Icon
               name="fa6-solid:circle-info"
-              class="mt-1 size-4 text-slate-400 transition-colors hover:text-slate-400/80"
+              class={cn(iconClass, 'text-slate-400 transition-colors hover:text-slate-400/80')}
             />
           </button>
           <div
@@ -52,7 +58,7 @@ const Description = skillBody.trim().length > 0 && (await renderSkill()).Content
     <div class="flex gap-1">
       {
         Array.from({ length: maxLevel }, (_, i) => (
-          <div class={`h-2 flex-1 rounded-sm ${i < level ? 'bg-slate-500' : 'bg-slate-200'}`} />
+          <div class={`h-1.5 flex-1 rounded-sm sm:h-2 ${i < level ? 'bg-slate-500' : 'bg-slate-200'}`} />
         ))
       }
     </div>

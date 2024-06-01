@@ -28,7 +28,7 @@ for (const skillSet of skillSets) {
   {
     skillSets.map((skillSet) => (
       <div>
-        <h3 class="mb-2 text-xl font-bold text-slate-900">{skillSet.title}</h3>
+        <h3 class="mb-2 text-lg font-bold text-slate-900 sm:text-xl">{skillSet.title}</h3>
         {skillSet.withLevel ? (
           <ul class="grid items-end gap-8">
             {skillSet.skillEntries.map((skillEntry) => (
