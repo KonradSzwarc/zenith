@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import Timeline from './timeline.astro';
+
+interface Props {
+  projectEntries: CollectionEntry<'projects'>[];
+}
+
+const { projectEntries } = Astro.props;
+---
+
+<Timeline entries={projectEntries} />

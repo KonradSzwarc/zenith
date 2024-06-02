@@ -6,7 +6,7 @@ import { dateRangeSorter } from '@/utils/date-range-sorter';
 import TimelineItem from './timeline-item.astro';
 
 interface Props {
-  entries: CollectionEntry<'work'>[] | CollectionEntry<'education'>[];
+  entries: CollectionEntry<'work'>[] | CollectionEntry<'education'>[] | CollectionEntry<'projects'>[];
 }
 
 const { entries } = Astro.props;

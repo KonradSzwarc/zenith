@@ -44,15 +44,12 @@ export const collections = {
     schema: ({ image }) =>
       z.object({
         title: z.string(),
-        institution: z.object({
-          name: z.string(),
-          image: image().optional(),
-          url: z.string().url().optional(),
-        }),
+        institution: z.string(),
+        image: image().optional(),
         startDate: z.date(),
         endDate: z.date().optional(),
         details: z.array(labelledValueSchema).min(1).optional(),
-        skills: z.array(reference('skills')).optional(),
+        skills: z.array(reference('skills')).min(1).optional(),
       }),
   }),
   favorites: defineCollection({
@@ -94,12 +91,12 @@ export const collections = {
     schema: ({ image }) =>
       z.object({
         name: z.string(),
+        description: z.string(),
         image: image().optional(),
         startDate: z.date(),
         endDate: z.date().optional(),
         details: z.array(labelledValueSchema).min(1).optional(),
-        links: z.array(z.object({ label: z.string(), url: z.string().url() })).optional(),
-        skills: z.array(reference('skills')).optional(),
+        skills: z.array(reference('skills')).min(1).optional(),
       }),
   }),
   references: defineCollection({
@@ -144,15 +141,12 @@ export const collections = {
     schema: ({ image }) =>
       z.object({
         position: z.string(),
-        organization: z.object({
-          name: z.string(),
-          image: image().optional(),
-          url: z.string().url().optional(),
-        }),
+        organization: z.string(),
+        image: image().optional(),
         startDate: z.date(),
         endDate: z.date().optional(),
         details: z.array(labelledValueSchema).min(1).optional(),
-        skills: z.array(reference('skills')).optional(),
+        skills: z.array(reference('skills')).min(1).optional(),
       }),
   }),
 };

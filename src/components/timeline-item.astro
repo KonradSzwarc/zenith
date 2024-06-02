@@ -3,35 +3,46 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 import { cn } from '@/utils/cn';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import { removeTopElement } from '@/utils/remove-top-element';
 
 import DateRange from './date-range.astro';
 import Details from './details.astro';
-import Linkable from './linkable.astro';
 import RelatedSkills from './related-skills.astro';
 import RenderedContent from './rendered-content.astro';
 
 interface Props {
-  entry: CollectionEntry<'education'> | CollectionEntry<'work'>;
+  entry: CollectionEntry<'education'> | CollectionEntry<'work'> | CollectionEntry<'projects'>;
 }
 
 const {
   entry: { data, body, render },
 } = Astro.props;
 
-const { title, place } =
-  'title' in data ? { title: data.title, place: data.institution } : { title: data.position, place: data.organization };
+const isEducation = 'institution' in data;
+const isWork = 'organization' in data;
+
+const { title, description, alt } = (() => {
+  if (isEducation) {
+    return { title: data.title, description: data.institution, alt: data.institution };
+  } else if (isWork) {
+    return { title: data.position, description: data.organization, alt: data.organization };
+  } else {
+    return { title: data.name, description: data.description, alt: data.name };
+  }
+})();
 ---
 
 <div>
   <div class="mb-5 flex items-start gap-4">
     {
-      place.image && (
+      data.image && (
         <Image
-          class="hidden size-[76px] rounded object-contain sm:block"
-          src={place.image}
-          alt={place.name}
-          width={152}
-          height={152}
+          class="hidden size-20 rounded object-contain sm:block"
+          src={data.image}
+          alt={alt}
+          width={160}
+          height={160}
         />
       )
     }
@@ -39,11 +50,14 @@ const { title, place } =
       <h3 class="text-lg font-bold text-slate-900 sm:text-xl">
         {title}
       </h3>
-      <Linkable class="text-sm font-medium text-slate-900 sm:text-base" href={place.url}>{place.name}</Linkable>
+      <div
+        class="text-sm font-medium text-slate-900 sm:text-base"
+        set:html={removeTopElement(markdownToHtml(description))}
+      />
       <DateRange startDate={data.startDate} endDate={data.endDate} />
     </div>
   </div>
-  <div class={cn(place.image && 'lg:pl-24')}>
+  <div class={cn(data.image && 'lg:pl-24')}>
     {data.details && <Details class="mb-3" details={data.details} />}
     {body.trim().length > 0 && <RenderedContent render={render} />}
     {data.skills && <RelatedSkills class="mt-5" skillRefs={data.skills} />}

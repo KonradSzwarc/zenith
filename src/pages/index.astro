@@ -6,6 +6,7 @@ import Basics from '@/components/basics.astro';
 import Education from '@/components/education.astro';
 import Metadata from '@/components/metadata.astro';
 import Popovers from '@/components/popovers.astro';
+import Projects from '@/components/projects.astro';
 import Section from '@/components/section.astro';
 import Skills from '@/components/skills.astro';
 import Work from '@/components/work.astro';
@@ -53,6 +54,7 @@ const skillSets = [
 ];
 const education = await getCollection('education');
 const work = await getCollection('work');
+const projects = await getCollection('projects');
 ---
 
 <!doctype html>
@@ -68,6 +70,7 @@ const work = await getCollection('work');
       <Section title="Skills"><Skills skillSets={skillSets} /></Section>
       <Section title="Education"><Education educationEntries={education} /></Section>
       <Section title="Work"><Work workEntries={work} /></Section>
+      <Section title="Projects"><Projects projectEntries={projects} /></Section>
       <Popovers />
     </main>
     <style is:global>
