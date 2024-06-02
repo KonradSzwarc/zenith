@@ -4,9 +4,10 @@ import type { CollectionEntry } from 'astro:content';
 import { intervalToDuration } from 'date-fns';
 
 import { joinNonEmpty } from '@/utils/join-non-empty';
-import { markdownToHtml } from '@/utils/markdown-to-html';
 
+import Details from './details.astro';
 import Icon from './icon.astro';
+import RenderedContent from './rendered-content.astro';
 
 interface Props {
   basicsEntry: CollectionEntry<'basics'>;
@@ -14,11 +15,9 @@ interface Props {
 }
 
 const {
-  basicsEntry: { data: basics, render: renderBasics },
+  basicsEntry: { data: basics, body, render },
   socialEntries,
 } = Astro.props;
-
-const { Content } = await renderBasics();
 
 const details = [
   basics.birthdate && {
@@ -28,7 +27,7 @@ const details = [
   (basics.city || basics.country) && { label: 'Location', value: joinNonEmpty([basics.city, basics.country], ', ') },
   basics.email && { label: 'Email', value: `[${basics.email}](mailto:${basics.email})` },
   basics.phone && { label: 'Phone', value: `[${basics.phone}](tel:${basics.phone})` },
-  ...basics.details,
+  ...(basics.details || []),
 ].filter(Boolean);
 ---
 
@@ -81,19 +80,6 @@ const details = [
       }
     </div>
   </div>
-  <div class="prose prose-sm prose-slate mt-8 max-w-none text-justify sm:prose-base lg:mt-4">
-    <Content />
-  </div>
-  {
-    details.length > 0 && (
-      <dl class="mt-6 flex flex-wrap gap-x-12 gap-y-3 text-sm sm:gap-y-4 sm:text-base">
-        {details.map((detail) => (
-          <div data-definition class="flex w-fit flex-wrap gap-1">
-            <dt class="font-semibold text-slate-900 after:content-[':']">{detail.label}</dt>
-            <dd class="text-slate-700 hover:[&_a]:underline" set:html={markdownToHtml(detail.value)} />
-          </div>
-        ))}
-      </dl>
-    )
-  }
+  {body.trim().length > 0 && <RenderedContent class="mt-8 lg:mt-4" render={render} />}
+  {details.length > 0 && <Details class="mt-6" details={details} />}
 </section>

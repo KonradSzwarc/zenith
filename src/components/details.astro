@@ -1,0 +1,25 @@
+---
+import { cn } from '@/utils/cn';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+
+interface Props {
+  class?: string;
+  details: {
+    label: string;
+    value: string;
+  }[];
+}
+
+const { details, class: className } = Astro.props;
+---
+
+<dl class={cn('flex flex-wrap gap-x-10 gap-y-3 text-sm sm:gap-y-4 sm:text-base', className)}>
+  {
+    details.map((detail) => (
+      <div class="flex w-fit flex-wrap gap-1">
+        <dt class="font-semibold text-slate-900 after:content-[':']">{detail.label}</dt>
+        <dd class="text-slate-700 hover:[&_a]:underline" set:html={markdownToHtml(detail.value)} />
+      </div>
+    ))
+  }
+</dl>

@@ -1,0 +1,15 @@
+---
+import { context } from '@/context';
+
+interface Props {
+  startDate: Date;
+  endDate?: Date;
+}
+
+const startDate = context.formatDate(Astro.props.startDate);
+const endDate = Astro.props.endDate ? context.formatDate(Astro.props.endDate) : 'Current';
+---
+
+<div class="text-sm font-normal text-slate-600 sm:text-base">
+  {startDate} - {endDate}
+</div>

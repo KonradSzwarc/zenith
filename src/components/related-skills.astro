@@ -1,0 +1,28 @@
+---
+import type { ValidContentEntrySlug } from 'astro:content';
+import { getEntries } from 'astro:content';
+
+import { cn } from '@/utils/cn';
+
+import SkillTag from './skill-tag.astro';
+
+interface Props {
+  class?: string;
+  label?: string;
+  skillRefs: {
+    collection: 'skills';
+    slug: ValidContentEntrySlug<'skills'>;
+  }[];
+}
+
+const { skillRefs, label = 'Skills I developed:', class: className } = Astro.props;
+
+const skillEntries = (await getEntries(skillRefs)).map((entry) => ({ ...entry, body: '' }));
+---
+
+<div class={cn('space-y-1.5', className)}>
+  <div class="text-sm font-semibold text-slate-900 sm:text-base">{label}</div>
+  <div class="flex gap-x-3 gap-y-2">
+    {skillEntries.map((skillEntry) => <SkillTag skillEntry={skillEntry} />)}
+  </div>
+</div>

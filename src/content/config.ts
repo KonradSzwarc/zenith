@@ -5,12 +5,6 @@ const labelledValueSchema = z.object({
   value: z.string(),
 });
 
-const linkSchema = z.object({
-  label: z.string(),
-  icon: z.string().optional(),
-  url: z.string().url(),
-});
-
 export const collections = {
   achievements: defineCollection({
     type: 'content',
@@ -20,7 +14,6 @@ export const collections = {
         date: z.date(),
         image: image().optional(),
         issuer: z.string().optional(),
-        links: z.array(linkSchema).optional(),
         skills: z.array(reference('skills')).optional(),
       }),
   }),
@@ -36,7 +29,7 @@ export const collections = {
         phone: z.string().optional(),
         country: z.string().optional(),
         city: z.string().optional(),
-        details: z.array(labelledValueSchema).default([]),
+        details: z.array(labelledValueSchema).min(1).optional(),
         resume: z
           .object({
             url: z.string(),
@@ -58,7 +51,7 @@ export const collections = {
         }),
         startDate: z.date(),
         endDate: z.date().optional(),
-        details: z.array(labelledValueSchema).optional(),
+        details: z.array(labelledValueSchema).min(1).optional(),
         skills: z.array(reference('skills')).optional(),
       }),
   }),
@@ -104,8 +97,8 @@ export const collections = {
         image: image().optional(),
         startDate: z.date(),
         endDate: z.date().optional(),
-        details: z.array(labelledValueSchema).optional(),
-        links: z.array(linkSchema).optional(),
+        details: z.array(labelledValueSchema).min(1).optional(),
+        links: z.array(z.object({ label: z.string(), url: z.string().url() })).optional(),
         skills: z.array(reference('skills')).optional(),
       }),
   }),
@@ -158,8 +151,7 @@ export const collections = {
         }),
         startDate: z.date(),
         endDate: z.date().optional(),
-        details: z.array(labelledValueSchema).optional(),
-        links: z.array(linkSchema).optional(),
+        details: z.array(labelledValueSchema).min(1).optional(),
         skills: z.array(reference('skills')).optional(),
       }),
   }),
