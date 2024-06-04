@@ -12,10 +12,10 @@ interface Props {
 }
 
 const {
-  skillEntry: { data: skill, body: skillBody, render: renderSkill },
+  skillEntry: { data: skill, body, render },
 } = Astro.props;
 
-const Description = skillBody.trim().length > 0 && (await renderSkill()).Content;
+const Description = body.trim().length > 0 && (await render()).Content;
 ---
 
 <div

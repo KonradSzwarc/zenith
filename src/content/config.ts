@@ -67,7 +67,6 @@ export const collections = {
     schema: z.object({
       name: z.string(),
       icon: z.string().optional(),
-      color: z.string().optional(),
     }),
   }),
   metadata: defineCollection({

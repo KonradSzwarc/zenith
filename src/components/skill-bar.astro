@@ -12,7 +12,7 @@ interface Props {
 }
 
 const {
-  skillEntry: { data: skill, body: skillBody, render: renderSkill },
+  skillEntry: { data: skill, body, render },
 } = Astro.props;
 
 if (!skill.level) {
@@ -20,7 +20,7 @@ if (!skill.level) {
 }
 
 const [level, maxLevel] = skill.level.split('/').map(Number) as [number, number];
-const Description = skillBody.trim().length > 0 && (await renderSkill()).Content;
+const Description = body.trim().length > 0 && (await render()).Content;
 
 // Icon height + margin must equal text line height so they align properly.
 const iconClass = cn('my-0.5 size-4 sm:my-1');

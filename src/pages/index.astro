@@ -12,6 +12,7 @@ import Skills from '@/components/skills.astro';
 import Work from '@/components/work.astro';
 import { context } from '@/context';
 import { selectEntriesBySlug } from '@/utils/select-entries-by-slug';
+import Interests from '@/components/interests.astro';
 
 context.initialize({
   locale: enUS,
@@ -42,6 +43,7 @@ const education = await getCollection('education');
 const work = await getCollection('work');
 const projects = await getCollection('projects');
 const references = await getCollection('references');
+const interests = await getCollection('interests');
 ---
 
 <!doctype html>
@@ -59,6 +61,7 @@ const references = await getCollection('references');
       <Section title="Work"><Work workEntries={work} /></Section>
       <Section title="Projects"><Projects projectEntries={projects} /></Section>
       <Section title="References"><References referenceEntries={references} /></Section>
+      <Section title="Interests"><Interests interestEntries={interests} /></Section>
     </main>
     <style is:global>
       :root {

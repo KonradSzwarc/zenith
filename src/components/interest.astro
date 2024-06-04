@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './icon.astro';
+import Popover from './popover.astro';
+
+interface Props {
+  interestEntry: CollectionEntry<'interests'>;
+}
+
+const {
+  interestEntry: { data: interest, body, render },
+} = Astro.props;
+
+const Description = body.trim().length > 0 && (await render()).Content;
+---
+
+<div class="flex flex-wrap gap-6 px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded bg-slate-50">
+  <div class="flex gap-2 items-center">
+    {interest.icon && <Icon name={interest.icon} class="text-slate-600 size-5" />}
+    <div class="text-sm sm:text-base font-medium text-slate-900">
+      {interest.name}
+    </div>
+  </div>
+  {
+    Description && (
+      <Popover>
+        <button slot="trigger" class="ml-auto">
+          <Icon name="fa6-solid:circle-info" class="text-slate-400 transition-colors hover:text-slate-400/80" />
+        </button>
+        <div
+          slot="popover"
+          class="prose max-w-96 rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 shadow-md"
+        >
+          <Description />
+        </div>
+      </Popover>
+    )
+  }
+</div>
