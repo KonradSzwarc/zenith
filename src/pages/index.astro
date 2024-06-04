@@ -5,7 +5,6 @@ import { enUS } from 'date-fns/locale';
 import Basics from '@/components/basics.astro';
 import Education from '@/components/education.astro';
 import Metadata from '@/components/metadata.astro';
-import Popovers from '@/components/popovers.astro';
 import Projects from '@/components/projects.astro';
 import References from '@/components/references.astro';
 import Section from '@/components/section.astro';
@@ -60,7 +59,6 @@ const references = await getCollection('references');
       <Section title="Work"><Work workEntries={work} /></Section>
       <Section title="Projects"><Projects projectEntries={projects} /></Section>
       <Section title="References"><References referenceEntries={references} /></Section>
-      <Popovers />
     </main>
     <style is:global>
       :root {

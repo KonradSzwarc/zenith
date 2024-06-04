@@ -1,11 +1,11 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { nanoid } from 'nanoid';
 
 import { cn } from '@/utils/cn';
 
 import Icon from './icon.astro';
 import Linkable from './linkable.astro';
+import Popover from './popover.astro';
 
 interface Props {
   skillEntry: CollectionEntry<'skills'>;
@@ -19,7 +19,6 @@ if (!skill.level) {
   throw new Error(`Skill "${skill.name}" is missing a "level" field.`);
 }
 
-const id = nanoid();
 const [level, maxLevel] = skill.level.split('/').map(Number) as [number, number];
 const Description = skillBody.trim().length > 0 && (await renderSkill()).Content;
 
@@ -36,21 +35,20 @@ const textClass = cn('text-sm font-medium text-slate-700 sm:text-base');
     </Linkable>
     {
       Description && (
-        <>
-          <button class="ml-auto" popovertarget={`skill-bar-popover-${id}`}>
+        <Popover>
+          <button slot="trigger" class="ml-auto">
             <Icon
               name="fa6-solid:circle-info"
               class={cn(iconClass, 'text-slate-400 transition-colors hover:text-slate-400/80')}
             />
           </button>
           <div
-            popover
-            id={`skill-bar-popover-${id}`}
+            slot="popover"
             class="prose max-w-96 rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 shadow-md"
           >
             <Description />
           </div>
-        </>
+        </Popover>
       )
     }
   </div>

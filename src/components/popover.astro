@@ -1,0 +1,85 @@
+---
+import { nanoid } from 'nanoid';
+import { addElementAttributes } from '@/utils/element-attributes';
+
+const [trigger, popover] = await Promise.all([Astro.slots.render('trigger'), Astro.slots.render('popover')]);
+
+if (!trigger) {
+  throw new Error('Popover must have a trigger slot');
+}
+
+if (!popover) {
+  throw new Error('Popover must have a popover slot');
+}
+
+const id = nanoid();
+---
+
+<Fragment set:html={addElementAttributes(trigger, { popovertarget: `popover-${id}` })} />
+<Fragment set:html={addElementAttributes(popover, { popover: true, id: `popover-${id}` })} />
+
+<style is:global>
+  [popover] {
+    margin: 0 !important;
+    position: absolute;
+    animation: show 200ms ease-out 50ms forwards;
+    opacity: 0;
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+<script>
+  import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
+
+  const popovers = document.querySelectorAll('[popover]');
+
+  function updatePosition(trigger: HTMLElement, popover: HTMLElement) {
+    computePosition(trigger, popover, {
+      middleware: [offset(8), flip(), shift({ padding: 8 })],
+      placement: 'top',
+    }).then(({ x, y }) => {
+      Object.assign(popover.style, {
+        left: `${x}px`,
+        top: `${y}px`,
+      });
+    });
+  }
+
+  const cleanups: Record<string, () => void> = {};
+
+  function positionPopover(event: Event) {
+    const popover = event.target as HTMLElement;
+    const popoverId = popover.getAttribute('id');
+
+    if (!popoverId) {
+      throw new Error('Popover must have an id');
+    }
+
+    const trigger = document.querySelector(`[popovertarget="${popoverId}"`) as HTMLElement;
+
+    if (!trigger) {
+      throw new Error('Popover must have a target');
+    }
+
+    if ('newState' in event && event.newState === 'open' && trigger) {
+      updatePosition(trigger, popover);
+      cleanups[popoverId] = autoUpdate(trigger, popover, () => updatePosition(trigger, popover));
+    }
+
+    if ('newState' in event && event.newState === 'closed') {
+      cleanups[popoverId]?.();
+      delete cleanups[popoverId];
+    }
+  }
+
+  popovers.forEach((popover) => {
+    popover.addEventListener('toggle', positionPopover);
+  });
+</script>
