@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import Reference from './reference.astro';
+
+interface Props {
+  referenceEntries: CollectionEntry<'references'>[];
+}
+
+const { referenceEntries } = Astro.props;
+---
+
+<div class="space-y-10">
+  {
+    referenceEntries.map((referenceEntry, i) => (
+      <>
+        <Reference referenceEntry={referenceEntry} />
+        {i < referenceEntries.length - 1 && <hr />}
+      </>
+    ))
+  }
+</div>

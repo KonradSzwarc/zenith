@@ -103,10 +103,13 @@ export const collections = {
     type: 'content',
     schema: ({ image }) =>
       z.object({
-        author: z.string(),
-        avatar: image().optional(),
-        position: z.string().optional(),
-        logo: z.object({ source: z.string(), alt: z.string() }).optional(),
+        author: z.object({
+          name: z.string(),
+          role: z.string().optional(),
+          relation: z.string().optional(),
+          image: image().optional(),
+          url: z.string().url().optional(),
+        }),
       }),
   }),
   skills: defineCollection({

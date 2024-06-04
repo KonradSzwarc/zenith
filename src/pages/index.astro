@@ -7,6 +7,7 @@ import Education from '@/components/education.astro';
 import Metadata from '@/components/metadata.astro';
 import Popovers from '@/components/popovers.astro';
 import Projects from '@/components/projects.astro';
+import References from '@/components/references.astro';
 import Section from '@/components/section.astro';
 import Skills from '@/components/skills.astro';
 import Work from '@/components/work.astro';
@@ -26,22 +27,8 @@ const skillSets = [
   {
     title: 'Technologies',
     withLevel: true,
-    skillEntries: selectEntriesBySlug(skills, [
-      'astro',
-      'drizzle-orm',
-      'eslint',
-      'next',
-      'playwright',
-      'postgresql',
-      'react-testing-library',
-      'react',
-      'shadcn',
-      'tailwind',
-      'tanstack-query',
-      'trpc',
-      'typescript',
-      'vitest',
-    ]),
+    // prettier-ignore
+    skillEntries: selectEntriesBySlug(skills, ['astro', 'drizzle-orm', 'eslint', 'next', 'playwright', 'postgresql', 'react-testing-library', 'react', 'shadcn', 'tailwind', 'tanstack-query', 'trpc', 'typescript', 'vitest']),
   },
   {
     title: 'Services',
@@ -55,6 +42,7 @@ const skillSets = [
 const education = await getCollection('education');
 const work = await getCollection('work');
 const projects = await getCollection('projects');
+const references = await getCollection('references');
 ---
 
 <!doctype html>
@@ -71,6 +59,7 @@ const projects = await getCollection('projects');
       <Section title="Education"><Education educationEntries={education} /></Section>
       <Section title="Work"><Work workEntries={work} /></Section>
       <Section title="Projects"><Projects projectEntries={projects} /></Section>
+      <Section title="References"><References referenceEntries={references} /></Section>
       <Popovers />
     </main>
     <style is:global>
