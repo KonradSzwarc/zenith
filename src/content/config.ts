@@ -56,10 +56,11 @@ export const collections = {
     type: 'content',
     schema: ({ image }) =>
       z.object({
+        type: z.enum(['book', 'article', 'video', 'person', 'source']),
         title: z.string(),
-        subtitle: z.string().optional(),
+        url: z.string().url(),
         image: image().optional(),
-        url: z.string().url().optional(),
+        author: z.object({ name: z.string(), url: z.string().url().optional() }).optional(),
       }),
   }),
   interests: defineCollection({
