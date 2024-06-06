@@ -3,16 +3,16 @@ import { getCollection, getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
 import Basics from '@/components/basics.astro';
-import Education from '@/components/education.astro';
+import Books from '@/components/books.astro';
+import Interests from '@/components/interests.astro';
 import Metadata from '@/components/metadata.astro';
-import Projects from '@/components/projects.astro';
 import References from '@/components/references.astro';
 import Section from '@/components/section.astro';
 import Skills from '@/components/skills.astro';
-import Work from '@/components/work.astro';
+import Subsection from '@/components/subsection.astro';
+import Timeline from '@/components/timeline.astro';
 import { context } from '@/context';
 import { selectEntriesBySlug } from '@/utils/select-entries-by-slug';
-import Interests from '@/components/interests.astro';
 
 context.initialize({
   locale: enUS,
@@ -22,28 +22,22 @@ context.initialize({
 const metadata = await getEntry('metadata', 'main');
 const basics = await getEntry('basics', 'main');
 const socials = await getCollection('socials');
+
 const skills = await getCollection('skills');
-const skillSets = [
-  {
-    title: 'Technologies',
-    withLevel: true,
-    // prettier-ignore
-    skillEntries: selectEntriesBySlug(skills, ['astro', 'drizzle-orm', 'eslint', 'next', 'playwright', 'postgresql', 'react-testing-library', 'react', 'shadcn', 'tailwind', 'tanstack-query', 'trpc', 'typescript', 'vitest']),
-  },
-  {
-    title: 'Services',
-    skillEntries: selectEntriesBySlug(skills, ['neon', 'sentry', 'stripe', 'vercel']),
-  },
-  {
-    title: 'Languages',
-    skillEntries: selectEntriesBySlug(skills, ['english', 'spanish']),
-  },
-];
+// prettier-ignore
+const technicalSkills = selectEntriesBySlug(skills, ['astro', 'drizzle-orm', 'eslint', 'next', 'playwright', 'postgresql', 'react-testing-library', 'react', 'shadcn', 'tailwind', 'tanstack-query', 'trpc', 'typescript', 'vitest']);
+const toolSkills = selectEntriesBySlug(skills, ['neon', 'sentry', 'stripe', 'vercel']);
+const languageSkills = selectEntriesBySlug(skills, ['english', 'spanish']);
+
 const education = await getCollection('education');
 const work = await getCollection('work');
 const projects = await getCollection('projects');
 const references = await getCollection('references');
 const interests = await getCollection('interests');
+
+const favorites = await getCollection('favorites');
+// prettier-ignore
+const bookFavorites = selectEntriesBySlug(favorites, ['the-pragmatic-programmer', 'domain-driven-design', 'learning-javascript-design-patterns', 'grokkking-simplicity'])
 ---
 
 <!doctype html>
@@ -56,12 +50,37 @@ const interests = await getCollection('interests');
   <body class="bg-background text-foreground antialiased sm:p-6 md:p-8 lg:p-10">
     <main class="mx-auto w-full max-w-screen-xl space-y-16 bg-white p-6 shadow-2xl sm:rounded-3xl sm:p-10">
       <Basics basicsEntry={basics} socialEntries={socials} />
-      <Section title="Skills"><Skills skillSets={skillSets} /></Section>
-      <Section title="Education"><Education educationEntries={education} /></Section>
-      <Section title="Work"><Work workEntries={work} /></Section>
-      <Section title="Projects"><Projects projectEntries={projects} /></Section>
-      <Section title="References"><References referenceEntries={references} /></Section>
-      <Section title="Interests"><Interests interestEntries={interests} /></Section>
+      <Section title="Skills">
+        <Subsection title="Technologies">
+          <Skills entries={technicalSkills} />
+        </Subsection>
+        <Subsection title="Tools">
+          <Skills entries={toolSkills} />
+        </Subsection>
+        <Subsection title="Languages">
+          <Skills entries={languageSkills} />
+        </Subsection>
+      </Section>
+      <Section title="Education">
+        <Timeline entries={education} />
+      </Section>
+      <Section title="Work">
+        <Timeline entries={work} />
+      </Section>
+      <Section title="Projects">
+        <Timeline entries={projects} />
+      </Section>
+      <Section title="References">
+        <References referenceEntries={references} />
+      </Section>
+      <Section title="Interests">
+        <Interests interestEntries={interests} />
+      </Section>
+      <Section title="Favorites">
+        <Subsection title="Books I read">
+          <Books entries={bookFavorites} />
+        </Subsection>
+      </Section>
     </main>
     <style is:global>
       :root {

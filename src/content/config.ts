@@ -60,7 +60,7 @@ export const collections = {
         title: z.string(),
         url: z.string().url(),
         image: image().optional(),
-        author: z.object({ name: z.string(), url: z.string().url().optional() }).optional(),
+        authors: z.array(z.object({ name: z.string(), url: z.string().url().optional() })).default([]),
       }),
   }),
   interests: defineCollection({

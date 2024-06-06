@@ -1,0 +1,9 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entries: CollectionEntry<'favorites'>[];
+}
+
+console.log(Astro.props.entries);
+---
