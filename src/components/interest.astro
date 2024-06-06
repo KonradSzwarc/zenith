@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+
 import Icon from './icon.astro';
 import Popover from './popover.astro';
 
@@ -14,10 +15,10 @@ const {
 const Description = body.trim().length > 0 && (await render()).Content;
 ---
 
-<div class="flex flex-wrap gap-6 px-3 py-2 sm:px-4 sm:py-3 border border-slate-200 rounded bg-slate-50">
-  <div class="flex gap-2 items-center">
-    {interest.icon && <Icon name={interest.icon} class="text-slate-600 size-5" />}
-    <div class="text-sm sm:text-base font-medium text-slate-900">
+<div class="flex flex-wrap gap-6 rounded border border-slate-200 bg-slate-50 px-3 py-2 sm:px-4 sm:py-3">
+  <div class="flex items-center gap-2">
+    {interest.icon && <Icon name={interest.icon} class="size-5 text-slate-600" />}
+    <div class="text-sm font-medium text-slate-900 sm:text-base">
       {interest.name}
     </div>
   </div>

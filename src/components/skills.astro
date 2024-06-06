@@ -17,13 +17,13 @@ const { withLevel, entries } = Astro.props;
     withLevel ? (
       <ul class="grid items-end gap-8">
         {entries.map((skillEntry) => (
-          <SkillBar skillEntry={skillEntry} />
+          <SkillBar {skillEntry} />
         ))}
       </ul>
     ) : (
       <ul class="flex flex-wrap gap-3">
         {entries.map((skillEntry) => (
-          <SkillTag skillEntry={skillEntry} />
+          <SkillTag {skillEntry} />
         ))}
       </ul>
     )

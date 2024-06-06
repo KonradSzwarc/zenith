@@ -59,7 +59,7 @@ const { title, description, alt } = (() => {
   </div>
   <div class={cn(data.image && 'lg:pl-24')}>
     {data.details && <Details class="mb-3" details={data.details} />}
-    {body.trim().length > 0 && <RenderedContent render={render} />}
+    {body.trim().length > 0 && <RenderedContent {render} />}
     {data.skills && <RelatedSkills class="mt-5" skillRefs={data.skills} />}
   </div>
 </div>

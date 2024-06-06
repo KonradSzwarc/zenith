@@ -80,6 +80,6 @@ const details = [
       }
     </div>
   </div>
-  {body.trim().length > 0 && <RenderedContent class="mt-8 lg:mt-4" render={render} />}
-  {details.length > 0 && <Details class="mt-6" details={details} />}
+  {body.trim().length > 0 && <RenderedContent class="mt-8 lg:mt-4" {render} />}
+  {details.length > 0 && <Details class="mt-6" {details} />}
 </section>

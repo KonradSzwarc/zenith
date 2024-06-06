@@ -21,10 +21,10 @@ const { entries } = Astro.props;
         endDate: entry.data.endDate,
       }))
       .toSorted(dateRangeSorter)
-      .map(({ entry }, i) => (
+      .map(({ entry }, i, arr) => (
         <>
-          <TimelineItem entry={entry} />
-          {i < entries.length - 1 && <hr />}
+          <TimelineItem {entry} />
+          {i < arr.length - 1 && <hr />}
         </>
       ))
   }

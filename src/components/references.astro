@@ -4,18 +4,18 @@ import type { CollectionEntry } from 'astro:content';
 import Reference from './reference.astro';
 
 interface Props {
-  referenceEntries: CollectionEntry<'references'>[];
+  entries: CollectionEntry<'references'>[];
 }
 
-const { referenceEntries } = Astro.props;
+const { entries } = Astro.props;
 ---
 
 <div class="space-y-10">
   {
-    referenceEntries.map((referenceEntry, i) => (
+    entries.map((referenceEntry, i, arr) => (
       <>
-        <Reference referenceEntry={referenceEntry} />
-        {i < referenceEntries.length - 1 && <hr />}
+        <Reference {referenceEntry} />
+        {i < arr.length - 1 && <hr />}
       </>
     ))
   }

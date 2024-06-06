@@ -23,6 +23,6 @@ const skillEntries = (await getEntries(skillRefs)).map((entry) => ({ ...entry, b
 <div class={cn('space-y-1.5', className)}>
   <div class="text-sm font-semibold text-slate-900 sm:text-base">{label}</div>
   <div class="flex flex-wrap gap-x-3 gap-y-2">
-    {skillEntries.map((skillEntry) => <SkillTag skillEntry={skillEntry} />)}
+    {skillEntries.map((skillEntry) => <SkillTag {skillEntry} />)}
   </div>
 </div>

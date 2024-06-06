@@ -1,5 +1,6 @@
 ---
 import { nanoid } from 'nanoid';
+
 import { addElementAttributes } from '@/utils/element-attributes';
 
 const [trigger, popover] = await Promise.all([Astro.slots.render('trigger'), Astro.slots.render('popover')]);

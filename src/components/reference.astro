@@ -13,12 +13,10 @@ interface Props {
 }
 
 const {
-  referenceEntry: {
-    data: { author },
-    body,
-    render,
-  },
+  referenceEntry: { data, body, render },
 } = Astro.props;
+
+const { author } = data;
 
 const role = author.role && removeTopElement(markdownToHtml(author.role));
 const relation = author.relation && removeTopElement(markdownToHtml(author.relation));
