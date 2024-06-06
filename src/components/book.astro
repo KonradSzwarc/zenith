@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+
+import type { NestedCollectionEntry } from '@/types/nested-collection-entry';
+
+import Linkable from './linkable.astro';
+import RenderedContent from './rendered-content.astro';
+
+interface Props {
+  bookEntry: NestedCollectionEntry<'favorites', 'books'>;
+}
+
+const {
+  bookEntry: { data: book, body, render },
+} = Astro.props;
+---
+
+<div class="flex gap-2 overflow-hidden rounded-lg border border-slate-200">
+  {
+    book.image && (
+      <Image
+        class="aspect-book border-r border-slate-200 object-cover"
+        src={book.image}
+        alt={book.title}
+        width={180}
+        height={240}
+      />
+    )
+  }
+  <div class="flex-1 py-3 pl-3 pr-5">
+    <Linkable class="font-bold text-slate-900" href={book.url}>{book.title}</Linkable>
+    <div class="font-medium text-slate-700">
+      {book.authors.map((author) => <Linkable href={author.url}>{author.name}</Linkable>)}
+    </div>
+    {body.trim().length > 0 && <RenderedContent class="pt-1" render={render} />}
+  </div>
+</div>

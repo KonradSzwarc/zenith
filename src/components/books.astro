@@ -1,9 +1,19 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { NestedCollectionEntry } from '@/types/nested-collection-entry';
+
+import Book from './book.astro';
 
 interface Props {
-  entries: CollectionEntry<'favorites'>[];
+  entries: NestedCollectionEntry<'favorites', 'books'>[];
 }
 
-console.log(Astro.props.entries);
+const { entries } = Astro.props;
+
+if (entries.some((entry) => entry.data.type !== 'book')) {
+  throw new Error('All entries must be books');
+}
 ---
+
+<div class="space-y-6">
+  {entries.map((bookEntry) => <Book {bookEntry} />)}
+</div>

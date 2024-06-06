@@ -12,7 +12,7 @@ import Skills from '@/components/skills.astro';
 import Subsection from '@/components/subsection.astro';
 import Timeline from '@/components/timeline.astro';
 import { context } from '@/context';
-import { selectEntriesBySlug } from '@/utils/select-entries-by-slug';
+import { selectEntriesBySlug, selectEntriesBySlugPrefix } from '@/utils/select-entries-by-slug';
 
 context.initialize({
   locale: enUS,
@@ -37,7 +37,7 @@ const interests = await getCollection('interests');
 
 const favorites = await getCollection('favorites');
 // prettier-ignore
-const bookFavorites = selectEntriesBySlug(favorites, ['the-pragmatic-programmer', 'domain-driven-design', 'learning-javascript-design-patterns', 'grokkking-simplicity'])
+const bookFavorites = selectEntriesBySlugPrefix(favorites, 'books');
 ---
 
 <!doctype html>
