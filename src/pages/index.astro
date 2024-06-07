@@ -2,6 +2,7 @@
 import { getCollection, getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
+import Articles from '@/components/articles.astro';
 import Basics from '@/components/basics.astro';
 import Books from '@/components/books.astro';
 import Interests from '@/components/interests.astro';
@@ -36,8 +37,8 @@ const references = await getCollection('references');
 const interests = await getCollection('interests');
 
 const favorites = await getCollection('favorites');
-// prettier-ignore
 const bookFavorites = selectEntriesBySlugPrefix(favorites, 'books');
+const articleFavorites = selectEntriesBySlugPrefix(favorites, 'articles');
 ---
 
 <!doctype html>
@@ -79,6 +80,9 @@ const bookFavorites = selectEntriesBySlugPrefix(favorites, 'books');
       <Section title="Favorites">
         <Subsection title="Books I read">
           <Books entries={bookFavorites} />
+        </Subsection>
+        <Subsection title="Articles I come back to">
+          <Articles entries={articleFavorites} />
         </Subsection>
       </Section>
     </main>
