@@ -34,7 +34,11 @@ const hostname = new URL(article.url).hostname;
     <Linkable class="text-sm font-medium leading-snug text-slate-900 sm:text-base" href={article.url}>
       {article.title}
     </Linkable>
-    {subtitle && <div class="text-sm text-slate-700 sm:text-base" set:html={subtitle} />}
+    {
+      subtitle && (
+        <div class="mt-0.5 text-sm text-slate-700 sm:text-base [&_a:not(:hover)]:no-underline" set:html={subtitle} />
+      )
+    }
     <Linkable class={cn('ml-auto text-sm text-slate-500', Description && '-mr-4')} href={hostname}>
       {hostname}
     </Linkable>

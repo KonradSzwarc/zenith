@@ -33,7 +33,11 @@ const rootClass = cn(
     <Linkable class="text-sm font-medium leading-snug text-slate-900 sm:text-base" href={book.url}>
       {book.title}
     </Linkable>
-    {subtitle && <div class="text-sm text-slate-700 sm:text-base" set:html={subtitle} />}
+    {
+      subtitle && (
+        <div class="mt-0.5 text-sm text-slate-700 sm:text-base [&_a:not(:hover)]:no-underline" set:html={subtitle} />
+      )
+    }
     {
       Description && (
         <>
