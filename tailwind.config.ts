@@ -13,9 +13,6 @@ export default {
       fontFamily: {
         sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],
       },
-      aspectRatio: {
-        book: '3 / 4',
-      },
     },
   },
   plugins: [typographyPlugin],

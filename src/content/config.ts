@@ -54,14 +54,12 @@ export const collections = {
   }),
   favorites: defineCollection({
     type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        type: z.enum(['book', 'article', 'video', 'person', 'source']),
-        title: z.string(),
-        url: z.string().url(),
-        image: image().optional(),
-        authors: z.array(z.object({ name: z.string(), url: z.string().url().optional() })).default([]),
-      }),
+    schema: z.object({
+      title: z.string(),
+      url: z.string().url(),
+      icon: z.string().optional(),
+      authors: z.array(z.object({ name: z.string(), url: z.string().url().optional() })).default([]),
+    }),
   }),
   interests: defineCollection({
     type: 'content',
