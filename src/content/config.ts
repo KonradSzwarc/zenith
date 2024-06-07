@@ -57,7 +57,7 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       url: z.string().url(),
-      authors: z.array(z.object({ name: z.string(), url: z.string().url().optional() })).default([]),
+      subtitle: z.string().optional(),
     }),
   }),
   interests: defineCollection({
