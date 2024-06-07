@@ -5,11 +5,12 @@ import Article from './article.astro';
 
 interface Props {
   entries: CollectionEntry<'favorites'>[];
+  icon?: string;
 }
 
-const { entries } = Astro.props;
+const { entries, icon } = Astro.props;
 ---
 
 <div class="grid gap-x-4 gap-y-3 lg:grid-cols-2">
-  {entries.map((articleEntry) => <Article {articleEntry} />)}
+  {entries.map((articleEntry) => <Article {articleEntry} {icon} />)}
 </div>

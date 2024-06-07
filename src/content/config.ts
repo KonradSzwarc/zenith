@@ -57,7 +57,6 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       url: z.string().url(),
-      icon: z.string().optional(),
       authors: z.array(z.object({ name: z.string(), url: z.string().url().optional() })).default([]),
     }),
   }),

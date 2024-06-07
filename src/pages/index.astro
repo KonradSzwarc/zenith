@@ -79,10 +79,10 @@ const articleFavorites = selectEntriesBySlugPrefix(favorites, 'articles');
       </Section>
       <Section title="Favorites">
         <Subsection title="Books I read">
-          <Books entries={bookFavorites} />
+          <Books entries={bookFavorites} icon="material-symbols:book-2" />
         </Subsection>
         <Subsection title="Articles I come back to">
-          <Articles entries={articleFavorites} />
+          <Articles entries={articleFavorites} icon="material-symbols:article" />
         </Subsection>
       </Section>
     </main>
