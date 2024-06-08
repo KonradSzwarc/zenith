@@ -13,6 +13,7 @@ import { Skills } from '@/components/skills';
 import Subsection from '@/components/subsection.astro';
 import { Timeline } from '@/components/timeline';
 import { context } from '@/context';
+import MainLayout from '@/layouts/main-layout.astro';
 import { selectEntriesBySlug, selectEntriesBySlugPrefix } from '@/utils/select-entries-by-slug';
 
 context.initialize({
@@ -43,76 +44,47 @@ const articleFavorites = selectEntriesBySlugPrefix(favorites, 'articles');
 const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
 ---
 
-<!doctype html>
-<html lang={context.getLang()}>
-  <head>
-    <Metadata metadataEntry={metadata} />
-    <link rel="preconnect" href="https://rsms.me/" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-  </head>
-  <body class="bg-background text-foreground antialiased sm:p-6 md:p-8 lg:p-10">
-    <main class="mx-auto w-full max-w-screen-xl space-y-20 bg-white p-6 shadow-2xl sm:rounded-3xl sm:p-10">
-      <Basics basicsEntry={basics} socialEntries={socials} />
-      <Section title="Skills" contentClass="space-y-8">
-        <Subsection title="Technologies">
-          <Skills entries={technicalSkills} />
-        </Subsection>
-        <Subsection title="Tools">
-          <Skills entries={toolSkills} />
-        </Subsection>
-        <Subsection title="Languages">
-          <Skills entries={languageSkills} />
-        </Subsection>
-      </Section>
-      <Section title="Education">
-        <Timeline entries={education} />
-      </Section>
-      <Section title="Work">
-        <Timeline entries={work} />
-      </Section>
-      <Section title="Projects">
-        <Timeline entries={projects} />
-      </Section>
-      <Section title="References">
-        <References entries={references} />
-      </Section>
-      <Section title="Achievements">
-        <Achievements entries={achievements} class="space-y-8" />
-      </Section>
-      <Section title="Interests">
-        <Interests entries={interests} />
-      </Section>
-      <Section title="Favorites" contentClass="space-y-10">
-        <Subsection title="Books I read">
-          <Favorites entries={bookFavorites} icon="material-symbols:book-2" class="lg:grid-cols-2" />
-        </Subsection>
-        <Subsection title="Articles I come back to">
-          <Favorites withSource entries={articleFavorites} icon="material-symbols:article" class="lg:grid-cols-2" />
-        </Subsection>
-        <Subsection title="People I learn from">
-          <Favorites entries={peopleFavorites} icon="material-symbols:person" class="md:grid-cols-2 lg:grid-cols-3" />
-        </Subsection>
-      </Section>
-    </main>
-    <style is:global>
-      :root {
-        --background: 210, 40%, 96%;
-        --foreground: 222.2 84% 4.9%;
-
-        font-feature-settings:
-          'liga' 1,
-          'calt' 1; /* fix for Chrome */
-
-        --font-sans: Inter;
-        @supports (font-variation-settings: normal) {
-          --font-sans: InterVariable;
-        }
-      }
-
-      .dark {
-        --background: 222.2 84% 4.9%;
-        --foreground: 210 40% 98%;
-      }
-    </style>
-  </body>
-</html>
+<MainLayout>
+  <Metadata metadataEntry={metadata} slot="head" />
+  <Basics basicsEntry={basics} socialEntries={socials} />
+  <Section title="Skills" contentClass="space-y-8">
+    <Subsection title="Technologies">
+      <Skills entries={technicalSkills} />
+    </Subsection>
+    <Subsection title="Tools">
+      <Skills entries={toolSkills} />
+    </Subsection>
+    <Subsection title="Languages">
+      <Skills entries={languageSkills} />
+    </Subsection>
+  </Section>
+  <Section title="Education">
+    <Timeline entries={education} />
+  </Section>
+  <Section title="Work">
+    <Timeline entries={work} />
+  </Section>
+  <Section title="Projects">
+    <Timeline entries={projects} />
+  </Section>
+  <Section title="References">
+    <References entries={references} />
+  </Section>
+  <Section title="Achievements">
+    <Achievements entries={achievements} class="space-y-8" />
+  </Section>
+  <Section title="Interests">
+    <Interests entries={interests} />
+  </Section>
+  <Section title="Favorites" contentClass="space-y-10">
+    <Subsection title="Books I read">
+      <Favorites entries={bookFavorites} icon="material-symbols:book-2" class="lg:grid-cols-2" />
+    </Subsection>
+    <Subsection title="Articles I come back to">
+      <Favorites withSource entries={articleFavorites} icon="material-symbols:article" class="lg:grid-cols-2" />
+    </Subsection>
+    <Subsection title="People I learn from">
+      <Favorites entries={peopleFavorites} icon="material-symbols:person" class="md:grid-cols-2 lg:grid-cols-3" />
+    </Subsection>
+  </Section>
+</MainLayout>

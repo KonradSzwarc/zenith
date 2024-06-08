@@ -1,0 +1,34 @@
+---
+import BaseLayout from './base-layout.astro';
+---
+
+<BaseLayout>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <slot name="head" />
+  </Fragment>
+
+  <slot />
+</BaseLayout>
+
+<style is:global>
+  :root {
+    --background: 210, 40%, 96%;
+    --foreground: 222.2 84% 4.9%;
+
+    font-feature-settings:
+      'liga' 1,
+      'calt' 1; /* fix for Chrome */
+
+    --font-sans: Inter;
+    @supports (font-variation-settings: normal) {
+      --font-sans: InterVariable;
+    }
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+  }
+</style>
