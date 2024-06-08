@@ -7,12 +7,13 @@ import Achievement from './achievement.astro';
 
 interface Props {
   entries: CollectionEntry<'achievements'>[];
+  class?: string;
 }
 
-const { entries } = Astro.props;
+const { entries, class: className } = Astro.props;
 ---
 
-<ul class="space-y-8">
+<ul class={className}>
   {
     entries
       .map((achevementEntry) => ({ achevementEntry, date: achevementEntry.data.date }))

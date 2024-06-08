@@ -5,8 +5,8 @@ import type { CollectionEntry } from 'astro:content';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
-import Linkable from './linkable.astro';
-import RenderedContent from './rendered-content.astro';
+import Linkable from '../linkable.astro';
+import RenderedContent from '../rendered-content.astro';
 
 interface Props {
   referenceEntry: CollectionEntry<'references'>;
@@ -22,7 +22,7 @@ const role = author.role && removeTopElement(markdownToHtml(author.role));
 const relation = author.relation && removeTopElement(markdownToHtml(author.relation));
 ---
 
-<div class="flex flex-col gap-6">
+<li class="flex flex-col gap-6">
   {body.trim().length > 0 && <RenderedContent render={render} />}
   <div class="flex gap-4">
     {author.image && <Image class="size-14 rounded-full" src={author.image} alt={author.name} width={96} height={96} />}
@@ -32,4 +32,4 @@ const relation = author.relation && removeTopElement(markdownToHtml(author.relat
       {relation && <div class="text-sm font-normal text-slate-700 sm:text-base" set:html={relation} />}
     </div>
   </div>
-</div>
+</li>

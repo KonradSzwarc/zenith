@@ -1,15 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
+import { RelatedSkills } from '@/components/skills';
 import { context } from '@/context';
 import { cn } from '@/utils/cn';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
-import Icon from './icon.astro';
-import Linkable from './linkable.astro';
-import RelatedSkills from './related-skills.astro';
-import RenderedContent from './rendered-content.astro';
+import Icon from '../icon.astro';
+import Linkable from '../linkable.astro';
+import RenderedContent from '../rendered-content.astro';
 
 interface Props {
   achevementEntry: CollectionEntry<'achievements'>;

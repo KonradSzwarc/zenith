@@ -3,7 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 
 import { cn } from '@/utils/cn';
 
-import Favorite from './favorite.astro';
+import Favorite from '../favorites/favorite.astro';
 
 interface Props {
   entries: CollectionEntry<'favorites'>[];
@@ -15,6 +15,6 @@ interface Props {
 const { entries, icon, withSource, class: className } = Astro.props;
 ---
 
-<div class={cn('grid gap-x-4 gap-y-3', className)}>
+<ul class={cn('grid gap-4', className)}>
   {entries.map((favoriteEntry) => <Favorite {favoriteEntry} {icon} {withSource} />)}
-</div>
+</ul>

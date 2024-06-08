@@ -3,9 +3,9 @@ import type { CollectionEntry } from 'astro:content';
 
 import { cn } from '@/utils/cn';
 
-import Icon from './icon.astro';
-import Linkable from './linkable.astro';
-import Popover from './popover.astro';
+import Icon from '../icon.astro';
+import Linkable from '../linkable.astro';
+import Popover from '../popover.astro';
 
 interface Props {
   skillEntry: CollectionEntry<'skills'>;
@@ -27,7 +27,7 @@ const iconClass = cn('my-0.5 size-4 sm:my-1');
 const textClass = cn('text-sm font-medium text-slate-700 sm:text-base');
 ---
 
-<div class="flex flex-col gap-1.5" style={skill.color && { color: skill.color }}>
+<li class="flex flex-col gap-1.5" style={skill.color && { color: skill.color }}>
   <div class="flex items-start gap-1.5">
     {skill.icon && <Icon name={skill.icon} class={iconClass} />}
     <Linkable class={textClass} href={skill.url}>
@@ -61,4 +61,4 @@ const textClass = cn('text-sm font-medium text-slate-700 sm:text-base');
       }
     </div>
   </div>
-</div>
+</li>

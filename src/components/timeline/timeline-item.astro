@@ -2,14 +2,14 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
+import { RelatedSkills } from '@/components/skills';
 import { cn } from '@/utils/cn';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
-import DateRange from './date-range.astro';
-import Details from './details.astro';
-import RelatedSkills from './related-skills.astro';
-import RenderedContent from './rendered-content.astro';
+import DateRange from '../date-range.astro';
+import Details from '../details.astro';
+import RenderedContent from '../rendered-content.astro';
 
 interface Props {
   entry: CollectionEntry<'education'> | CollectionEntry<'work'> | CollectionEntry<'projects'>;

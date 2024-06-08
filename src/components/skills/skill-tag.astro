@@ -3,9 +3,9 @@ import type { CollectionEntry } from 'astro:content';
 
 import { cn } from '@/utils/cn';
 
-import Icon from './icon.astro';
-import Linkable from './linkable.astro';
-import Popover from './popover.astro';
+import Icon from '../icon.astro';
+import Linkable from '../linkable.astro';
+import Popover from '../popover.astro';
 
 interface Props {
   skillEntry: CollectionEntry<'skills'>;
@@ -18,7 +18,7 @@ const {
 const Description = body.trim().length > 0 && (await render()).Content;
 ---
 
-<div
+<li
   class="flex items-center gap-2 overflow-hidden rounded bg-slate-100 pl-2"
   style={skill.color && { color: skill.color }}
 >
@@ -44,4 +44,4 @@ const Description = body.trim().length > 0 && (await render()).Content;
       </Popover>
     )
   }
-</div>
+</li>

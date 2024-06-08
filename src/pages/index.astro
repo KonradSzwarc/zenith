@@ -2,16 +2,16 @@
 import { getCollection, getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
-import Achievements from '@/components/achievements.astro';
+import { Achievements } from '@/components/achievements';
 import Basics from '@/components/basics.astro';
-import Favorites from '@/components/favorites.astro';
-import Interests from '@/components/interests.astro';
+import { Favorites } from '@/components/favorites';
+import { Interests } from '@/components/interests';
 import Metadata from '@/components/metadata.astro';
-import References from '@/components/references.astro';
+import { References } from '@/components/references';
 import Section from '@/components/section.astro';
-import Skills from '@/components/skills.astro';
+import { Skills } from '@/components/skills';
 import Subsection from '@/components/subsection.astro';
-import Timeline from '@/components/timeline.astro';
+import { Timeline } from '@/components/timeline';
 import { context } from '@/context';
 import { selectEntriesBySlug, selectEntriesBySlugPrefix } from '@/utils/select-entries-by-slug';
 
@@ -51,9 +51,9 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </head>
   <body class="bg-background text-foreground antialiased sm:p-6 md:p-8 lg:p-10">
-    <main class="mx-auto w-full max-w-screen-xl space-y-16 bg-white p-6 shadow-2xl sm:rounded-3xl sm:p-10">
+    <main class="mx-auto w-full max-w-screen-xl space-y-20 bg-white p-6 shadow-2xl sm:rounded-3xl sm:p-10">
       <Basics basicsEntry={basics} socialEntries={socials} />
-      <Section title="Skills">
+      <Section title="Skills" contentClass="space-y-8">
         <Subsection title="Technologies">
           <Skills entries={technicalSkills} />
         </Subsection>
@@ -77,12 +77,12 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
         <References entries={references} />
       </Section>
       <Section title="Achievements">
-        <Achievements entries={achievements} />
+        <Achievements entries={achievements} class="space-y-8" />
       </Section>
       <Section title="Interests">
         <Interests entries={interests} />
       </Section>
-      <Section title="Favorites">
+      <Section title="Favorites" contentClass="space-y-10">
         <Subsection title="Books I read">
           <Favorites entries={bookFavorites} icon="material-symbols:book-2" class="lg:grid-cols-2" />
         </Subsection>

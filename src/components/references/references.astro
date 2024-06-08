@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-import Reference from './reference.astro';
+import Reference from '../references/reference.astro';
 
 interface Props {
   entries: CollectionEntry<'references'>[];
@@ -10,7 +10,7 @@ interface Props {
 const { entries } = Astro.props;
 ---
 
-<div class="space-y-10">
+<ul class="space-y-10">
   {
     entries.map((referenceEntry, i, arr) => (
       <>
@@ -19,4 +19,4 @@ const { entries } = Astro.props;
       </>
     ))
   }
-</div>
+</ul>

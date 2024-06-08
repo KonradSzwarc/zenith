@@ -1,12 +1,18 @@
 ---
+import { cn } from '@/utils/cn';
+
 interface Props {
   title: string;
+  class?: string;
+  contentClass?: string;
 }
 
-const { title } = Astro.props;
+const { title, class: className, contentClass } = Astro.props;
 ---
 
-<div class="grid gap-2">
+<div class={cn('grid gap-2', className)}>
   <h3 class="text-lg font-bold text-slate-900 sm:text-xl">{title}</h3>
-  <slot />
+  <div class={contentClass}>
+    <slot />
+  </div>
 </div>
