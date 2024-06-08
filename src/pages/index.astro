@@ -38,6 +38,7 @@ const interests = await getCollection('interests');
 const favorites = await getCollection('favorites');
 const bookFavorites = selectEntriesBySlugPrefix(favorites, 'books');
 const articleFavorites = selectEntriesBySlugPrefix(favorites, 'articles');
+const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
 ---
 
 <!doctype html>
@@ -82,6 +83,9 @@ const articleFavorites = selectEntriesBySlugPrefix(favorites, 'articles');
         </Subsection>
         <Subsection title="Articles I come back to">
           <Favorites withSource entries={articleFavorites} icon="material-symbols:article" class="lg:grid-cols-2" />
+        </Subsection>
+        <Subsection title="People I learn from">
+          <Favorites entries={peopleFavorites} icon="material-symbols:person" class="md:grid-cols-2 lg:grid-cols-3" />
         </Subsection>
       </Section>
     </main>
