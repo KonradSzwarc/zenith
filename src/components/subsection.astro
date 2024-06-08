@@ -6,7 +6,7 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<div>
-  <h3 class="mb-2 text-lg font-bold text-slate-900 sm:text-xl">{title}</h3>
+<div class="grid gap-2">
+  <h3 class="text-lg font-bold text-slate-900 sm:text-xl">{title}</h3>
   <slot />
 </div>

@@ -2,9 +2,8 @@
 import { getCollection, getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
-import Articles from '@/components/articles.astro';
 import Basics from '@/components/basics.astro';
-import Books from '@/components/books.astro';
+import Favorites from '@/components/favorites.astro';
 import Interests from '@/components/interests.astro';
 import Metadata from '@/components/metadata.astro';
 import References from '@/components/references.astro';
@@ -79,10 +78,10 @@ const articleFavorites = selectEntriesBySlugPrefix(favorites, 'articles');
       </Section>
       <Section title="Favorites">
         <Subsection title="Books I read">
-          <Books entries={bookFavorites} icon="material-symbols:book-2" />
+          <Favorites entries={bookFavorites} icon="material-symbols:book-2" class="lg:grid-cols-2" />
         </Subsection>
         <Subsection title="Articles I come back to">
-          <Articles entries={articleFavorites} icon="material-symbols:article" />
+          <Favorites withSource entries={articleFavorites} icon="material-symbols:article" class="lg:grid-cols-2" />
         </Subsection>
       </Section>
     </main>
