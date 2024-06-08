@@ -33,7 +33,7 @@ const { title, description, alt } = (() => {
 })();
 ---
 
-<div>
+<li>
   <div class="mb-5 flex items-start gap-4">
     {
       data.image && (
@@ -62,4 +62,4 @@ const { title, description, alt } = (() => {
     {body.trim().length > 0 && <RenderedContent {render} />}
     {data.skills && <RelatedSkills class="mt-5" skillRefs={data.skills} />}
   </div>
-</div>
+</li>

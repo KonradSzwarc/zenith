@@ -2,6 +2,7 @@
 import { getCollection, getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
+import Achievements from '@/components/achievements.astro';
 import Basics from '@/components/basics.astro';
 import Favorites from '@/components/favorites.astro';
 import Interests from '@/components/interests.astro';
@@ -33,6 +34,7 @@ const education = await getCollection('education');
 const work = await getCollection('work');
 const projects = await getCollection('projects');
 const references = await getCollection('references');
+const achievements = await getCollection('achievements');
 const interests = await getCollection('interests');
 
 const favorites = await getCollection('favorites');
@@ -73,6 +75,9 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
       </Section>
       <Section title="References">
         <References entries={references} />
+      </Section>
+      <Section title="Achievements">
+        <Achievements entries={achievements} />
       </Section>
       <Section title="Interests">
         <Interests entries={interests} />

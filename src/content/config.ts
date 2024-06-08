@@ -8,14 +8,14 @@ const labelledValueSchema = z.object({
 export const collections = {
   achievements: defineCollection({
     type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        name: z.string(),
-        date: z.date(),
-        image: image().optional(),
-        issuer: z.string().optional(),
-        skills: z.array(reference('skills')).optional(),
-      }),
+    schema: z.object({
+      name: z.string(),
+      url: z.string().url().optional(),
+      date: z.date().optional(),
+      issuer: z.string().optional(),
+      icon: z.string().optional(),
+      skills: z.array(reference('skills')).optional(),
+    }),
   }),
   basics: defineCollection({
     type: 'content',

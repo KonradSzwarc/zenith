@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import { dateSorter } from '@/utils/date-sorters';
+
+import Achievement from './achievement.astro';
+
+interface Props {
+  entries: CollectionEntry<'achievements'>[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ul class="space-y-8">
+  {
+    entries
+      .map((achevementEntry) => ({ achevementEntry, date: achevementEntry.data.date }))
+      .toSorted(dateSorter)
+      .map(({ achevementEntry }, i, arr) => (
+        <>
+          <Achievement {achevementEntry} />
+          {i < arr.length - 1 && <hr />}
+        </>
+      ))
+  }
+</ul>

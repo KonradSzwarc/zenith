@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import { context } from '@/context';
+import { cn } from '@/utils/cn';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import { removeTopElement } from '@/utils/remove-top-element';
+
+import Icon from './icon.astro';
+import Linkable from './linkable.astro';
+import RelatedSkills from './related-skills.astro';
+import RenderedContent from './rendered-content.astro';
+
+interface Props {
+  achevementEntry: CollectionEntry<'achievements'>;
+}
+
+const {
+  achevementEntry: { data: achievement, body, render },
+} = Astro.props;
+
+const date = achievement.date && context.formatDate(achievement.date);
+---
+
+<li class="grid gap-2">
+  <div class="flex items-start gap-3">
+    {
+      achievement.icon && (
+        <div class="hidden size-7 shrink-0 items-center justify-center rounded bg-slate-200 sm:flex">
+          <Icon name={achievement.icon} class="size-4 text-slate-600" />
+        </div>
+      )
+    }
+    <div>
+      <Linkable class="text-lg font-bold text-slate-900 sm:text-xl" href={achievement.url}>
+        {achievement.name}
+      </Linkable>
+      {
+        achievement.issuer && (
+          <div
+            class="text-sm font-medium text-slate-900 sm:text-base"
+            set:html={removeTopElement(markdownToHtml(achievement.issuer))}
+          />
+        )
+      }
+      {date && <div class="text-sm font-normal text-slate-700 sm:text-base">{date}</div>}
+    </div>
+  </div>
+  <div class={cn(achievement.icon && 'lg:pl-10')}>
+    {body.trim().length > 0 && <RenderedContent {render} />}
+    {achievement.skills && <RelatedSkills class="mt-5" skillRefs={achievement.skills} />}
+  </div>
+</li>

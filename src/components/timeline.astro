@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-import { dateRangeSorter } from '@/utils/date-range-sorter';
+import { dateRangeSorter } from '@/utils/date-sorters';
 
 import TimelineItem from './timeline-item.astro';
 
@@ -12,7 +12,7 @@ interface Props {
 const { entries } = Astro.props;
 ---
 
-<div class="space-y-10">
+<ul class="space-y-10">
   {
     entries
       .map((entry) => ({
@@ -28,4 +28,4 @@ const { entries } = Astro.props;
         </>
       ))
   }
-</div>
+</ul>
