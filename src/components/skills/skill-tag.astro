@@ -35,12 +35,7 @@ const Description = body.trim().length > 0 && (await render()).Content;
         >
           <Icon name="fa6-solid:circle-info" class="size-4 text-color-icon-light" />
         </button>
-        <div
-          slot="popover"
-          class="prose max-w-96 rounded-lg border border-color-border bg-color-bg-card px-4 py-3 text-color-text-primary shadow-md"
-        >
-          <Description />
-        </div>
+        <Description />
       </Popover>
     )
   }

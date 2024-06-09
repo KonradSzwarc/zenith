@@ -25,6 +25,7 @@ export default {
 
         ['color-bg-body']: 'hsl(var(--bg-body) / <alpha-value>)',
         ['color-bg-card']: 'hsl(var(--bg-card) / <alpha-value>)',
+        ['color-bg-popover']: 'hsl(var(--bg-popover) / <alpha-value>)',
         ['color-bg-light']: 'hsl(var(--bg-light) / <alpha-value>)',
         ['color-bg-main']: 'hsl(var(--bg-main) / <alpha-value>)',
         ['color-bg-dark']: 'hsl(var(--bg-dark) / <alpha-value>)',

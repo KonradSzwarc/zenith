@@ -42,12 +42,7 @@ const textClass = cn('text-sm font-medium text-color-text-primary sm:text-base')
               class={cn(iconClass, 'text-color-icon-light transition-colors hover:text-color-icon-light/80')}
             />
           </button>
-          <div
-            slot="popover"
-            class="prose max-w-96 rounded-lg border border-color-border bg-color-bg-card px-4 py-3 text-color-text-primary shadow-md"
-          >
-            <Description />
-          </div>
+          <Description />
         </Popover>
       )
     }

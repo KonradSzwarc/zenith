@@ -3,21 +3,23 @@ import { nanoid } from 'nanoid';
 
 import { addElementAttributes } from '@/utils/element-attributes';
 
-const [trigger, popover] = await Promise.all([Astro.slots.render('trigger'), Astro.slots.render('popover')]);
+const trigger = await Astro.slots.render('trigger');
 
 if (!trigger) {
   throw new Error('Popover must have a trigger slot');
-}
-
-if (!popover) {
-  throw new Error('Popover must have a popover slot');
 }
 
 const id = nanoid();
 ---
 
 <Fragment set:html={addElementAttributes(trigger, { popovertarget: `popover-${id}` })} />
-<Fragment set:html={addElementAttributes(popover, { popover: true, id: `popover-${id}` })} />
+<div
+  popover
+  id={`popover-${id}`}
+  class="prose prose-sm max-w-[520px] rounded-lg border border-color-border bg-color-bg-popover px-4 py-3 shadow-md sm:prose-base dark:prose-invert"
+>
+  <slot />
+</div>
 
 <style is:global>
   [popover] {
