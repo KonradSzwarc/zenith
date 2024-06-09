@@ -17,8 +17,8 @@ const { details, class: className } = Astro.props;
   {
     details.map((detail) => (
       <div class="flex w-fit flex-wrap gap-1">
-        <dt class="font-semibold text-slate-900 after:content-[':']">{detail.label}</dt>
-        <dd class="text-slate-700" set:html={markdownToHtml(detail.value)} />
+        <dt class="font-semibold text-color-text-title after:content-[':']">{detail.label}</dt>
+        <dd class="text-color-text-primary" set:html={markdownToHtml(detail.value)} />
       </div>
     ))
   }

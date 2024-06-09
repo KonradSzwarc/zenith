@@ -1,34 +1,81 @@
 ---
-import BaseLayout from './base-layout.astro';
+import { context } from '@/context';
 ---
 
-<BaseLayout>
-  <Fragment slot="head">
+<!doctype html>
+<html lang={context.getLang()}>
+  <head>
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <slot name="head" />
-  </Fragment>
-
-  <slot />
-</BaseLayout>
+  </head>
+  <body class="bg-color-bg-body antialiased sm:p-6 md:p-8 lg:p-10">
+    <main class="mx-auto w-full max-w-screen-xl space-y-20 bg-color-bg-card p-6 shadow-2xl sm:rounded-3xl sm:p-10">
+      <slot />
+    </main>
+  </body>
+</html>
 
 <style is:global>
   :root {
-    --background: 210, 40%, 96%;
-    --foreground: 222.2 84% 4.9%;
+    /*---------------------------------
+      TYPOGRAPHY
+    ---------------------------------*/
 
-    font-feature-settings:
-      'liga' 1,
-      'calt' 1; /* fix for Chrome */
+    /* prettier-ignore */
+    font-feature-settings: 'liga' 1, 'calt' 1; /* Inter font fix for Chrome */
 
-    --font-sans: Inter;
+    --font-header: Inter;
+    --font-body: Inter;
     @supports (font-variation-settings: normal) {
-      --font-sans: InterVariable;
+      --font-header: InterVariable;
+      --font-body: InterVariable;
     }
-  }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /*---------------------------------
+      BASE COLORS
+    ---------------------------------*/
+
+    --white: 0 0% 100%;
+
+    /* Primary color */
+    --zenith: 243 75% 59%;
+    --zenith-light: 228 96% 89%;
+    --zenith-contrast-text: var(--white);
+
+    /* Grayscale colors */
+    --dusk-950: 229 84% 5%;
+    --dusk-900: 222 47% 11%;
+    --dusk-800: 217 33% 17%;
+    --dusk-700: 215 25% 27%;
+    --dusk-600: 215 19% 35%;
+    --dusk-500: 215 16% 47%;
+    --dusk-400: 215 20% 65%;
+    --dusk-300: 213 27% 84%;
+    --dusk-200: 214 32% 91%;
+    --dusk-100: 210 40% 96%;
+    --dusk-50: 210 40% 98%;
+
+    /*---------------------------------
+      FUNCTIONAL COLORS
+    ---------------------------------*/
+
+    --text-title: var(--dusk-900);
+    --text-primary: var(--dusk-700);
+    --text-secondary: var(--dusk-500);
+
+    --icon-light: var(--dusk-400);
+    --icon-main: var(--dusk-500);
+    --icon-dark: var(--dusk-600);
+
+    --border: var(--dusk-200);
+    --separator: var(--dusk-300);
+
+    --bg-body: var(--dusk-50);
+    --bg-card: var(--white);
+
+    --bg-light: var(--dusk-100);
+    --bg-main: var(--dusk-200);
+    --bg-dark: var(--dusk-500);
   }
 </style>

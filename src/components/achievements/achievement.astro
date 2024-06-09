@@ -26,24 +26,24 @@ const date = achievement.date && context.formatDate(achievement.date);
   <div class="flex items-start gap-3">
     {
       achievement.icon && (
-        <div class="hidden size-7 shrink-0 items-center justify-center rounded bg-slate-200 sm:flex">
-          <Icon name={achievement.icon} class="size-4 text-slate-600" />
+        <div class="hidden size-7 shrink-0 items-center justify-center rounded bg-color-bg-main sm:flex">
+          <Icon name={achievement.icon} class="size-4 text-color-icon-dark" />
         </div>
       )
     }
     <div>
-      <Linkable class="text-lg font-bold text-slate-900 sm:text-xl" href={achievement.url}>
+      <Linkable class="text-lg font-bold text-color-text-title sm:text-xl" href={achievement.url}>
         {achievement.name}
       </Linkable>
       {
         achievement.issuer && (
           <div
-            class="text-sm font-medium text-slate-900 sm:text-base"
+            class="text-sm font-medium text-color-text-title sm:text-base"
             set:html={removeTopElement(markdownToHtml(achievement.issuer))}
           />
         )
       }
-      {date && <div class="text-sm font-normal text-slate-700 sm:text-base">{date}</div>}
+      {date && <div class="text-sm font-normal text-color-text-primary sm:text-base">{date}</div>}
     </div>
   </div>
   <div class={cn(achievement.icon && 'lg:pl-10')}>

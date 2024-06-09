@@ -21,7 +21,7 @@ const { entries, class: className } = Astro.props;
       .map(({ achevementEntry }, i, arr) => (
         <>
           <Achievement {achevementEntry} />
-          {i < arr.length - 1 && <hr />}
+          {i < arr.length - 1 && <hr class="border-color-separator" />}
         </>
       ))
   }

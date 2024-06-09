@@ -46,8 +46,8 @@ const details = [
       )
     }
     <div class="mt-4 self-center text-center lg:ml-4 lg:mt-0 lg:space-y-0.5 lg:text-left">
-      <h1 class="text-2xl font-black text-slate-900 sm:text-3xl">{basics.name}</h1>
-      <h2 class="text-lg font-medium text-slate-700 sm:text-xl">{basics.label}</h2>
+      <h1 class="text-2xl font-black text-color-text-title sm:text-3xl">{basics.name}</h1>
+      <h2 class="text-lg font-medium text-color-text-title sm:text-xl">{basics.label}</h2>
     </div>
     <div class="mt-3 flex flex-col items-center gap-4 lg:ml-auto lg:mt-0 lg:flex-row lg:items-start lg:gap-3 lg:pl-4">
       <ul class="flex w-full gap-3">
@@ -57,11 +57,11 @@ const details = [
               <a
                 aria-label={social.label}
                 href={social.url}
-                class="flex h-8 min-w-8 items-center justify-center rounded bg-slate-200 transition-colors hover:bg-slate-300 lg:size-9"
+                class="flex h-8 min-w-8 items-center justify-center rounded bg-color-bg-main transition-colors hover:bg-color-bg-main/80 lg:size-9"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icon class="size-4 text-slate-600" name={social.icon} aria-hidden />
+                <Icon class="size-4 text-color-icon-dark" name={social.icon} aria-hidden />
               </a>
             </li>
           ))
@@ -71,7 +71,7 @@ const details = [
         basics.resume && (
           <a
             href={basics.resume.url}
-            class="flex h-9 items-center text-nowrap rounded-md bg-indigo-600 px-4 font-medium text-white transition-colors hover:bg-indigo-600/90"
+            class="flex h-9 items-center text-nowrap rounded-md bg-zenith px-4 font-medium text-zenith-contrast-text transition-colors hover:bg-zenith/90"
             download={basics.resume.filename}
           >
             {basics.resume.label}

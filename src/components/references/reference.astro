@@ -27,9 +27,9 @@ const relation = author.relation && removeTopElement(markdownToHtml(author.relat
   <div class="flex gap-4">
     {author.image && <Image class="size-14 rounded-full" src={author.image} alt={author.name} width={96} height={96} />}
     <div class="self-center">
-      <Linkable class="text-base font-bold text-slate-900 sm:text-lg" href={author.url}>{author.name}</Linkable>
-      {role && <div class="text-sm font-medium text-slate-900 sm:text-base" set:html={role} />}
-      {relation && <div class="text-sm font-normal text-slate-700 sm:text-base" set:html={relation} />}
+      <Linkable class="text-base font-bold text-color-text-title sm:text-lg" href={author.url}>{author.name}</Linkable>
+      {role && <div class="text-sm font-medium text-color-text-title sm:text-base" set:html={role} />}
+      {relation && <div class="text-sm font-normal text-color-text-primary sm:text-base" set:html={relation} />}
     </div>
   </div>
 </li>

@@ -24,26 +24,29 @@ const {
 const Description = body.trim().length > 0 && (await render()).Content;
 const subtitle = data.subtitle && removeTopElement(markdownToHtml(data.subtitle));
 const rootClass = cn(
-  'relative flex overflow-hidden rounded border border-slate-200 py-3 pl-4',
+  'relative flex overflow-hidden rounded border border-color-border py-3 pl-4',
   Description ? 'pr-8' : 'pr-4',
 );
 const url = withSource && new URL(data.url);
 ---
 
 <li class={rootClass}>
-  {icon && <Icon name={icon} class="my-0.5 -ml-1 mr-1.5 size-4 shrink-0 text-slate-600 sm:size-5" />}
+  {icon && <Icon name={icon} class="my-0.5 -ml-1 mr-1.5 size-4 shrink-0 text-color-icon-dark sm:size-5" />}
   <div class="flex w-full flex-col">
-    <Linkable class="text-sm font-medium leading-snug text-slate-900 sm:text-base" href={data.url}>
+    <Linkable class="text-sm font-medium leading-snug text-color-text-title sm:text-base" href={data.url}>
       {data.title}
     </Linkable>
     {
       subtitle && (
-        <div class="mt-0.5 text-sm text-slate-700 sm:text-base [&_a:not(:hover)]:no-underline" set:html={subtitle} />
+        <div
+          class="mt-0.5 text-sm text-color-text-primary sm:text-base [&_a:not(:hover)]:no-underline"
+          set:html={subtitle}
+        />
       )
     }
     {
       url && (
-        <Linkable class={cn('ml-auto text-sm text-slate-500', Description && '-mr-4')} href={url.origin}>
+        <Linkable class={cn('ml-auto text-sm text-color-text-secondary', Description && '-mr-4')} href={url.origin}>
           {url.hostname}
         </Linkable>
       )
@@ -55,13 +58,13 @@ const url = withSource && new URL(data.url);
         <Popover>
           <button
             slot="trigger"
-            class="absolute -right-px -top-px flex size-6 items-center justify-center rounded-bl bg-slate-200 transition-colors hover:bg-slate-300/80"
+            class="absolute -right-px -top-px flex size-6 items-center justify-center rounded-bl bg-color-bg-main transition-colors hover:bg-slate-300/80"
           >
-            <Icon name="fa6-solid:info" class="size-3 text-slate-500" />
+            <Icon name="fa6-solid:info" class="size-3 text-color-icon-main" />
           </button>
           <div
             slot="popover"
-            class="prose max-w-96 rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 shadow-md"
+            class="prose max-w-96 rounded-lg border border-color-border bg-color-bg-card px-4 py-3 text-color-text-primary shadow-md"
           >
             <Description />
           </div>

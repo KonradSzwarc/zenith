@@ -15,10 +15,10 @@ const {
 const Description = body.trim().length > 0 && (await render()).Content;
 ---
 
-<li class="flex flex-wrap gap-6 rounded border border-slate-200 bg-slate-50 px-3 py-2 sm:px-4 sm:py-3">
+<li class="flex flex-wrap gap-6 rounded border border-color-border px-3 py-2 sm:px-4 sm:py-3">
   <div class="flex items-center gap-2">
-    {interest.icon && <Icon name={interest.icon} class="size-5 text-slate-600" />}
-    <div class="text-sm font-medium text-slate-900 sm:text-base">
+    {interest.icon && <Icon name={interest.icon} class="size-5 text-color-icon-dark" />}
+    <div class="text-sm font-medium text-color-text-primary sm:text-base">
       {interest.name}
     </div>
   </div>
@@ -26,11 +26,14 @@ const Description = body.trim().length > 0 && (await render()).Content;
     Description && (
       <Popover>
         <button slot="trigger" class="ml-auto">
-          <Icon name="fa6-solid:circle-info" class="text-slate-400 transition-colors hover:text-slate-400/80" />
+          <Icon
+            name="fa6-solid:circle-info"
+            class="text-color-icon-light transition-colors hover:text-color-icon-light/80"
+          />
         </button>
         <div
           slot="popover"
-          class="prose max-w-96 rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 shadow-md"
+          class="prose max-w-96 rounded-lg border border-color-border bg-color-bg-card px-4 py-3 text-color-text-primary shadow-md"
         >
           <Description />
         </div>

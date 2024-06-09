@@ -19,11 +19,11 @@ const Description = body.trim().length > 0 && (await render()).Content;
 ---
 
 <li
-  class="flex items-center gap-2 overflow-hidden rounded bg-slate-100 pl-2"
+  class="flex items-center gap-2 overflow-hidden rounded bg-color-bg-light pl-2"
   style={skill.color && { color: skill.color }}
 >
   {skill.icon && <Icon name={skill.icon} class="size-4" />}
-  <Linkable class={cn('py-1 text-sm font-medium text-slate-700', !Description && 'pr-2')} href={skill.url}>
+  <Linkable class={cn('py-1 text-sm font-medium text-color-text-primary', !Description && 'pr-2')} href={skill.url}>
     {skill.name}
   </Linkable>
   {
@@ -31,13 +31,13 @@ const Description = body.trim().length > 0 && (await render()).Content;
       <Popover>
         <button
           slot="trigger"
-          class="group flex size-7 items-center justify-center bg-slate-200 transition-colors hover:bg-slate-300/80"
+          class="group flex size-7 items-center justify-center bg-color-bg-main transition-colors hover:bg-color-bg-main/80"
         >
-          <Icon name="fa6-solid:circle-info" class="size-4 text-slate-400" />
+          <Icon name="fa6-solid:circle-info" class="size-4 text-color-icon-light" />
         </button>
         <div
           slot="popover"
-          class="prose max-w-96 rounded-lg border border-slate-200 bg-white px-4 py-3 text-slate-700 shadow-md"
+          class="prose max-w-96 rounded-lg border border-color-border bg-color-bg-card px-4 py-3 text-color-text-primary shadow-md"
         >
           <Description />
         </div>

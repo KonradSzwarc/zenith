@@ -15,7 +15,7 @@ const { entries } = Astro.props;
     entries.map((referenceEntry, i, arr) => (
       <>
         <Reference {referenceEntry} />
-        {i < arr.length - 1 && <hr />}
+        {i < arr.length - 1 && <hr class="border-color-separator" />}
       </>
     ))
   }

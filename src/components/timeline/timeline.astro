@@ -24,7 +24,7 @@ const { entries } = Astro.props;
       .map(({ entry }, i, arr) => (
         <>
           <TimelineItem {entry} />
-          {i < arr.length - 1 && <hr />}
+          {i < arr.length - 1 && <hr class="border-color-separator" />}
         </>
       ))
   }
