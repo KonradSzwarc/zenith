@@ -1,4 +1,5 @@
 ---
+import ThemeSwitcher from '@/components/theme-switcher.astro';
 import { context } from '@/context';
 ---
 
@@ -13,6 +14,7 @@ import { context } from '@/context';
     <main class="mx-auto w-full max-w-screen-xl space-y-20 bg-color-bg-card p-6 shadow-2xl sm:rounded-3xl sm:p-10">
       <slot />
     </main>
+    <ThemeSwitcher />
   </body>
 </html>
 
@@ -36,14 +38,6 @@ import { context } from '@/context';
       BASE COLORS
     ---------------------------------*/
 
-    --white: 0 0% 100%;
-
-    /* Primary color */
-    --zenith: 243 75% 59%;
-    --zenith-light: 228 96% 89%;
-    --zenith-contrast-text: var(--white);
-
-    /* Grayscale colors */
     --dusk-950: 229 84% 5%;
     --dusk-900: 222 47% 11%;
     --dusk-800: 217 33% 17%;
@@ -55,10 +49,15 @@ import { context } from '@/context';
     --dusk-200: 214 32% 91%;
     --dusk-100: 210 40% 96%;
     --dusk-50: 210 40% 98%;
+    --white: 0 0% 100%;
 
     /*---------------------------------
       FUNCTIONAL COLORS
     ---------------------------------*/
+
+    --primary: 243 75% 59%;
+    --primary-light: 228 96% 89%;
+    --primary-contrast: var(--white);
 
     --text-title: var(--dusk-900);
     --text-primary: var(--dusk-700);
@@ -77,5 +76,29 @@ import { context } from '@/context';
     --bg-light: var(--dusk-100);
     --bg-main: var(--dusk-200);
     --bg-dark: var(--dusk-500);
+
+    &.dark {
+      --primary: 243 75% 59%;
+      --primary-light: 244 55% 41%;
+      --primary-contrast: var(--white);
+
+      --text-title: var(--white);
+      --text-primary: var(--dusk-50);
+      --text-secondary: var(--dusk-100);
+
+      --icon-light: var(--dusk-500);
+      --icon-main: var(--dusk-400);
+      --icon-dark: var(--dusk-300);
+
+      --border: var(--dusk-800);
+      --separator: var(--dusk-700);
+
+      --bg-body: var(--dusk-950);
+      --bg-card: var(--dusk-900);
+
+      --bg-light: var(--dusk-800);
+      --bg-main: var(--dusk-700);
+      --bg-dark: var(--dusk-400);
+    }
   }
 </style>

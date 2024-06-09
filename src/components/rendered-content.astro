@@ -14,7 +14,10 @@ const { Content } = await render();
 ---
 
 <div
-  class={cn('prose prose-sm prose-slate max-w-none text-justify sm:prose-base prose-ul:ps-4 prose-li:ps-0', className)}
+  class={cn(
+    'prose prose-sm max-w-none text-justify sm:prose-base dark:prose-invert prose-ul:ps-4 prose-li:ps-0',
+    className,
+  )}
 >
   <Content />
 </div>
