@@ -18,11 +18,8 @@ const {
 const Description = body.trim().length > 0 && (await render()).Content;
 ---
 
-<li
-  class="flex items-center gap-2 overflow-hidden rounded bg-color-bg-light pl-2"
-  style={skill.color && { color: skill.color }}
->
-  {skill.icon && <Icon name={skill.icon} class="size-4" />}
+<li class="flex items-center gap-2 overflow-hidden rounded bg-color-bg-light pl-2">
+  {skill.icon && <Icon name={skill.icon} class="size-4" color={skill.color} />}
   <Linkable class={cn('py-1 text-sm font-medium text-color-text-primary', !Description && 'pr-2')} href={skill.url}>
     {skill.name}
   </Linkable>

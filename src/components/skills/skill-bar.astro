@@ -27,9 +27,9 @@ const iconClass = cn('my-0.5 size-4 sm:my-1');
 const textClass = cn('text-sm font-medium text-color-text-primary sm:text-base');
 ---
 
-<li class="flex flex-col gap-1.5" style={skill.color && { color: skill.color }}>
+<li class="flex flex-col gap-1.5">
   <div class="flex items-start gap-1.5">
-    {skill.icon && <Icon name={skill.icon} class={iconClass} />}
+    {skill.icon && <Icon name={skill.icon} color={skill.color} class={iconClass} />}
     <Linkable class={textClass} href={skill.url}>
       {skill.name}
     </Linkable>

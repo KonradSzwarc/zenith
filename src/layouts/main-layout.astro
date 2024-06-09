@@ -55,30 +55,36 @@ import { context } from '@/context';
       FUNCTIONAL COLORS
     -----------------------------*/
 
-    --primary: 243 75% 59%;
-    --primary-light: 228 96% 89%;
-    --primary-contrast: var(--white);
+    &:not(.dark) {
+      color-scheme: light;
 
-    --text-title: var(--dusk-900);
-    --text-primary: var(--dusk-700);
-    --text-secondary: var(--dusk-500);
+      --primary: 243 75% 59%;
+      --primary-light: 228 96% 89%;
+      --primary-contrast: var(--white);
 
-    --icon-light: var(--dusk-400);
-    --icon-main: var(--dusk-500);
-    --icon-dark: var(--dusk-600);
+      --text-title: var(--dusk-900);
+      --text-primary: var(--dusk-700);
+      --text-secondary: var(--dusk-500);
 
-    --border: var(--dusk-200);
-    --separator: var(--dusk-300);
+      --icon-light: var(--dusk-400);
+      --icon-main: var(--dusk-500);
+      --icon-dark: var(--dusk-600);
 
-    --bg-body: var(--dusk-50);
-    --bg-card: var(--white);
-    --bg-popover: var(--white);
+      --border: var(--dusk-200);
+      --separator: var(--dusk-300);
 
-    --bg-light: var(--dusk-100);
-    --bg-main: var(--dusk-200);
-    --bg-dark: var(--dusk-500);
+      --bg-body: var(--dusk-50);
+      --bg-card: var(--white);
+      --bg-popover: var(--white);
+
+      --bg-light: var(--dusk-100);
+      --bg-main: var(--dusk-200);
+      --bg-dark: var(--dusk-500);
+    }
 
     &.dark {
+      color-scheme: dark;
+
       --primary: 243 75% 59%;
       --primary-light: 243 75% 59%;
       --primary-contrast: var(--white);

@@ -7,9 +7,11 @@ import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props extends ComponentProps<typeof AstroIcon> {
   name: string;
+  color?: string;
+  style?: Record<string, unknown>;
 }
 
-const { name, ...props } = Astro.props;
+const { name, color, ...props } = Astro.props;
 
 async function getIconData() {
   /** Is a path of an icon placed in src/icons. */
@@ -22,6 +24,16 @@ async function getIconData() {
     throw new Error(
       `Invalid icon name: ${name}. Remote icons must be in "set:icon" format. Local icons cannot contain ":" in their name.`,
     );
+  }
+
+  if (color) {
+    if (!props.style) {
+      props.style = {};
+    }
+
+    const [light, dark] = color.split('|');
+
+    props.style.color = `light-dark(${light}, ${dark || light})`;
   }
 
   if (isLocalIcon) {
@@ -42,7 +54,7 @@ const data = await getIconData();
 
 {
   data.name ? (
-    <AstroIcon name={data.name} {...props} />
+    <AstroIcon name={data.name} {...data.props} />
   ) : (
     <svg {...data.props}>
       <Fragment set:html={data.content} />
