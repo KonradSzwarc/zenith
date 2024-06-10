@@ -1,11 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
+import { Icon } from '@/components/icon';
+import Linkable from '@/components/linkable.astro';
+import Popover from '@/components/popover.astro';
 import { cn } from '@/utils/cn';
-
-import Icon from '../icon.astro';
-import Linkable from '../linkable.astro';
-import Popover from '../popover.astro';
 
 interface Props {
   skillEntry: CollectionEntry<'skills'>;

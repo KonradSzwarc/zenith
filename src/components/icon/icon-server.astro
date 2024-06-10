@@ -1,0 +1,19 @@
+---
+import { getElementAttributes } from '@/utils/element-attributes';
+import { removeTopElement } from '@/utils/remove-top-element';
+
+import type { IconProps } from './icon.types';
+
+interface Props extends IconProps {
+  set: string;
+  icon: string;
+}
+
+const { set, icon, ...props } = Astro.props;
+
+const svg = await fetch(`https://api.iconify.design/${set}/${icon}.svg`).then((res) => res.text());
+---
+
+<svg {...getElementAttributes(svg)} {...props}>
+  <Fragment set:html={removeTopElement(svg)} />
+</svg>

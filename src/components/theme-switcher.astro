@@ -1,13 +1,13 @@
 ---
-import Icon from './icon.astro';
+import { Icon } from '@/components/icon';
 ---
 
 <button
   id="theme-switch-button"
   class="fixed bottom-5 right-5 rounded-full border border-color-border bg-color-bg-card p-3 text-color-icon-dark shadow"
 >
-  <Icon data-mode="light" name="lucide:sun" class="hidden size-5 dark:block" />
-  <Icon data-mode="dark" name="lucide:moon" class="block size-5 dark:hidden" />
+  <Icon data-mode="light" name="lucide:sun" class="hidden size-5 dark:flex" />
+  <Icon data-mode="dark" name="lucide:moon" class="flex size-5 dark:hidden" />
 </button>
 
 <script is:inline>

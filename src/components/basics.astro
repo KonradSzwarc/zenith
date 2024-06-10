@@ -3,10 +3,10 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { intervalToDuration } from 'date-fns';
 
+import { Icon } from '@/components/icon';
 import { joinNonEmpty } from '@/utils/join-non-empty';
 
 import Details from './details.astro';
-import Icon from './icon.astro';
 import RenderedContent from './rendered-content.astro';
 
 interface Props {
