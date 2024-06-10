@@ -3,6 +3,7 @@ import { getElementAttributes } from '@/utils/element-attributes';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 import type { IconProps } from './icon.types';
+import { iconsStore } from './icons-store';
 
 interface Props extends IconProps {
   set: string;
@@ -11,9 +12,18 @@ interface Props extends IconProps {
 
 const { set, icon, ...props } = Astro.props;
 
-const svg = await fetch(`https://api.iconify.design/${set}/${icon}.svg`).then((res) => res.text());
+const svg = await iconsStore.get(set, icon);
 ---
 
-<svg {...getElementAttributes(svg)} {...props}>
-  <Fragment set:html={removeTopElement(svg)} />
-</svg>
+{
+  svg.isFirst ? (
+    <svg {...getElementAttributes(svg.element)} {...props}>
+      <symbol id={svg.key} set:html={removeTopElement(svg.element)} />
+      <use xlink:href={`#${svg.key}`} />
+    </svg>
+  ) : (
+    <svg {...getElementAttributes(svg.element)} {...props}>
+      <use xlink:href={`#${svg.key}`} />
+    </svg>
+  )
+}
