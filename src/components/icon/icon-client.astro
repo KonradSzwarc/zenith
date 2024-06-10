@@ -12,7 +12,7 @@ const { set, icon, class: className, ...props } = Astro.props;
 const finalClass = cn('flex items-center justify-center', className);
 ---
 
-<iconify-icon icon={`${set}:${icon}`} class={finalClass} {...props}></iconify-icon>
+<iconify-icon icon={`${set}:${icon}`} class={finalClass} height="none" {...props}></iconify-icon>
 
 <script>
   import 'iconify-icon';
