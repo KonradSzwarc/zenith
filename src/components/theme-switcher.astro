@@ -1,24 +1,31 @@
 ---
 import { Icon } from '@/components/icon';
+import { context } from '@/context';
+
+const themeConfig = context.getTheme();
 ---
 
-<button
-  id="theme-switch-button"
-  class="fixed bottom-5 right-5 rounded-full border border-color-border bg-color-bg-card p-3 text-color-icon-dark shadow"
->
-  <Icon data-mode="light" name="lucide:sun" class="hidden size-5 dark:flex" />
-  <Icon data-mode="dark" name="lucide:moon" class="flex size-5 dark:hidden" />
-</button>
+{
+  themeConfig === 'custom' && (
+    <button
+      id="theme-switch-button"
+      class="fixed bottom-5 right-5 rounded-full border border-color-border bg-color-bg-card p-3 text-color-icon-dark shadow"
+    >
+      <Icon data-mode="light" name="lucide:sun" class="hidden size-5 dark:flex" />
+      <Icon data-mode="dark" name="lucide:moon" class="flex size-5 dark:hidden" />
+    </button>
+  )
+}
 
-<script is:inline>
+<script is:inline define:vars={{ themeConfig }}>
   const theme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+    if (themeConfig === 'light' || themeConfig === 'dark') {
+      return themeConfig;
+    }
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme') && themeConfig !== 'system') {
       return localStorage.getItem('theme');
     }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   })();
 
   if (theme === 'light') {
@@ -27,15 +34,17 @@ import { Icon } from '@/components/icon';
     document.documentElement.classList.add('dark');
   }
 
-  window.localStorage.setItem('theme', theme);
+  if (themeConfig === 'custom') {
+    window.localStorage.setItem('theme', theme);
 
-  const handleToggleClick = () => {
-    const element = document.documentElement;
-    element.classList.toggle('dark');
+    const handleToggleClick = () => {
+      const element = document.documentElement;
+      element.classList.toggle('dark');
 
-    const isDark = element.classList.contains('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  };
+      const isDark = element.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    };
 
-  document.getElementById('theme-switch-button').addEventListener('click', handleToggleClick);
+    document.getElementById('theme-switch-button').addEventListener('click', handleToggleClick);
+  }
 </script>

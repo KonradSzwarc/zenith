@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 interface State {
   locale: Locale;
   dateFormat: string;
+  theme: 'light' | 'dark' | 'system' | 'custom';
   iconStore: Map<string, string | Promise<string>>;
 }
 
@@ -16,9 +17,10 @@ function createContext() {
     }
   }
 
-  function initialize({ locale, dateFormat }: Omit<State, 'iconStore'>) {
+  function initialize({ locale, dateFormat, theme }: Omit<State, 'iconStore'>) {
     state.locale = locale;
     state.dateFormat = dateFormat;
+    state.theme = theme;
     state.iconStore = new Map<string, string | Promise<string>>();
   }
 
@@ -40,7 +42,13 @@ function createContext() {
     return state.iconStore;
   }
 
-  return { initialize, formatDate, getLang, getIconStore };
+  function getTheme() {
+    assertInitialized();
+
+    return state.theme;
+  }
+
+  return { initialize, formatDate, getLang, getIconStore, getTheme };
 }
 
 export const context = createContext();
