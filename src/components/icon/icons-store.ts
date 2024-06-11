@@ -13,16 +13,15 @@ function createIconsStore() {
   const id = nanoid(8);
 
   async function get(set: string, icon: string) {
-    const store = context.getIconStore();
     const key = `${set}:${icon}-${id}`;
 
-    if (store.has(key)) {
-      return { key, isFirst: false, element: await store.get(key)! };
+    if (context.iconStore.has(key)) {
+      return { key, isFirst: false, element: await context.iconStore.get(key)! };
     }
 
-    store.set(key, fetchIcon(set, icon));
+    context.iconStore.set(key, fetchIcon(set, icon));
 
-    return { key, isFirst: true, element: await context.getIconStore().get(key)! };
+    return { key, isFirst: true, element: await context.iconStore.get(key)! };
   }
 
   return { get };

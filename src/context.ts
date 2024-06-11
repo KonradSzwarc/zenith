@@ -8,47 +8,45 @@ interface State {
   iconStore: Map<string, string | Promise<string>>;
 }
 
-function createContext() {
-  const state: State = {} as State;
+class Context {
+  private state: State = {} as State;
 
-  function assertInitialized() {
-    if (Object.keys(state).length === 0) {
+  private assertInitialized() {
+    if (Object.keys(this.state).length === 0) {
       throw new Error('Context not initialized');
     }
   }
 
-  function initialize({ locale, dateFormat, theme }: Omit<State, 'iconStore'>) {
-    state.locale = locale;
-    state.dateFormat = dateFormat;
-    state.theme = theme;
-    state.iconStore = new Map<string, string | Promise<string>>();
+  initialize(data: Omit<State, 'iconStore'>) {
+    this.state = {
+      ...data,
+      iconStore: new Map<string, string | Promise<string>>(),
+    };
   }
 
-  function formatDate(date: Date) {
-    assertInitialized();
+  formatDate(date: Date) {
+    this.assertInitialized();
 
-    return format(date, state.dateFormat, { locale: state.locale });
+    return format(date, this.state.dateFormat, { locale: this.state.locale });
   }
 
-  function getLang() {
-    assertInitialized();
+  get lang() {
+    this.assertInitialized();
 
-    return state.locale.code;
+    return this.state.locale.code;
   }
 
-  function getIconStore() {
-    assertInitialized();
+  get iconStore() {
+    this.assertInitialized();
 
-    return state.iconStore;
+    return this.state.iconStore;
   }
 
-  function getTheme() {
-    assertInitialized();
+  get theme() {
+    this.assertInitialized();
 
-    return state.theme;
+    return this.state.theme;
   }
-
-  return { initialize, formatDate, getLang, getIconStore, getTheme };
 }
 
-export const context = createContext();
+export const context = new Context();

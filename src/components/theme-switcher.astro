@@ -1,12 +1,10 @@
 ---
 import { Icon } from '@/components/icon';
 import { context } from '@/context';
-
-const themeConfig = context.getTheme();
 ---
 
 {
-  themeConfig === 'custom' && (
+  context.theme === 'custom' && (
     <button
       id="theme-switch-button"
       class="fixed bottom-5 right-5 rounded-full border border-color-border bg-color-bg-card p-3 text-color-icon-dark shadow"
@@ -17,7 +15,7 @@ const themeConfig = context.getTheme();
   )
 }
 
-<script is:inline define:vars={{ themeConfig }}>
+<script is:inline define:vars={{ themeConfig: context.theme }}>
   const theme = (() => {
     if (themeConfig === 'light' || themeConfig === 'dark') {
       return themeConfig;
