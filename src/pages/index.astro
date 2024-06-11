@@ -58,9 +58,6 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
       <Skills entries={languageSkills} />
     </Subsection>
   </Section>
-  <Section title="Education">
-    <Timeline entries={education} />
-  </Section>
   <Section title="Work">
     <Timeline entries={work} />
   </Section>
@@ -72,6 +69,9 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
   </Section>
   <Section title="Achievements">
     <Achievements entries={achievements} class="space-y-8" />
+  </Section>
+  <Section title="Education">
+    <Timeline entries={education} />
   </Section>
   <Section title="Favorites" contentClass="space-y-10">
     <Subsection title="Books I read">
