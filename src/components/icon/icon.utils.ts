@@ -19,15 +19,3 @@ export async function getIconData(name: string) {
 
   return { type: 'remote', set, icon } as const;
 }
-
-export function getStylesWithColor(color?: string, style?: Record<string, unknown>): Record<string, unknown> {
-  if (!color) return style || {};
-
-  const newStyle = style ? { ...style } : {};
-
-  const [light, dark] = color.split('|');
-
-  newStyle.color = `light-dark(${light}, ${dark || light})`;
-
-  return newStyle;
-}

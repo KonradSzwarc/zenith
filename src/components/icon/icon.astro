@@ -1,6 +1,6 @@
 ---
 import type { IconProps } from './icon.types';
-import { getIconData, getStylesWithColor } from './icon.utils';
+import { getIconData } from './icon.utils';
 import IconClient from './icon-client.astro';
 import IconLocal from './icon-local.astro';
 import IconServer from './icon-server.astro';
@@ -8,13 +8,11 @@ import IconServer from './icon-server.astro';
 interface Props extends IconProps {
   name: string;
   loading?: 'lazy' | 'eager';
-  color?: string;
 }
 
-const { name, loading = 'lazy', color, ...props } = Astro.props;
+const { name, loading = 'lazy', ...props } = Astro.props;
 
 const icon = await getIconData(name);
-props.style = getStylesWithColor(color, props.style);
 ---
 
 {
