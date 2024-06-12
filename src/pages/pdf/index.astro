@@ -12,14 +12,13 @@ import Section from '@/components/section.astro';
 import { Skills } from '@/components/skills';
 import Subsection from '@/components/subsection.astro';
 import { Timeline } from '@/components/timeline';
-import { context } from '@/context';
 import MainLayout from '@/pdf/layouts/main-layout.astro';
+import { initializePdfContext } from '@/pdf/utils/initialize-pdf-context';
 import { selectEntriesBySlug, selectEntriesBySlugPrefix } from '@/utils/select-entries-by-slug';
 
-context.initialize({
+initializePdfContext(Astro, {
   locale: enUS,
   dateFormat: 'MMMM yyyy',
-  theme: 'light',
 });
 
 const metadata = await getEntry('metadata', 'main');

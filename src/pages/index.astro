@@ -12,11 +12,11 @@ import Section from '@/components/section.astro';
 import { Skills } from '@/components/skills';
 import Subsection from '@/components/subsection.astro';
 import { Timeline } from '@/components/timeline';
-import { context } from '@/context';
 import MainLayout from '@/layouts/main-layout.astro';
+import { initializePageContext } from '@/utils/initialize-page-context';
 import { selectEntriesBySlug, selectEntriesBySlugPrefix } from '@/utils/select-entries-by-slug';
 
-context.initialize({
+initializePageContext(Astro, {
   locale: enUS,
   dateFormat: 'MMMM yyyy',
   theme: 'custom',

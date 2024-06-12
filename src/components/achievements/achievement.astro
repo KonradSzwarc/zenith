@@ -3,8 +3,8 @@ import type { CollectionEntry } from 'astro:content';
 
 import { Icon } from '@/components/icon';
 import { RelatedSkills } from '@/components/skills';
-import { context } from '@/context';
 import { cn } from '@/utils/cn';
+import { formatDate } from '@/utils/format-date';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
@@ -19,7 +19,7 @@ const {
   achevementEntry: { data: achievement, body, render },
 } = Astro.props;
 
-const date = achievement.date && context.formatDate(achievement.date);
+const date = achievement.date && formatDate(achievement.date, Astro);
 ---
 
 <li class="grid gap-2">

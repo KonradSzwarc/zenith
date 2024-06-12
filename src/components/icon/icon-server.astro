@@ -12,7 +12,7 @@ interface Props extends IconProps {
 
 const { set, icon, ...props } = Astro.props;
 
-const svg = await iconsStore.get(set, icon);
+const svg = await iconsStore.get(set, icon, Astro);
 ---
 
 {

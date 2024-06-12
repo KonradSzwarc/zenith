@@ -1,9 +1,12 @@
 ---
-import { context } from '@/context';
+import type { ContextSlice } from '@/types/context';
+import { getGlobalContext } from '@/utils/get-global-context';
+
+const context = getGlobalContext<ContextSlice<'locale'>>(Astro);
 ---
 
 <!doctype html>
-<html lang={context.lang}>
+<html lang={context.locale.code}>
   <head>
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />

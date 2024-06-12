@@ -1,6 +1,9 @@
 ---
 import { Icon } from '@/components/icon';
-import { context } from '@/context';
+import type { ContextSlice } from '@/types/context';
+import { getGlobalContext } from '@/utils/get-global-context';
+
+const context = getGlobalContext<ContextSlice<'theme'>>(Astro);
 ---
 
 {

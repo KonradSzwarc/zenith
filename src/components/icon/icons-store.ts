@@ -1,6 +1,8 @@
+import type { AstroGlobal } from 'astro';
 import { nanoid } from 'nanoid';
 
-import { context } from '@/context';
+import type { ContextSlice } from '@/types/context';
+import { getGlobalContext } from '@/utils/get-global-context';
 
 /**
  * Store used for server icons. Allows to:
@@ -12,7 +14,8 @@ export const iconsStore = createIconsStore();
 function createIconsStore() {
   const id = nanoid(8);
 
-  async function get(set: string, icon: string) {
+  async function get(set: string, icon: string, astro: AstroGlobal) {
+    const context = getGlobalContext<ContextSlice<'iconStore'>>(astro);
     const key = `${set}:${icon}-${id}`;
 
     if (context.iconStore.has(key)) {
