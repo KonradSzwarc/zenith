@@ -1,0 +1,81 @@
+---
+import { context } from '@/context';
+---
+
+<!doctype html>
+<html lang={context.lang}>
+  <head>
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <slot name="head" />
+  </head>
+  <body class="bg-color-bg-card antialiased">
+    <main class="mx-auto w-[720px] space-y-20">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    /*-----------------------------
+      TYPOGRAPHY
+    -----------------------------*/
+
+    /* prettier-ignore */
+    font-feature-settings: 'liga' 1, 'calt' 1; /* Inter font fix for Chrome */
+
+    --font-header: Inter;
+    --font-body: Inter;
+    @supports (font-variation-settings: normal) {
+      --font-header: InterVariable;
+      --font-body: InterVariable;
+    }
+
+    /*-----------------------------
+      BASE COLORS
+    -----------------------------*/
+
+    --dusk-950: 229 84% 5%;
+    --dusk-900: 222 47% 11%;
+    --dusk-800: 217 33% 17%;
+    --dusk-700: 215 25% 27%;
+    --dusk-600: 215 19% 35%;
+    --dusk-500: 215 16% 47%;
+    --dusk-400: 215 20% 65%;
+    --dusk-300: 213 27% 84%;
+    --dusk-200: 214 32% 91%;
+    --dusk-100: 210 40% 96%;
+    --dusk-50: 210 40% 98%;
+    --white: 0 0% 100%;
+
+    /*-----------------------------
+      FUNCTIONAL COLORS
+    -----------------------------*/
+
+    color-scheme: light;
+
+    --primary: 243 75% 59%;
+    --primary-light: 228 96% 89%;
+    --primary-contrast: var(--white);
+
+    --text-title: var(--dusk-900);
+    --text-primary: var(--dusk-700);
+    --text-secondary: var(--dusk-500);
+
+    --icon-light: var(--dusk-400);
+    --icon-main: var(--dusk-500);
+    --icon-dark: var(--dusk-600);
+
+    --border: var(--dusk-200);
+    --separator: var(--dusk-300);
+
+    --bg-body: var(--dusk-50);
+    --bg-card: var(--white);
+    --bg-popover: var(--white);
+
+    --bg-light: var(--dusk-100);
+    --bg-main: var(--dusk-200);
+    --bg-dark: var(--dusk-500);
+  }
+</style>

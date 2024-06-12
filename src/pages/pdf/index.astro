@@ -1,0 +1,91 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { enUS } from 'date-fns/locale';
+
+import { Achievements } from '@/components/achievements';
+import Basics from '@/components/basics.astro';
+import { Favorites } from '@/components/favorites';
+import { Interests } from '@/components/interests';
+import Metadata from '@/components/metadata.astro';
+import { References } from '@/components/references';
+import Section from '@/components/section.astro';
+import { Skills } from '@/components/skills';
+import Subsection from '@/components/subsection.astro';
+import { Timeline } from '@/components/timeline';
+import { context } from '@/context';
+import MainLayout from '@/pdf/layouts/main-layout.astro';
+import { selectEntriesBySlug, selectEntriesBySlugPrefix } from '@/utils/select-entries-by-slug';
+
+context.initialize({
+  locale: enUS,
+  dateFormat: 'MMMM yyyy',
+  theme: 'light',
+});
+
+const metadata = await getEntry('metadata', 'main');
+const basics = await getEntry('basics', 'main');
+const socials = await getCollection('socials');
+
+const skills = await getCollection('skills');
+// prettier-ignore
+const technicalSkills = selectEntriesBySlug(skills, ['astro', 'drizzle-orm', 'eslint', 'next', 'playwright', 'postgresql', 'react-testing-library', 'react', 'shadcn', 'tailwind', 'tanstack-query', 'trpc', 'typescript', 'vitest']);
+const toolSkills = selectEntriesBySlug(skills, ['neon', 'sentry', 'stripe', 'vercel']);
+const languageSkills = selectEntriesBySlug(skills, ['english', 'spanish']);
+
+const education = await getCollection('education');
+const work = await getCollection('work');
+const projects = await getCollection('projects');
+const references = await getCollection('references');
+const achievements = await getCollection('achievements');
+const interests = await getCollection('interests');
+
+const favorites = await getCollection('favorites');
+const bookFavorites = selectEntriesBySlugPrefix(favorites, 'books');
+const articleFavorites = selectEntriesBySlugPrefix(favorites, 'articles');
+const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
+---
+
+<MainLayout>
+  <Metadata metadataEntry={metadata} slot="head" />
+  <Basics basicsEntry={basics} socialEntries={socials} />
+  <Section title="Skills" contentClass="space-y-8">
+    <Subsection title="Technologies">
+      <Skills withLevel entries={technicalSkills} />
+    </Subsection>
+    <Subsection title="Tools">
+      <Skills entries={toolSkills} />
+    </Subsection>
+    <Subsection title="Languages">
+      <Skills entries={languageSkills} />
+    </Subsection>
+  </Section>
+  <Section title="Work">
+    <Timeline entries={work} />
+  </Section>
+  <Section title="Projects">
+    <Timeline entries={projects} />
+  </Section>
+  <Section title="References">
+    <References entries={references} />
+  </Section>
+  <Section title="Achievements">
+    <Achievements entries={achievements} class="space-y-8" />
+  </Section>
+  <Section title="Education">
+    <Timeline entries={education} />
+  </Section>
+  <Section title="Favorites" contentClass="space-y-10">
+    <Subsection title="Books I read">
+      <Favorites entries={bookFavorites} icon="material-symbols:book-2" class="lg:grid-cols-2" />
+    </Subsection>
+    <Subsection title="Articles I come back to">
+      <Favorites withSource entries={articleFavorites} icon="material-symbols:article" class="lg:grid-cols-2" />
+    </Subsection>
+    <Subsection title="People I learn from">
+      <Favorites entries={peopleFavorites} icon="material-symbols:person" class="md:grid-cols-2 lg:grid-cols-3" />
+    </Subsection>
+  </Section>
+  <Section title="Interests">
+    <Interests entries={interests} />
+  </Section>
+</MainLayout>
