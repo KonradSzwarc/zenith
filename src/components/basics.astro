@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { intervalToDuration } from 'date-fns';
 
@@ -7,6 +6,7 @@ import { Icon } from '@/components/icon';
 import { joinNonEmpty } from '@/utils/join-non-empty';
 
 import Details from './details.astro';
+import Img from './img.astro';
 import RenderedContent from './rendered-content.astro';
 
 interface Props {
@@ -35,7 +35,7 @@ const details = [
   <div class="flex flex-col items-center lg:flex-row lg:items-start">
     {
       basics.image && (
-        <Image
+        <Img
           loading="eager"
           class="size-28 h-fit rounded-xl lg:size-20"
           src={basics.image}

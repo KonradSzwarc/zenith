@@ -1,0 +1,17 @@
+---
+import type { ComponentProps } from 'astro/types';
+import { Image } from 'astro:assets';
+
+import type { ContextSlice } from '@/types/context';
+import { getGlobalContext } from '@/utils/get-global-context';
+
+type Props = ComponentProps<typeof Image>;
+
+const context = getGlobalContext<ContextSlice<'env'>>(Astro);
+
+if (context.env === 'pdf') {
+  Astro.props.loading = 'eager';
+}
+---
+
+<Image {...Astro.props} />

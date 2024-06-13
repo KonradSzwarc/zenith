@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 import { RelatedSkills } from '@/components/skills';
@@ -9,6 +8,7 @@ import { removeTopElement } from '@/utils/remove-top-element';
 
 import DateRange from '../date-range.astro';
 import Details from '../details.astro';
+import Img from '../img.astro';
 import RenderedContent from '../rendered-content.astro';
 
 interface Props {
@@ -37,7 +37,7 @@ const { title, description, alt } = (() => {
   <div class="mb-5 flex items-start gap-4">
     {
       data.image && (
-        <Image
+        <Img
           class="hidden size-20 rounded object-contain sm:block"
           src={data.image}
           alt={alt}

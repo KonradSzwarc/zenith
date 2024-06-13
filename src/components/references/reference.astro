@@ -1,10 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
+import Img from '../img.astro';
 import Linkable from '../linkable.astro';
 import RenderedContent from '../rendered-content.astro';
 
@@ -25,7 +25,7 @@ const relation = author.relation && removeTopElement(markdownToHtml(author.relat
 <li class="flex flex-col gap-6">
   {body.trim().length > 0 && <RenderedContent render={render} />}
   <div class="flex gap-4">
-    {author.image && <Image class="size-14 rounded-full" src={author.image} alt={author.name} width={96} height={96} />}
+    {author.image && <Img class="size-14 rounded-full" src={author.image} alt={author.name} width={96} height={96} />}
     <div class="self-center">
       <Linkable class="text-base font-bold text-color-text-title sm:text-lg" href={author.url}>{author.name}</Linkable>
       {role && <div class="text-sm font-medium text-color-text-title sm:text-base" set:html={role} />}
