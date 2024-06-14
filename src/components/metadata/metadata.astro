@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-import Favicon from '@/components/favicon.astro';
+import Favicon from './favicon.astro';
 
 interface Props {
   metadataEntry: CollectionEntry<'metadata'>;
@@ -12,9 +12,6 @@ const {
 } = Astro.props;
 ---
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width" />
-<meta name="generator" content={Astro.generator} />
 <title>{meta.title}</title>
 <meta name="description" content={meta.description} />
 <Favicon src={meta.favicon} />

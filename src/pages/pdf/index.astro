@@ -6,7 +6,6 @@ import { Achievements } from '@/components/achievements';
 import Basics from '@/components/basics.astro';
 import { Favorites } from '@/components/favorites';
 import { Interests } from '@/components/interests';
-import Metadata from '@/components/metadata.astro';
 import { References } from '@/components/references';
 import Section from '@/components/section.astro';
 import { Skills } from '@/components/skills';
@@ -21,7 +20,6 @@ initializePdfContext(Astro, {
   dateFormat: 'MMMM yyyy',
 });
 
-const metadata = await getEntry('metadata', 'main');
 const basics = await getEntry('basics', 'main');
 const socials = await getCollection('socials');
 
@@ -45,7 +43,6 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
 ---
 
 <MainLayout>
-  <Metadata metadataEntry={metadata} slot="head" />
   <Basics basicsEntry={basics} socialEntries={socials} />
   <Section title="Skills" contentClass="space-y-8">
     <Subsection title="Technologies">

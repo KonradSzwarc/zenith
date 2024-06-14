@@ -1,15 +1,14 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
+import DateRange from '@/components/date-range.astro';
+import Details from '@/components/details.astro';
+import Img from '@/components/img.astro';
+import RenderedContent from '@/components/rendered-content.astro';
 import { RelatedSkills } from '@/components/skills';
 import { cn } from '@/utils/cn';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
-
-import DateRange from '../date-range.astro';
-import Details from '../details.astro';
-import Img from '../img.astro';
-import RenderedContent from '../rendered-content.astro';
 
 interface Props {
   entry: CollectionEntry<'education'> | CollectionEntry<'work'> | CollectionEntry<'projects'>;

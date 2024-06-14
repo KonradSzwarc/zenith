@@ -1,23 +1,17 @@
 ---
-import type { ContextSlice } from '@/types/context';
-import { getGlobalContext } from '@/utils/get-global-context';
-
-const context = getGlobalContext<ContextSlice<'locale'>>(Astro);
+import BaseLayout from '@/layouts/base-layout.astro';
 ---
 
-<!doctype html>
-<html lang={context.locale.code}>
-  <head>
+<BaseLayout bodyClass="bg-color-bg-card antialiased">
+  <Fragment slot="head">
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <slot name="head" />
-  </head>
-  <body class="bg-color-bg-card antialiased">
-    <main class="mx-auto w-[720px] space-y-20">
-      <slot />
-    </main>
-  </body>
-</html>
+  </Fragment>
+  <main class="mx-auto w-[720px] space-y-20">
+    <slot />
+  </main>
+</BaseLayout>
 
 <style is:global>
   :root {

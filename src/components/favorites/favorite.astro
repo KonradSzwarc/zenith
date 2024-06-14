@@ -2,12 +2,11 @@
 import type { CollectionEntry } from 'astro:content';
 
 import { Icon } from '@/components/icon';
+import Linkable from '@/components/linkable.astro';
+import Popover from '@/components/popover.astro';
 import { cn } from '@/utils/cn';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
-
-import Linkable from '../linkable.astro';
-import Popover from '../popover.astro';
 
 interface Props {
   favoriteEntry: CollectionEntry<'favorites'>;

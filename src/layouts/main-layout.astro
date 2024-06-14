@@ -1,25 +1,20 @@
 ---
 import ThemeSwitcher from '@/components/theme-switcher.astro';
-import type { ContextSlice } from '@/types/context';
-import { getGlobalContext } from '@/utils/get-global-context';
 
-const context = getGlobalContext<ContextSlice<'locale'>>(Astro);
+import BaseLayout from './base-layout.astro';
 ---
 
-<!doctype html>
-<html lang={context.locale.code}>
-  <head>
+<BaseLayout bodyClass="bg-color-bg-body antialiased sm:p-6 md:p-8 lg:p-10">
+  <Fragment slot="head">
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <slot name="head" />
-  </head>
-  <body class="bg-color-bg-body antialiased sm:p-6 md:p-8 lg:p-10">
-    <ThemeSwitcher />
-    <main class="mx-auto w-full max-w-screen-xl space-y-20 bg-color-bg-card p-6 shadow-2xl sm:rounded-3xl sm:p-10">
-      <slot />
-    </main>
-  </body>
-</html>
+  </Fragment>
+  <ThemeSwitcher />
+  <main class="mx-auto w-full max-w-screen-xl space-y-20 bg-color-bg-card p-6 shadow-2xl sm:rounded-3xl sm:p-10">
+    <slot />
+  </main>
+</BaseLayout>
 
 <style is:global>
   :root {

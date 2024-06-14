@@ -2,12 +2,11 @@
 import type { CollectionEntry } from 'astro:content';
 import { intervalToDuration } from 'date-fns';
 
+import Details from '@/components/details.astro';
 import { Icon } from '@/components/icon';
+import Img from '@/components/img.astro';
+import RenderedContent from '@/components/rendered-content.astro';
 import { joinNonEmpty } from '@/utils/join-non-empty';
-
-import Details from './details.astro';
-import Img from './img.astro';
-import RenderedContent from './rendered-content.astro';
 
 interface Props {
   basicsEntry: CollectionEntry<'basics'>;
