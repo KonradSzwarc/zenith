@@ -30,6 +30,13 @@ export const collections = {
         country: z.string().optional(),
         city: z.string().optional(),
         details: z.array(labelledValueSchema).min(1).optional(),
+        socials: z.array(
+          z.object({
+            label: z.string(),
+            icon: z.string(),
+            url: z.string().url(),
+          }),
+        ),
         resume: z
           .object({
             url: z.string(),
@@ -126,14 +133,6 @@ export const collections = {
         )
         .optional(),
       url: z.string().url().optional(),
-    }),
-  }),
-  socials: defineCollection({
-    type: 'data',
-    schema: z.object({
-      label: z.string(),
-      icon: z.string(),
-      url: z.string().url(),
     }),
   }),
   work: defineCollection({

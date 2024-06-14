@@ -24,7 +24,6 @@ initializePageContext(Astro, {
 
 const metadata = await getEntry('metadata', 'main');
 const basics = await getEntry('basics', 'main');
-const socials = await getCollection('socials');
 
 const skills = await getCollection('skills');
 // prettier-ignore
@@ -47,7 +46,7 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
 
 <MainLayout>
   <Metadata metadataEntry={metadata} slot="head" />
-  <Basics basicsEntry={basics} socialEntries={socials} />
+  <Basics basicsEntry={basics} />
   <Section title="Skills" contentClass="space-y-8">
     <Subsection title="Technologies">
       <Skills withLevel entries={technicalSkills} />
