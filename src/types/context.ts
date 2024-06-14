@@ -10,6 +10,11 @@ export interface PageContext {
   dateFormat: string;
   iconStore: IconStore;
   theme: Theme;
+  pdf?: {
+    path: string;
+    label: string;
+    filename: string;
+  };
 }
 
 export interface PdfContext {
@@ -17,6 +22,7 @@ export interface PdfContext {
   locale: Locale;
   dateFormat: string;
   iconStore: IconStore;
+  website?: string;
 }
 
 type Context = Omit<PageContext, 'env'> & Omit<PdfContext, 'env'> & { env: 'page' | 'pdf' };

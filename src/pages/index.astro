@@ -20,6 +20,11 @@ initializePageContext(Astro, {
   locale: enUS,
   dateFormat: 'MMMM yyyy',
   theme: 'custom',
+  pdf: {
+    path: '/pdf/index.pdf',
+    label: 'Download resume',
+    filename: 'mark-freeman-resume.pdf',
+  },
 });
 
 const metadata = await getEntry('metadata', 'main');

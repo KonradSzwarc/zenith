@@ -18,7 +18,7 @@ const {
   basicsEntry: { data: basics, body, render },
 } = Astro.props;
 
-const context = getGlobalContext<ContextSlice<'pdf'>>(Astro);
+const context = getGlobalContext<ContextSlice<'website'>>(Astro);
 
 const details = [
   basics.birthdate && {
@@ -38,7 +38,7 @@ const details = [
       basics.image && (
         <Img
           loading="eager"
-          class="size-28 h-fit rounded-xl lg:size-20"
+          class="size-32 h-fit rounded-xl"
           src={basics.image}
           alt={basics.name}
           width={160}
@@ -49,6 +49,7 @@ const details = [
     <div class="mt-4 self-center text-center lg:ml-4 lg:mt-0 lg:space-y-0.5 lg:text-left">
       <h1 class="text-2xl font-black text-color-text-title sm:text-3xl">{basics.name}</h1>
       <h2 class="text-lg font-medium text-color-text-title sm:text-xl">{basics.label}</h2>
+      {context.website && <p class="text-lg font-medium text-color-text-title sm:text-xl">{context.website}</p>}
     </div>
     <div class="mt-3 flex flex-col items-center gap-4 lg:ml-auto lg:mt-0 lg:flex-row lg:items-start lg:gap-3 lg:pl-4">
       <ul class="flex w-full gap-3">
@@ -68,17 +69,6 @@ const details = [
           ))
         }
       </ul>
-      {
-        context.pdf ? (
-          <a
-            href={context.pdf.path}
-            class="flex h-9 items-center text-nowrap rounded-md bg-color-primary px-4 font-medium text-color-primary-contrast transition-colors hover:bg-color-primary/90"
-            download={context.pdf.filename}
-          >
-            {context.pdf.label}
-          </a>
-        ) : null
-      }
     </div>
   </div>
   {body.trim().length > 0 && <RenderedContent class="mt-8 lg:mt-4" {render} />}

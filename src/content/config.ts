@@ -37,13 +37,6 @@ export const collections = {
             url: z.string().url(),
           }),
         ),
-        resume: z
-          .object({
-            url: z.string(),
-            label: z.string(),
-            filename: z.string(),
-          })
-          .optional(),
       }),
   }),
   education: defineCollection({
