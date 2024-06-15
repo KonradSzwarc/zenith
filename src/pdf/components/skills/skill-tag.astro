@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import { Icon } from '@/components/icon';
+import Linkable from '@/components/linkable.astro';
+import { cn } from '@/utils/cn';
+
+interface Props {
+  skillEntry: CollectionEntry<'skills'>;
+}
+
+const {
+  skillEntry: { data: skill },
+} = Astro.props;
+
+const iconStyle = skill.color ? { color: skill.color } : undefined;
+---
+
+<li class="flex items-center gap-2 overflow-hidden rounded bg-color-bg-light px-2">
+  {skill.icon && <Icon name={skill.icon} class="size-4" style={iconStyle} />}
+  <Linkable class={cn('py-1 text-sm font-medium text-color-text-primary')} href={skill.url}>
+    {skill.name}
+  </Linkable>
+</li>

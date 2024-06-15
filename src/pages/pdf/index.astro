@@ -6,10 +6,10 @@ import { Achievements } from '@/components/achievements';
 import { Favorites } from '@/components/favorites';
 import { Interests } from '@/components/interests';
 import { References } from '@/components/references';
-import { Skills } from '@/components/skills';
 import { Timeline } from '@/components/timeline';
 import Basics from '@/pdf/components/basics.astro';
 import { Section, Subsection } from '@/pdf/components/section';
+import { Skills } from '@/pdf/components/skills';
 import MainLayout from '@/pdf/layouts/main-layout.astro';
 import { initializePdfContext } from '@/pdf/utils/initialize-pdf-context';
 import { selectEntriesBySlug, selectEntriesBySlugPrefix } from '@/utils/select-entries-by-slug';
@@ -43,7 +43,7 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
 
 <MainLayout>
   <Basics basicsEntry={basics} />
-  <Section title="Skills" contentClass="space-y-8">
+  <Section title="Skills" contentClass="space-y-4">
     <Subsection title="Technologies">
       <Skills withLevel entries={technicalSkills} />
     </Subsection>
