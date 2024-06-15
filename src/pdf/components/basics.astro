@@ -2,10 +2,10 @@
 import type { CollectionEntry } from 'astro:content';
 import { intervalToDuration } from 'date-fns';
 
-import Details from '@/components/details.astro';
 import { Icon } from '@/components/icon';
 import Img from '@/components/img.astro';
-import RenderedContent from '@/components/rendered-content.astro';
+import Details from '@/pdf/components/details.astro';
+import RenderedContent from '@/pdf/components/rendered-content.astro';
 import type { ContextSlice } from '@/types/context';
 import { getGlobalContext } from '@/utils/get-global-context';
 import { joinNonEmpty } from '@/utils/join-non-empty';
@@ -25,52 +25,52 @@ const details = [
     label: 'Age',
     value: `${intervalToDuration({ start: basics.birthdate, end: new Date() }).years} years`,
   },
-  (basics.city || basics.country) && { label: 'Location', value: joinNonEmpty([basics.city, basics.country], ', ') },
   basics.email && { label: 'Email', value: `[${basics.email}](mailto:${basics.email})` },
   basics.phone && { label: 'Phone', value: `[${basics.phone}](tel:${basics.phone})` },
+  (basics.city || basics.country) && { label: 'Location', value: joinNonEmpty([basics.city, basics.country], ', ') },
   ...(basics.details || []),
 ].filter(Boolean);
 ---
 
-<section>
-  <div class="flex flex-col items-center lg:flex-row lg:items-start">
+<section class="grid gap-4">
+  <div class="flex flex-row items-start">
     {
       basics.image && (
         <Img
           loading="eager"
-          class="size-32 h-fit rounded-xl"
+          class="size-24 h-fit rounded-xl"
           src={basics.image}
           alt={basics.name}
-          width={160}
-          height={160}
+          width={200}
+          height={200}
         />
       )
     }
-    <div class="mt-4 self-center text-center lg:ml-4 lg:mt-0 lg:space-y-0.5 lg:text-left">
-      <h1 class="text-2xl font-black text-color-text-title sm:text-3xl">{basics.name}</h1>
-      <h2 class="text-lg font-medium text-color-text-title sm:text-xl">{basics.label}</h2>
-      {context.website && <p class="text-lg font-medium text-color-text-title sm:text-xl">{context.website}</p>}
+    <div class="ml-4 space-y-0.5 self-center text-left">
+      <h1 class="text-3xl font-black text-color-text-title">{basics.name}</h1>
+      <h2 class="text-xl font-medium text-color-text-title">{basics.label}</h2>
+      {
+        context.website && (
+          <a href={context.website} class="text-lg text-color-text-primary underline">
+            {new URL(context.website).host}
+          </a>
+        )
+      }
     </div>
-    <div class="mt-3 flex flex-col items-center gap-4 lg:ml-auto lg:mt-0 lg:flex-row lg:items-start lg:gap-3 lg:pl-4">
-      <ul class="flex w-full gap-3">
-        {
-          basics.socials.map((social) => (
-            <li class="flex-1">
-              <a
-                aria-label={social.label}
-                href={social.url}
-                class="flex h-8 min-w-8 items-center justify-center rounded bg-color-bg-main transition-colors hover:bg-color-bg-main/80 lg:size-9"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Icon class="size-4 text-color-icon-dark" name={social.icon} aria-hidden />
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+    <div class="ml-auto flex gap-3">
+      {
+        basics.socials.map((social) => (
+          <a
+            aria-label={social.label}
+            href={social.url}
+            class="flex size-9 items-center justify-center rounded bg-color-bg-main"
+          >
+            <Icon class="size-4 text-color-icon-dark" name={social.icon} />
+          </a>
+        ))
+      }
     </div>
   </div>
-  {body.trim().length > 0 && <RenderedContent class="mt-8 lg:mt-4" {render} />}
-  {details.length > 0 && <Details class="mt-6" {details} />}
+  {body.trim().length > 0 && <RenderedContent {render} />}
+  {details.length > 0 && <Details {details} />}
 </section>
