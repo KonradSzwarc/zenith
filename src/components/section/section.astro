@@ -12,7 +12,7 @@ const { title, class: className, contentClass } = Astro.props;
 
 <section class={cn('space-y-8', className)}>
   <div class="relative w-fit">
-    <hr class="absolute bottom-px w-full border-4 border-color-primary-light" />
+    <hr class="absolute bottom-px border-4 border-color-primary-light" />
     <h2 class="relative pr-2 font-header text-3xl font-black text-color-text-title sm:text-4xl">
       {title}
     </h2>
@@ -21,3 +21,9 @@ const { title, class: className, contentClass } = Astro.props;
     <slot />
   </div>
 </section>
+
+<style>
+  hr {
+    width: calc(100% + 4px);
+  }
+</style>
