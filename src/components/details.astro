@@ -13,7 +13,7 @@ interface Props {
 const { details, class: className } = Astro.props;
 ---
 
-<dl class={cn('flex flex-wrap gap-x-10 gap-y-4 text-sm sm:text-base', className)}>
+<dl class={cn('flex flex-wrap gap-x-10 gap-y-3 text-sm sm:text-base', className)}>
   {
     details.map((detail) => (
       <div class="flex w-fit flex-wrap gap-1">

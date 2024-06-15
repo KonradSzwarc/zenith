@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import DateRange from '@/components/date-range.astro';
+import Img from '@/components/img.astro';
+import { RelatedSkills } from '@/components/skills';
+import Details from '@/pdf/components/details.astro';
+import RenderedContent from '@/pdf/components/rendered-content.astro';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import { removeTopElement } from '@/utils/remove-top-element';
+
+interface Props {
+  entry: CollectionEntry<'education'> | CollectionEntry<'work'> | CollectionEntry<'projects'>;
+}
+
+const {
+  entry: { data, body, render },
+} = Astro.props;
+
+const isEducation = 'institution' in data;
+const isWork = 'organization' in data;
+
+const { title, description, alt, imgPosition } = (() => {
+  if (isEducation) {
+    return { title: data.title, description: data.institution, alt: data.institution, imgPosition: 'description' };
+  } else if (isWork) {
+    return { title: data.position, description: data.organization, alt: data.organization, imgPosition: 'description' };
+  } else {
+    return { title: data.name, description: data.description, alt: data.name, imgPosition: 'title' };
+  }
+})();
+---
+
+<li class="break-inside-avoid">
+  <div class="mb-4 flex items-start gap-4">
+    <div>
+      <div class="flex gap-1.5">
+        {
+          data.image && imgPosition === 'title' && (
+            <Img class="my-0.5 size-6 rounded object-contain" src={data.image} alt={alt} width={48} height={48} />
+          )
+        }
+        <h3 class="text-lg font-bold text-color-text-title sm:text-xl">
+          {title}
+        </h3>
+      </div>
+      <div class="flex gap-1">
+        {
+          data.image && imgPosition === 'description' && (
+            <Img class="my-0.5 size-5 rounded object-contain" src={data.image} alt={alt} width={40} height={40} />
+          )
+        }
+        <div
+          class="text-sm font-medium text-color-text-title sm:text-base"
+          set:html={removeTopElement(markdownToHtml(description))}
+        />
+      </div>
+      <DateRange startDate={data.startDate} endDate={data.endDate} />
+    </div>
+  </div>
+  {data.details && <Details class="mb-3" details={data.details} />}
+  {body.trim().length > 0 && <RenderedContent {render} />}
+  {data.skills && <RelatedSkills class="mt-5" skillRefs={data.skills} />}
+</li>

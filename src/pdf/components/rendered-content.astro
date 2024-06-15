@@ -13,6 +13,6 @@ const { render, class: className } = Astro.props;
 const { Content } = await render();
 ---
 
-<div class={cn('prose max-w-none text-justify prose-ul:ps-4 prose-li:ps-0', className)}>
+<div class={cn('prose prose-base max-w-none text-justify prose-ul:ps-5 prose-li:ps-0', className)}>
   <Content />
 </div>

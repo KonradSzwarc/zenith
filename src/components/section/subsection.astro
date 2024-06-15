@@ -10,7 +10,7 @@ interface Props {
 const { title, class: className, contentClass } = Astro.props;
 ---
 
-<div class={cn('space-y-2', className)}>
+<div class={cn('break-inside-avoid space-y-2', className)}>
   <h3 class="font-header text-lg font-bold text-color-text-title sm:text-xl">{title}</h3>
   <div class={contentClass}>
     <slot />
