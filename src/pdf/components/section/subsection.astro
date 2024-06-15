@@ -11,7 +11,7 @@ const { title, class: className, contentClass } = Astro.props;
 ---
 
 <div class={cn('space-y-2', className)}>
-  <h3 class="font-header text-lg font-bold text-color-text-title">{title}</h3>
+  <h3 class="font-header text-lg font-black text-color-text-title">{title}</h3>
   <div class={contentClass}>
     <slot />
   </div>
