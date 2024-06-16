@@ -6,7 +6,6 @@ import Details from '@/components/details.astro';
 import Img from '@/components/img.astro';
 import RenderedContent from '@/components/rendered-content.astro';
 import { RelatedSkills } from '@/components/skills';
-import { cn } from '@/utils/cn';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
@@ -56,9 +55,7 @@ const { title, description, alt } = (() => {
       <DateRange startDate={data.startDate} endDate={data.endDate} />
     </div>
   </div>
-  <div class={cn(data.image && 'lg:pl-24')}>
-    {data.details && <Details class="mb-3" details={data.details} />}
-    {body.trim().length > 0 && <RenderedContent {render} />}
-    {data.skills && <RelatedSkills class="mt-5" skillRefs={data.skills} />}
-  </div>
+  {data.details && <Details class="mb-3" details={data.details} />}
+  {body.trim().length > 0 && <RenderedContent {render} />}
+  {data.skills && <RelatedSkills class="mt-5" skillRefs={data.skills} />}
 </li>
