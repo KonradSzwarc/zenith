@@ -52,7 +52,11 @@ const { title, description, alt } = (() => {
         class="text-sm font-medium text-color-text-title sm:text-base"
         set:html={removeTopElement(markdownToHtml(description))}
       />
-      <DateRange startDate={data.startDate} endDate={data.endDate} />
+      <DateRange
+        class="text-sm font-normal text-color-text-primary sm:text-base"
+        startDate={data.startDate}
+        endDate={data.endDate}
+      />
     </div>
   </div>
   {data.details && <Details class="mb-3" details={data.details} />}

@@ -4,12 +4,13 @@ import { formatDate } from '@/utils/format-date';
 interface Props {
   startDate: Date;
   endDate?: Date;
+  class?: string;
 }
 
 const startDate = formatDate(Astro.props.startDate, Astro);
 const endDate = Astro.props.endDate ? formatDate(Astro.props.endDate, Astro) : 'Current';
 ---
 
-<div class="text-sm font-normal text-color-text-primary sm:text-base">
+<div class={Astro.props.class}>
   {startDate} - {endDate}
 </div>
