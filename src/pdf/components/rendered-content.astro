@@ -13,6 +13,34 @@ const { render, class: className } = Astro.props;
 const { Content } = await render();
 ---
 
-<div class={cn('prose prose-base max-w-none text-justify prose-ul:ps-5 prose-li:ps-0', className)}>
+<div class={cn('prose prose-sm max-w-none text-justify', className)}>
   <Content />
 </div>
+
+<style>
+  .prose {
+    line-height: 1.625;
+
+    p {
+      margin: 0;
+
+      & + p {
+        margin-top: 0.5em;
+      }
+    }
+
+    ul {
+      padding-inline-start: 1.25rem;
+    }
+
+    li {
+      margin: 0;
+      padding-inline-start: 0px;
+      line-height: 1.5;
+
+      & + li {
+        margin-top: 0.5em;
+      }
+    }
+  }
+</style>
