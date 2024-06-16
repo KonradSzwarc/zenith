@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import Img from '@/components/img.astro';
+import Linkable from '@/components/linkable.astro';
+import RenderedContent from '@/pdf/components/rendered-content.astro';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import { removeTopElement } from '@/utils/remove-top-element';
+
+interface Props {
+  referenceEntry: CollectionEntry<'references'>;
+}
+
+const {
+  referenceEntry: { data, body, render },
+} = Astro.props;
+
+const { author } = data;
+
+const role = author.role && removeTopElement(markdownToHtml(author.role));
+const relation = author.relation && removeTopElement(markdownToHtml(author.relation));
+---
+
+<li class="flex flex-col gap-4">
+  {body.trim().length > 0 && <RenderedContent render={render} />}
+  <div class="flex gap-3">
+    {author.image && <Img class="size-12 rounded-full" src={author.image} alt={author.name} width={96} height={96} />}
+    <div>
+      <Linkable class="text-base font-black leading-tight text-color-text-title" href={author.url}>
+        {author.name}
+      </Linkable>
+      {role && <div class="text-sm font-medium text-color-text-title" set:html={role} />}
+      {relation && <div class="text-sm font-normal text-color-text-primary" set:html={relation} />}
+    </div>
+  </div>
+</li>
