@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import { Icon } from '@/components/icon';
+
+interface Props {
+  interestEntry: CollectionEntry<'interests'>;
+}
+
+const {
+  interestEntry: { data: interest },
+} = Astro.props;
+---
+
+<li class="flex flex-wrap gap-6 rounded border border-color-border px-3 py-1">
+  <div class="flex items-center gap-2">
+    {interest.icon && <Icon name={interest.icon} class="size-4 text-color-icon-dark" />}
+    <div class="text-sm font-medium text-color-text-primary">
+      {interest.name}
+    </div>
+  </div>
+</li>

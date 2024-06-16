@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import Interest from './interest.astro';
+
+interface Props {
+  entries: CollectionEntry<'interests'>[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ul class="flex flex-wrap gap-3">
+  {entries.map((interestEntry) => <Interest {interestEntry} />)}
+</ul>
