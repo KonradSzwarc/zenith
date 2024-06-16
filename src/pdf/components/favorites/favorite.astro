@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import { Icon } from '@/components/icon';
+import Linkable from '@/components/linkable.astro';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import { removeTopElement } from '@/utils/remove-top-element';
+
+interface Props {
+  favoriteEntry: CollectionEntry<'favorites'>;
+  icon?: string;
+  withSource?: boolean;
+}
+
+const {
+  favoriteEntry: { data },
+  icon,
+  withSource,
+} = Astro.props;
+
+const subtitle = data.subtitle && removeTopElement(markdownToHtml(data.subtitle));
+const url = withSource && new URL(data.url);
+---
+
+<li class="relative flex overflow-hidden">
+  {icon && <Icon name={icon} class="my-0.5 mr-1.5 size-4 text-color-icon-dark" />}
+  <div class="flex w-full">
+    <Linkable class="text-sm font-medium leading-snug text-color-text-title" href={data.url}>
+      {data.title}
+    </Linkable>
+    {
+      subtitle && (
+        <div class="ml-1 flex gap-1 text-sm text-color-text-primary [&_a:not(:hover)]:no-underline">
+          <div class="">—</div>
+          <div class="" set:html={subtitle} />
+        </div>
+      )
+    }
+    {
+      url && (
+        <Linkable class="ml-auto text-sm text-color-text-secondary" href={url.origin}>
+          {url.hostname}
+        </Linkable>
+      )
+    }
+  </div>
+</li>
