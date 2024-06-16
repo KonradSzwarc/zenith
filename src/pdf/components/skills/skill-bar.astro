@@ -20,12 +20,12 @@ if (!skill.level) {
 const iconStyle = skill.color ? { color: skill.color } : undefined;
 ---
 
-<li class="flex items-center gap-2 overflow-hidden rounded bg-color-bg-light pl-2">
-  {skill.icon && <Icon name={skill.icon} class="size-4" style={iconStyle} />}
-  <Linkable class={cn('py-1 text-sm font-medium text-color-text-primary')} href={skill.url}>
+<li class="flex h-6 items-center overflow-hidden rounded border border-color-border pl-2">
+  {skill.icon && <Icon name={skill.icon} class="mr-1.5 size-3" style={iconStyle} />}
+  <Linkable class={cn('text-sm font-medium text-color-text-primary')} href={skill.url}>
     {skill.name}
   </Linkable>
-  <div class="flex h-full items-center bg-color-bg-main px-2 text-xs font-bold text-color-text-primary">
+  <div class="ml-2 flex h-full items-center bg-color-bg-light px-2 text-xs font-bold text-color-text-primary">
     {skill.level}
   </div>
 </li>

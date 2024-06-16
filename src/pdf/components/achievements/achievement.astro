@@ -20,21 +20,19 @@ const date = achievement.date && formatDate(achievement.date, Astro);
 ---
 
 <li class="grid gap-2">
-  <div class="flex items-start gap-3">
-    <div>
-      <Linkable class="text-base font-black text-color-text-title" href={achievement.url}>
-        {achievement.name}
-      </Linkable>
-      {
-        achievement.issuer && (
-          <div
-            class="text-sm font-medium text-color-text-title"
-            set:html={removeTopElement(markdownToHtml(achievement.issuer))}
-          />
-        )
-      }
-      {date && <div class="text-sm font-normal text-color-text-primary">{date}</div>}
-    </div>
+  <div>
+    <Linkable class="text-sm font-black text-color-text-title" href={achievement.url}>
+      {achievement.name}
+    </Linkable>
+    {
+      achievement.issuer && (
+        <div
+          class="text-sm font-medium text-color-text-title"
+          set:html={removeTopElement(markdownToHtml(achievement.issuer))}
+        />
+      )
+    }
+    {date && <div class="text-sm font-normal text-color-text-primary">{date}</div>}
   </div>
   {body.trim().length > 0 && <RenderedContent {render} />}
   {achievement.skills && <RelatedSkills skillRefs={achievement.skills} />}

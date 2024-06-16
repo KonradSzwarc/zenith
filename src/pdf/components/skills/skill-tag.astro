@@ -16,8 +16,8 @@ const {
 const iconStyle = skill.color ? { color: skill.color } : undefined;
 ---
 
-<li class="flex items-center gap-2 overflow-hidden rounded bg-color-bg-light px-2">
-  {skill.icon && <Icon name={skill.icon} class="size-4" style={iconStyle} />}
+<li class="flex h-6 items-center overflow-hidden rounded border border-color-border px-2">
+  {skill.icon && <Icon name={skill.icon} class="mr-1.5 size-3" style={iconStyle} />}
   <Linkable class={cn('py-1 text-sm font-medium text-color-text-primary')} href={skill.url}>
     {skill.name}
   </Linkable>

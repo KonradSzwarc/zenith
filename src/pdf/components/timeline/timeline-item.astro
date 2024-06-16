@@ -32,7 +32,7 @@ const { title, description, alt } = (() => {
 ---
 
 <li>
-  <div class="mb-4 flex break-inside-avoid items-start gap-3">
+  <div class="mb-4 flex items-start gap-3">
     {
       data.image && (
         <Img class="size-[60px] rounded object-contain" src={data.image} alt={alt} width={128} height={128} />
@@ -52,5 +52,5 @@ const { title, description, alt } = (() => {
   </div>
   {data.details && <Details class="mb-2" details={data.details} />}
   {body.trim().length > 0 && <RenderedContent {render} />}
-  {data.skills && <RelatedSkills class="mt-4" skillRefs={data.skills} />}
+  {data.skills && <RelatedSkills class="mt-3" skillRefs={data.skills} />}
 </li>
