@@ -2,9 +2,9 @@
 import { getCollection, getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
-import { Achievements } from '@/components/achievements';
 import { Favorites } from '@/components/favorites';
 import { Interests } from '@/components/interests';
+import { Achievements } from '@/pdf/components/achievements';
 import Basics from '@/pdf/components/basics.astro';
 import { References } from '@/pdf/components/references';
 import { Section, Subsection } from '@/pdf/components/section';
@@ -64,7 +64,7 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
     <References entries={references} />
   </Section>
   <Section title="Achievements">
-    <Achievements entries={achievements} class="space-y-8" />
+    <Achievements entries={achievements} class="space-y-4" />
   </Section>
   <Section title="Education">
     <Timeline entries={education} />

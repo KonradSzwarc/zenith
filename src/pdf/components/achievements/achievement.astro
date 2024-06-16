@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import Linkable from '@/components/linkable.astro';
+import RenderedContent from '@/pdf/components/rendered-content.astro';
+import { RelatedSkills } from '@/pdf/components/skills';
+import { formatDate } from '@/utils/format-date';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import { removeTopElement } from '@/utils/remove-top-element';
+
+interface Props {
+  achevementEntry: CollectionEntry<'achievements'>;
+}
+
+const {
+  achevementEntry: { data: achievement, body, render },
+} = Astro.props;
+
+const date = achievement.date && formatDate(achievement.date, Astro);
+---
+
+<li class="grid gap-2">
+  <div class="flex items-start gap-3">
+    <div>
+      <Linkable class="text-base font-black text-color-text-title" href={achievement.url}>
+        {achievement.name}
+      </Linkable>
+      {
+        achievement.issuer && (
+          <div
+            class="text-sm font-medium text-color-text-title"
+            set:html={removeTopElement(markdownToHtml(achievement.issuer))}
+          />
+        )
+      }
+      {date && <div class="text-sm font-normal text-color-text-primary">{date}</div>}
+    </div>
+  </div>
+  {body.trim().length > 0 && <RenderedContent {render} />}
+  {achievement.skills && <RelatedSkills skillRefs={achievement.skills} />}
+</li>
