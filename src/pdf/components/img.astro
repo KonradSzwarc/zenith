@@ -1,0 +1,8 @@
+---
+import type { ComponentProps } from 'astro/types';
+import { Image } from 'astro:assets';
+
+type Props = ComponentProps<typeof Image>;
+---
+
+<Image loading="eager" {...Astro.props} />

@@ -1,0 +1,18 @@
+---
+import type { IconProps } from '@/types/icon-props';
+import { cn } from '@/utils/cn';
+
+export interface Props extends IconProps {
+  set: string;
+  icon: string;
+}
+
+const { set, icon, class: className, ...props } = Astro.props;
+const finalClass = cn('flex items-center justify-center', className);
+---
+
+<iconify-icon icon={`${set}:${icon}`} class={finalClass} height="none" {...props}></iconify-icon>
+
+<script>
+  import 'iconify-icon';
+</script>

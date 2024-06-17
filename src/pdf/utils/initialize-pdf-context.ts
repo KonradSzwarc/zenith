@@ -1,12 +1,15 @@
 import type { AstroGlobal } from 'astro';
+import type { Locale } from 'date-fns';
 
-import type { PdfContext } from '@/types/context';
+export interface PdfContext {
+  locale: Locale;
+  dateFormat: string;
+  website?: string;
+}
 
-export function initializePdfContext(astro: AstroGlobal, data: Omit<PdfContext, 'iconStore' | 'env'>) {
+export function initializePdfContext(astro: AstroGlobal, data: PdfContext) {
   const context: PdfContext = {
     ...data,
-    env: 'pdf',
-    iconStore: new Map<string, string | Promise<string>>(),
     website: data.website ? `${astro.url.protocol}//${astro.url.host}${data.website}` : undefined,
   };
 

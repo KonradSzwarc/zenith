@@ -1,16 +1,20 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
 import { formatDate } from '@/utils/format-date';
 
-interface Props {
+interface Props extends HTMLAttributes<'div'> {
   startDate: Date;
   endDate?: Date;
   class?: string;
 }
 
-const startDate = formatDate(Astro.props.startDate, Astro);
-const endDate = Astro.props.endDate ? formatDate(Astro.props.endDate, Astro) : 'Current';
+const { class: className, startDate, endDate, ...props } = Astro.props;
+
+const from = formatDate(startDate, Astro);
+const to = endDate ? formatDate(endDate, Astro) : 'Current';
 ---
 
-<div class={Astro.props.class}>
-  {startDate} - {endDate}
+<div class={className} {...props}>
+  {from} - {to}
 </div>

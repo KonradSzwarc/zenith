@@ -2,23 +2,23 @@
 import { getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
-import Achievement from '@/components/achievement.astro';
-import Basics from '@/components/basics.astro';
-import Education from '@/components/education.astro';
-import Favorite from '@/components/favorite.astro';
-import Interest from '@/components/interest.astro';
-import Job from '@/components/job.astro';
 import { GridList, HorizontalList, VerticalList } from '@/components/list';
-import { Metadata } from '@/components/metadata';
-import Project from '@/components/project.astro';
-import Reference from '@/components/reference.astro';
-import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/components/section';
 import Separator from '@/components/separator.astro';
-import { SkillBar, SkillTag } from '@/components/skills';
-import MainLayout from '@/layouts/main-layout.astro';
-import { initializePageContext } from '@/utils/initialize-page-context';
+import Achievement from '@/web/components/achievement.astro';
+import Basics from '@/web/components/basics.astro';
+import Education from '@/web/components/education.astro';
+import Favorite from '@/web/components/favorite.astro';
+import Interest from '@/web/components/interest.astro';
+import Job from '@/web/components/job.astro';
+import { Metadata } from '@/web/components/metadata';
+import Project from '@/web/components/project.astro';
+import Reference from '@/web/components/reference.astro';
+import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/web/components/section';
+import { SkillBar, SkillTag } from '@/web/components/skills';
+import MainLayout from '@/web/layouts/main-layout.astro';
+import { initializeWebContext } from '@/web/utils/initialize-web-context';
 
-initializePageContext(Astro, {
+initializeWebContext(Astro, {
   locale: enUS,
   dateFormat: 'MMMM yyyy',
   theme: 'custom',

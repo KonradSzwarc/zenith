@@ -1,11 +1,11 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-import Img from '@/components/img.astro';
 import Linkable from '@/components/linkable.astro';
 import RenderedContent from '@/pdf/components/rendered-content.astro';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
+import Img from '@/pdf/components/img.astro';
 
 interface Props {
   referenceEntry: CollectionEntry<'references'>;

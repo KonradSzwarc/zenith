@@ -1,0 +1,13 @@
+---
+import { Icon as AstroIcon } from 'astro-icon/components';
+
+import type { IconProps } from '@/types/icon-props';
+
+interface Props extends IconProps {
+  name: string;
+}
+
+const { name, ...props } = Astro.props;
+---
+
+<AstroIcon name={name} {...props} />

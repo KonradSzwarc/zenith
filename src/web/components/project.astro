@@ -2,29 +2,29 @@
 import type { CollectionEntry } from 'astro:content';
 
 import DateRange from '@/components/date-range.astro';
-import Details from '@/components/details.astro';
-import Img from '@/components/img.astro';
-import RenderedContent from '@/components/rendered-content.astro';
-import { RelatedSkills } from '@/components/skills';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
+import Details from '@/web/components/details.astro';
+import Img from '@/web/components/img.astro';
+import RenderedContent from '@/web/components/rendered-content.astro';
+import { RelatedSkills } from '@/web/components/skills';
 
 interface Props {
-  entry: CollectionEntry<'jobs'> | Promise<CollectionEntry<'jobs'>>;
+  entry: CollectionEntry<'projects'> | Promise<CollectionEntry<'projects'>>;
 }
 
 const { entry } = Astro.props;
-const { data: job, body, render } = await entry;
+const { data: project, body, render } = await entry;
 ---
 
 <div>
   <div class="mb-5 flex items-start gap-4">
     {
-      job.image && (
+      project.image && (
         <Img
           class="hidden size-20 rounded object-contain sm:block"
-          src={job.image}
-          alt={job.organization}
+          src={project.image}
+          alt={project.name}
           width={160}
           height={160}
         />
@@ -32,20 +32,20 @@ const { data: job, body, render } = await entry;
     }
     <div>
       <h3 class="text-lg font-bold text-color-text-title sm:text-xl">
-        {job.position}
+        {project.name}
       </h3>
       <div
         class="text-sm font-medium text-color-text-title sm:text-base"
-        set:html={removeTopElement(markdownToHtml(job.organization))}
+        set:html={removeTopElement(markdownToHtml(project.description))}
       />
       <DateRange
         class="text-sm font-normal text-color-text-primary sm:text-base"
-        startDate={job.startDate}
-        endDate={job.endDate}
+        startDate={project.startDate}
+        endDate={project.endDate}
       />
     </div>
   </div>
-  {job.details && <Details class="mb-3" details={job.details} />}
+  {project.details && <Details class="mb-3" details={project.details} />}
   {body.trim().length > 0 && <RenderedContent {render} />}
-  {job.skills && <RelatedSkills class="mt-5" skillRefs={job.skills} />}
+  {project.skills && <RelatedSkills class="mt-5" skillRefs={project.skills} />}
 </div>

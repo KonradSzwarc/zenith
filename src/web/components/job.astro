@@ -2,29 +2,29 @@
 import type { CollectionEntry } from 'astro:content';
 
 import DateRange from '@/components/date-range.astro';
-import Details from '@/components/details.astro';
-import Img from '@/components/img.astro';
-import RenderedContent from '@/components/rendered-content.astro';
-import { RelatedSkills } from '@/components/skills';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
+import Details from '@/web/components/details.astro';
+import Img from '@/web/components/img.astro';
+import RenderedContent from '@/web/components/rendered-content.astro';
+import { RelatedSkills } from '@/web/components/skills';
 
 interface Props {
-  entry: CollectionEntry<'education'> | Promise<CollectionEntry<'education'>>;
+  entry: CollectionEntry<'jobs'> | Promise<CollectionEntry<'jobs'>>;
 }
 
 const { entry } = Astro.props;
-const { data: education, body, render } = await entry;
+const { data: job, body, render } = await entry;
 ---
 
 <div>
   <div class="mb-5 flex items-start gap-4">
     {
-      education.image && (
+      job.image && (
         <Img
           class="hidden size-20 rounded object-contain sm:block"
-          src={education.image}
-          alt={education.institution}
+          src={job.image}
+          alt={job.organization}
           width={160}
           height={160}
         />
@@ -32,20 +32,20 @@ const { data: education, body, render } = await entry;
     }
     <div>
       <h3 class="text-lg font-bold text-color-text-title sm:text-xl">
-        {education.title}
+        {job.position}
       </h3>
       <div
         class="text-sm font-medium text-color-text-title sm:text-base"
-        set:html={removeTopElement(markdownToHtml(education.institution))}
+        set:html={removeTopElement(markdownToHtml(job.organization))}
       />
       <DateRange
         class="text-sm font-normal text-color-text-primary sm:text-base"
-        startDate={education.startDate}
-        endDate={education.endDate}
+        startDate={job.startDate}
+        endDate={job.endDate}
       />
     </div>
   </div>
-  {education.details && <Details class="mb-3" details={education.details} />}
+  {job.details && <Details class="mb-3" details={job.details} />}
   {body.trim().length > 0 && <RenderedContent {render} />}
-  {education.skills && <RelatedSkills class="mt-5" skillRefs={education.skills} />}
+  {job.skills && <RelatedSkills class="mt-5" skillRefs={job.skills} />}
 </div>
