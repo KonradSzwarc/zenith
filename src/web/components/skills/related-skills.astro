@@ -4,7 +4,7 @@ import { getEntries } from 'astro:content';
 
 import { cn } from '@/utils/cn';
 
-import SkillTag from './skill-tag.astro';
+import SkillWithoutLevel from './skill-without-level.astro';
 
 interface Props {
   class?: string;
@@ -23,6 +23,6 @@ const skillEntries = (await getEntries(skillRefs)).map((entry) => ({ ...entry, b
 <div class={cn('space-y-1.5', className)}>
   <div class="text-sm font-semibold text-color-text-title sm:text-base">{label}</div>
   <div class="flex flex-wrap gap-x-3 gap-y-2">
-    {skillEntries.map((entry) => <SkillTag {entry} />)}
+    {skillEntries.map((entry) => <SkillWithoutLevel {entry} />)}
   </div>
 </div>

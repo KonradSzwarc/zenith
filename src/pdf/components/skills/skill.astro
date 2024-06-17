@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import SkillWithLevel from './skill-with-level.astro';
+import SkillWithoutLevel from './skill-without-level.astro';
+
+interface Props {
+  entry: CollectionEntry<'skills'> | Promise<CollectionEntry<'skills'>>;
+  withLevel?: boolean;
+}
+
+const { withLevel, ...props } = Astro.props;
+---
+
+{withLevel ? <SkillWithLevel {...props} /> : <SkillWithoutLevel {...props} />}

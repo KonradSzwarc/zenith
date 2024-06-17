@@ -14,7 +14,7 @@ import { Metadata } from '@/web/components/metadata';
 import Project from '@/web/components/project.astro';
 import Reference from '@/web/components/reference.astro';
 import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/web/components/section';
-import { SkillBar, SkillTag } from '@/web/components/skills';
+import { Skill } from '@/web/components/skills';
 import MainLayout from '@/web/layouts/main-layout.astro';
 import { initializeWebContext } from '@/web/utils/initialize-web-context';
 
@@ -39,36 +39,36 @@ initializeWebContext(Astro, {
       <Subsection>
         <SubsectionTitle>Technologies</SubsectionTitle>
         <GridList class="gap-8" minColWidth="200px">
-          <SkillBar entry={getEntry('skills', 'astro')} />
-          <SkillBar entry={getEntry('skills', 'drizzle-orm')} />
-          <SkillBar entry={getEntry('skills', 'eslint')} />
-          <SkillBar entry={getEntry('skills', 'next')} />
-          <SkillBar entry={getEntry('skills', 'playwright')} />
-          <SkillBar entry={getEntry('skills', 'postgresql')} />
-          <SkillBar entry={getEntry('skills', 'react-testing-library')} />
-          <SkillBar entry={getEntry('skills', 'react')} />
-          <SkillBar entry={getEntry('skills', 'shadcn')} />
-          <SkillBar entry={getEntry('skills', 'tailwind')} />
-          <SkillBar entry={getEntry('skills', 'tanstack-query')} />
-          <SkillBar entry={getEntry('skills', 'trpc')} />
-          <SkillBar entry={getEntry('skills', 'typescript')} />
-          <SkillBar entry={getEntry('skills', 'vitest')} />
+          <Skill withLevel entry={getEntry('skills', 'astro')} />
+          <Skill withLevel entry={getEntry('skills', 'drizzle-orm')} />
+          <Skill withLevel entry={getEntry('skills', 'eslint')} />
+          <Skill withLevel entry={getEntry('skills', 'next')} />
+          <Skill withLevel entry={getEntry('skills', 'playwright')} />
+          <Skill withLevel entry={getEntry('skills', 'postgresql')} />
+          <Skill withLevel entry={getEntry('skills', 'react-testing-library')} />
+          <Skill withLevel entry={getEntry('skills', 'react')} />
+          <Skill withLevel entry={getEntry('skills', 'shadcn')} />
+          <Skill withLevel entry={getEntry('skills', 'tailwind')} />
+          <Skill withLevel entry={getEntry('skills', 'tanstack-query')} />
+          <Skill withLevel entry={getEntry('skills', 'trpc')} />
+          <Skill withLevel entry={getEntry('skills', 'typescript')} />
+          <Skill withLevel entry={getEntry('skills', 'vitest')} />
         </GridList>
       </Subsection>
       <Subsection>
         <SubsectionTitle>Tools</SubsectionTitle>
         <HorizontalList class="gap-3">
-          <SkillTag entry={getEntry('skills', 'neon')} />
-          <SkillTag entry={getEntry('skills', 'sentry')} />
-          <SkillTag entry={getEntry('skills', 'stripe')} />
-          <SkillTag entry={getEntry('skills', 'vercel')} />
+          <Skill entry={getEntry('skills', 'neon')} />
+          <Skill entry={getEntry('skills', 'sentry')} />
+          <Skill entry={getEntry('skills', 'stripe')} />
+          <Skill entry={getEntry('skills', 'vercel')} />
         </HorizontalList>
       </Subsection>
       <Subsection>
         <SubsectionTitle>Languages</SubsectionTitle>
         <HorizontalList class="gap-3">
-          <SkillTag entry={getEntry('skills', 'english')} />
-          <SkillTag entry={getEntry('skills', 'spanish')} />
+          <Skill entry={getEntry('skills', 'english')} />
+          <Skill entry={getEntry('skills', 'spanish')} />
         </HorizontalList>
       </Subsection>
     </VerticalList>
