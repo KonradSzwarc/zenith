@@ -22,7 +22,7 @@ const skillEntries = (await getEntries(skillRefs)).map((entry) => ({ ...entry, b
 
 <div class={cn('flex flex-wrap gap-1', className)}>
   <div class="text-sm font-semibold leading-6 text-color-text-title">{label}</div>
-  <ul class="flex flex-wrap gap-1.5">
-    {skillEntries.map((skillEntry) => <SkillTag {skillEntry} />)}
-  </ul>
+  <div class="flex flex-wrap gap-1.5">
+    {skillEntries.map((entry) => <SkillTag {entry} />)}
+  </div>
 </div>

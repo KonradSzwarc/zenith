@@ -1,34 +1,13 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
 import { cn } from '@/utils/cn';
 
-interface Props {
-  title: string;
-  class?: string;
-  contentClass?: string;
-}
+interface Props extends HTMLAttributes<'section'> {}
 
-const { title, class: className, contentClass } = Astro.props;
+const { class: className, ...props } = Astro.props;
 ---
 
-<section class={cn('space-y-4', className)}>
-  <div class="grid">
-    <h2 data-section-title class="w-fit font-header text-xl font-black text-color-text-title">
-      {title}
-    </h2>
-    <div class="flex">
-      <hr class="border-2 border-color-primary-light" />
-      <hr class="flex-1 border-2 border-color-separator" />
-    </div>
-  </div>
-  <div class={contentClass}>
-    <slot />
-  </div>
+<section class={cn('grid', className)} {...props}>
+  <slot />
 </section>
-
-<script>
-  const headers = document.querySelectorAll('[data-section-title]');
-  headers.forEach((header) => {
-    const width = header.getBoundingClientRect().width;
-    console.log(header.nextElementSibling?.children[0]?.setAttribute('style', `width: ${Math.round(width) + 16}px`));
-  });
-</script>

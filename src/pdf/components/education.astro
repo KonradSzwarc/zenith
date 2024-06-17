@@ -3,44 +3,49 @@ import type { CollectionEntry } from 'astro:content';
 
 import DateRange from '@/components/date-range.astro';
 import Details from '@/pdf/components/details.astro';
+import Img from '@/pdf/components/img.astro';
 import RenderedContent from '@/pdf/components/rendered-content.astro';
 import { RelatedSkills } from '@/pdf/components/skills';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
-import Img from '@/pdf/components/img.astro';
 
 interface Props {
-  entry: CollectionEntry<'projects'>;
+  entry: CollectionEntry<'education'> | Promise<CollectionEntry<'education'>>;
 }
 
-const {
-  entry: { data, body, render },
-} = Astro.props;
+const { entry } = Astro.props;
+const { data: education, body, render } = await entry;
 ---
 
-<li>
+<div>
   <div class="mb-4 flex items-start gap-3">
     {
-      data.image && (
-        <Img class="size-[60px] rounded object-contain" src={data.image} alt={data.name} width={128} height={128} />
+      education.image && (
+        <Img
+          class="size-[60px] rounded object-contain"
+          src={education.image}
+          alt={education.institution}
+          width={128}
+          height={128}
+        />
       )
     }
     <div>
       <h3 class="text-base font-black leading-tight text-color-text-title">
-        {data.name}
+        {education.title}
       </h3>
       <div
         class="text-sm font-medium text-color-text-title"
-        set:html={removeTopElement(markdownToHtml(data.description))}
+        set:html={removeTopElement(markdownToHtml(education.institution))}
       />
       <DateRange
         class="text-sm font-normal text-color-text-primary"
-        startDate={data.startDate}
-        endDate={data.endDate}
+        startDate={education.startDate}
+        endDate={education.endDate}
       />
     </div>
   </div>
-  {data.details && <Details class="mb-2" details={data.details} />}
+  {education.details && <Details class="mb-2" details={education.details} />}
   {body.trim().length > 0 && <RenderedContent {render} />}
-  {data.skills && <RelatedSkills class="mt-3" skillRefs={data.skills} />}
-</li>
+  {education.skills && <RelatedSkills class="mt-3" skillRefs={education.skills} />}
+</div>

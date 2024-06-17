@@ -11,12 +11,11 @@ import { getGlobalContext } from '@/utils/get-global-context';
 import { joinNonEmpty } from '@/utils/join-non-empty';
 
 interface Props {
-  basicsEntry: CollectionEntry<'basics'>;
+  entry: CollectionEntry<'basics'> | Promise<CollectionEntry<'basics'>>;
 }
 
-const {
-  basicsEntry: { data: basics, body, render },
-} = Astro.props;
+const { entry } = Astro.props;
+const { data: basics, body, render } = await entry;
 
 const context = getGlobalContext<ContextSlice<'website'>>(Astro);
 

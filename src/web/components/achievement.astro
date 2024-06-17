@@ -20,7 +20,7 @@ const { data: achievement, body, render } = await entry;
 const date = achievement.date && formatDate(achievement.date, Astro);
 ---
 
-<li class="grid gap-2">
+<div class="grid gap-2">
   <div class="flex items-start gap-3">
     {
       achievement.icon && (
@@ -48,4 +48,4 @@ const date = achievement.date && formatDate(achievement.date, Astro);
     {body.trim().length > 0 && <RenderedContent {render} />}
     {achievement.skills && <RelatedSkills class="mt-5" skillRefs={achievement.skills} />}
   </div>
-</li>
+</div>

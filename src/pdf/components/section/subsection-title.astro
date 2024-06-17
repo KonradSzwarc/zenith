@@ -3,11 +3,11 @@ import type { HTMLAttributes } from 'astro/types';
 
 import { cn } from '@/utils/cn';
 
-interface Props extends HTMLAttributes<'div'> {}
+interface Props extends HTMLAttributes<'h3'> {}
 
 const { class: className, ...props } = Astro.props;
 ---
 
-<div class={cn('grid', className)} {...props}>
+<h3 class={cn('mb-2 font-header text-base font-black text-color-text-title', className)} {...props}>
   <slot />
-</div>
+</h3>

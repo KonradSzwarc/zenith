@@ -1,32 +1,29 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-import { Icon } from '@/pdf/components/icon';
 import Linkable from '@/components/linkable.astro';
+import { Icon } from '@/pdf/components/icon';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
-  favoriteEntry: CollectionEntry<'favorites'>;
+  entry: CollectionEntry<'favorites'> | Promise<CollectionEntry<'favorites'>>;
   icon?: string;
   withSource?: boolean;
 }
 
-const {
-  favoriteEntry: { data },
-  icon,
-  withSource,
-} = Astro.props;
+const { entry, icon, withSource } = Astro.props;
+const { data: favorite } = await entry;
 
-const subtitle = data.subtitle && removeTopElement(markdownToHtml(data.subtitle));
-const url = withSource && new URL(data.url);
+const subtitle = favorite.subtitle && removeTopElement(markdownToHtml(favorite.subtitle));
+const url = withSource && new URL(favorite.url);
 ---
 
-<li class="relative flex overflow-hidden">
+<div class="relative flex overflow-hidden">
   {icon && <Icon name={icon} class="my-0.5 mr-1.5 size-4 text-color-icon-dark" />}
   <div class="flex w-full">
-    <Linkable class="text-sm font-medium leading-snug text-color-text-title" href={data.url}>
-      {data.title}
+    <Linkable class="text-sm font-medium leading-snug text-color-text-title" href={favorite.url}>
+      {favorite.title}
     </Linkable>
     {
       subtitle && (
@@ -44,4 +41,4 @@ const url = withSource && new URL(data.url);
       )
     }
   </div>
-</li>
+</div>

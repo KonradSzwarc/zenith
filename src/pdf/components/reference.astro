@@ -2,26 +2,24 @@
 import type { CollectionEntry } from 'astro:content';
 
 import Linkable from '@/components/linkable.astro';
+import Img from '@/pdf/components/img.astro';
 import RenderedContent from '@/pdf/components/rendered-content.astro';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
-import Img from '@/pdf/components/img.astro';
 
 interface Props {
-  referenceEntry: CollectionEntry<'references'>;
+  entry: CollectionEntry<'references'> | Promise<CollectionEntry<'references'>>;
 }
 
-const {
-  referenceEntry: { data, body, render },
-} = Astro.props;
-
-const { author } = data;
+const { entry } = Astro.props;
+const { data: reference, body, render } = await entry;
+const { author } = reference;
 
 const role = author.role && removeTopElement(markdownToHtml(author.role));
 const relation = author.relation && removeTopElement(markdownToHtml(author.relation));
 ---
 
-<li class="flex flex-col gap-4">
+<div class="flex flex-col gap-4">
   {body.trim().length > 0 && <RenderedContent render={render} />}
   <div class="flex gap-3">
     {author.image && <Img class="size-12 rounded-full" src={author.image} alt={author.name} width={96} height={96} />}
@@ -33,4 +31,4 @@ const relation = author.relation && removeTopElement(markdownToHtml(author.relat
       {relation && <div class="text-sm font-normal text-color-text-primary" set:html={relation} />}
     </div>
   </div>
-</li>
+</div>

@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import { cn } from '@/utils/cn';
+
+interface Props extends HTMLAttributes<'div'> {
+  classes?: {
+    text?: string;
+    lineContainer?: string;
+    leftLine?: string;
+    rightLine?: string;
+  };
+}
+
+const { class: className, classes, ...props } = Astro.props;
+---
+
+<div class={cn('mb-4 grid', className)} {...props}>
+  <h2 data-section-title class={cn('w-fit font-header text-xl font-black text-color-text-title', classes?.text)}>
+    <slot />
+  </h2>
+  <div class={cn('flex', classes?.lineContainer)}>
+    <hr class={cn('border-2 border-color-primary-light', classes?.leftLine)} />
+    <hr class={cn('flex-1 border-2 border-color-separator', classes?.rightLine)} />
+  </div>
+</div>
+
+<script>
+  const headers = document.querySelectorAll('[data-section-title]');
+
+  headers.forEach((header) => {
+    const width = header.getBoundingClientRect().width;
+
+    header.nextElementSibling?.children[0]?.setAttribute('style', `width: ${Math.round(width) + 16}px`);
+  });
+</script>

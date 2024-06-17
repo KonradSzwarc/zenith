@@ -135,15 +135,22 @@ initializeWebContext(Astro, {
         <SubsectionTitle>Articles I come back to</SubsectionTitle>
         <GridList class="gap-4 lg:grid-cols-2">
           <Favorite
+            withSource
             icon="material-symbols:article"
             entry={getEntry('favorites', 'articles/client-side-architecture-basics')}
           />
           <Favorite
+            withSource
             icon="material-symbols:article"
             entry={getEntry('favorites', 'articles/future-facing-frontend-architectures')}
           />
-          <Favorite icon="material-symbols:article" entry={getEntry('favorites', 'articles/practical-react-query')} />
           <Favorite
+            withSource
+            icon="material-symbols:article"
+            entry={getEntry('favorites', 'articles/practical-react-query')}
+          />
+          <Favorite
+            withSource
             icon="material-symbols:article"
             entry={getEntry('favorites', 'articles/the-least-worst-architecture')}
           />

@@ -1,24 +1,23 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-import { Icon } from '@/pdf/components/icon';
 import Linkable from '@/components/linkable.astro';
+import { Icon } from '@/pdf/components/icon';
 import { cn } from '@/utils/cn';
 
 interface Props {
-  skillEntry: CollectionEntry<'skills'>;
+  entry: CollectionEntry<'skills'> | Promise<CollectionEntry<'skills'>>;
 }
 
-const {
-  skillEntry: { data: skill },
-} = Astro.props;
+const { entry } = Astro.props;
+const { data: skill } = await entry;
 
 const iconStyle = skill.color ? { color: skill.color } : undefined;
 ---
 
-<li class="flex h-6 items-center overflow-hidden rounded border border-color-border px-2">
+<div class="flex h-6 items-center overflow-hidden rounded border border-color-border px-2">
   {skill.icon && <Icon name={skill.icon} class="mr-1.5 size-3" style={iconStyle} />}
   <Linkable class={cn('py-1 text-sm font-medium text-color-text-primary')} href={skill.url}>
     {skill.name}
   </Linkable>
-</li>
+</div>

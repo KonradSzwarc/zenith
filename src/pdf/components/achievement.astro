@@ -9,17 +9,16 @@ import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
-  achevementEntry: CollectionEntry<'achievements'>;
+  entry: CollectionEntry<'achievements'> | Promise<CollectionEntry<'achievements'>>;
 }
 
-const {
-  achevementEntry: { data: achievement, body, render },
-} = Astro.props;
+const { entry } = Astro.props;
+const { data: achievement, body, render } = await entry;
 
 const date = achievement.date && formatDate(achievement.date, Astro);
 ---
 
-<li class="grid gap-2">
+<div class="grid gap-2">
   <div>
     <Linkable class="text-sm font-black text-color-text-title" href={achievement.url}>
       {achievement.name}
@@ -36,4 +35,4 @@ const date = achievement.date && formatDate(achievement.date, Astro);
   </div>
   {body.trim().length > 0 && <RenderedContent {render} />}
   {achievement.skills && <RelatedSkills skillRefs={achievement.skills} />}
-</li>
+</div>
