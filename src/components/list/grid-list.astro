@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import { cn } from '@/utils/cn';
+
+interface Props extends HTMLAttributes<'div'> {
+  minColWidth?: string;
+}
+
+const { class: className, minColWidth, ...props } = Astro.props;
+---
+
+<div data-autocols={Boolean(minColWidth)} class={cn('grid', className)} {...props}>
+  <slot />
+</div>
+
+<style define:vars={{ minColWidth }}>
+  div[data-autocols] {
+    grid-template-columns: repeat(auto-fit, minmax(var(--minColWidth), 1fr));
+  }
+</style>

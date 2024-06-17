@@ -10,22 +10,21 @@ import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
-  entry: CollectionEntry<'education'>;
+  entry: CollectionEntry<'jobs'> | Promise<CollectionEntry<'jobs'>>;
 }
 
-const {
-  entry: { data, body, render },
-} = Astro.props;
+const { entry } = Astro.props;
+const { data: job, body, render } = await entry;
 ---
 
-<li>
+<div>
   <div class="mb-5 flex items-start gap-4">
     {
-      data.image && (
+      job.image && (
         <Img
           class="hidden size-20 rounded object-contain sm:block"
-          src={data.image}
-          alt={data.institution}
+          src={job.image}
+          alt={job.organization}
           width={160}
           height={160}
         />
@@ -33,20 +32,20 @@ const {
     }
     <div>
       <h3 class="text-lg font-bold text-color-text-title sm:text-xl">
-        {data.title}
+        {job.position}
       </h3>
       <div
         class="text-sm font-medium text-color-text-title sm:text-base"
-        set:html={removeTopElement(markdownToHtml(data.institution))}
+        set:html={removeTopElement(markdownToHtml(job.organization))}
       />
       <DateRange
         class="text-sm font-normal text-color-text-primary sm:text-base"
-        startDate={data.startDate}
-        endDate={data.endDate}
+        startDate={job.startDate}
+        endDate={job.endDate}
       />
     </div>
   </div>
-  {data.details && <Details class="mb-3" details={data.details} />}
+  {job.details && <Details class="mb-3" details={job.details} />}
   {body.trim().length > 0 && <RenderedContent {render} />}
-  {data.skills && <RelatedSkills class="mt-5" skillRefs={data.skills} />}
-</li>
+  {job.skills && <RelatedSkills class="mt-5" skillRefs={job.skills} />}
+</div>

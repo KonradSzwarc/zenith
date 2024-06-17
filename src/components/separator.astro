@@ -3,11 +3,9 @@ import type { HTMLAttributes } from 'astro/types';
 
 import { cn } from '@/utils/cn';
 
-interface Props extends HTMLAttributes<'div'> {}
+interface Props extends HTMLAttributes<'hr'> {}
 
 const { class: className, ...props } = Astro.props;
 ---
 
-<div class={cn('grid', className)} {...props}>
-  <slot />
-</div>
+<hr class={cn('border-color-separator', className)} {...props} />

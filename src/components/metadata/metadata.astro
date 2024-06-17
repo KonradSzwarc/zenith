@@ -4,12 +4,11 @@ import type { CollectionEntry } from 'astro:content';
 import Favicon from './favicon.astro';
 
 interface Props {
-  metadataEntry: CollectionEntry<'metadata'>;
+  entry: CollectionEntry<'metadata'> | Promise<CollectionEntry<'metadata'>>;
 }
 
-const {
-  metadataEntry: { data: meta },
-} = Astro.props;
+const { entry } = Astro.props;
+const { data: meta } = await entry;
 ---
 
 <title>{meta.title}</title>

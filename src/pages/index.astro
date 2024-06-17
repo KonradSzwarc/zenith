@@ -1,21 +1,22 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
-import { Achievements } from '@/components/achievements';
+import Achievement from '@/components/achievement.astro';
 import Basics from '@/components/basics.astro';
-import { Education } from '@/components/education';
-import { Favorites } from '@/components/favorites';
-import { Interests } from '@/components/interests';
-import { Jobs } from '@/components/jobs';
+import Education from '@/components/education.astro';
+import Favorite from '@/components/favorite.astro';
+import Interest from '@/components/interest.astro';
+import Job from '@/components/job.astro';
+import { GridList, HorizontalList, VerticalList } from '@/components/list';
 import { Metadata } from '@/components/metadata';
-import { Projects } from '@/components/projects';
-import { References } from '@/components/references';
-import { Section, Subsection } from '@/components/section';
-import { Skills } from '@/components/skills';
+import Project from '@/components/project.astro';
+import Reference from '@/components/reference.astro';
+import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/components/section';
+import Separator from '@/components/separator.astro';
+import { SkillBar, SkillTag } from '@/components/skills';
 import MainLayout from '@/layouts/main-layout.astro';
 import { initializePageContext } from '@/utils/initialize-page-context';
-import { selectEntriesBySlug, selectEntriesBySlugPrefix } from '@/utils/select-entries-by-slug';
 
 initializePageContext(Astro, {
   locale: enUS,
@@ -27,70 +28,147 @@ initializePageContext(Astro, {
     filename: 'mark-freeman-resume.pdf',
   },
 });
-
-const metadata = await getEntry('metadata', 'main');
-const basics = await getEntry('basics', 'main');
-
-const skills = await getCollection('skills');
-// prettier-ignore
-const technicalSkills = selectEntriesBySlug(skills, ['astro', 'drizzle-orm', 'eslint', 'next', 'playwright', 'postgresql', 'react-testing-library', 'react', 'shadcn', 'tailwind', 'tanstack-query', 'trpc', 'typescript', 'vitest']);
-const toolSkills = selectEntriesBySlug(skills, ['neon', 'sentry', 'stripe', 'vercel']);
-const languageSkills = selectEntriesBySlug(skills, ['english', 'spanish']);
-
-const education = await getCollection('education');
-const jobs = await getCollection('jobs');
-const projects = await getCollection('projects');
-const references = await getCollection('references');
-const achievements = await getCollection('achievements');
-const interests = await getCollection('interests');
-
-const favorites = await getCollection('favorites');
-const bookFavorites = selectEntriesBySlugPrefix(favorites, 'books');
-const articleFavorites = selectEntriesBySlugPrefix(favorites, 'articles');
-const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
 ---
 
 <MainLayout>
-  <Metadata metadataEntry={metadata} slot="head" />
-  <Basics basicsEntry={basics} />
-  <Section title="Skills" contentClass="space-y-8">
-    <Subsection title="Technologies">
-      <Skills withLevel entries={technicalSkills} />
-    </Subsection>
-    <Subsection title="Tools">
-      <Skills entries={toolSkills} />
-    </Subsection>
-    <Subsection title="Languages">
-      <Skills entries={languageSkills} />
-    </Subsection>
+  <Metadata entry={getEntry('metadata', 'main')} slot="head" />
+  <Basics entry={getEntry('basics', 'main')} />
+  <Section>
+    <SectionTitle>Skills</SectionTitle>
+    <VerticalList class="gap-8">
+      <Subsection>
+        <SubsectionTitle>Technologies</SubsectionTitle>
+        <GridList class="gap-8" minColWidth="200px">
+          <SkillBar entry={getEntry('skills', 'astro')} />
+          <SkillBar entry={getEntry('skills', 'drizzle-orm')} />
+          <SkillBar entry={getEntry('skills', 'eslint')} />
+          <SkillBar entry={getEntry('skills', 'next')} />
+          <SkillBar entry={getEntry('skills', 'playwright')} />
+          <SkillBar entry={getEntry('skills', 'postgresql')} />
+          <SkillBar entry={getEntry('skills', 'react-testing-library')} />
+          <SkillBar entry={getEntry('skills', 'react')} />
+          <SkillBar entry={getEntry('skills', 'shadcn')} />
+          <SkillBar entry={getEntry('skills', 'tailwind')} />
+          <SkillBar entry={getEntry('skills', 'tanstack-query')} />
+          <SkillBar entry={getEntry('skills', 'trpc')} />
+          <SkillBar entry={getEntry('skills', 'typescript')} />
+          <SkillBar entry={getEntry('skills', 'vitest')} />
+        </GridList>
+      </Subsection>
+      <Subsection>
+        <SubsectionTitle>Tools</SubsectionTitle>
+        <HorizontalList class="gap-3">
+          <SkillTag entry={getEntry('skills', 'neon')} />
+          <SkillTag entry={getEntry('skills', 'sentry')} />
+          <SkillTag entry={getEntry('skills', 'stripe')} />
+          <SkillTag entry={getEntry('skills', 'vercel')} />
+        </HorizontalList>
+      </Subsection>
+      <Subsection>
+        <SubsectionTitle>Languages</SubsectionTitle>
+        <HorizontalList class="gap-3">
+          <SkillTag entry={getEntry('skills', 'english')} />
+          <SkillTag entry={getEntry('skills', 'spanish')} />
+        </HorizontalList>
+      </Subsection>
+    </VerticalList>
   </Section>
   <Section title="Work">
-    <Jobs entries={jobs} />
+    <SectionTitle>Work</SectionTitle>
+    <VerticalList class="gap-10">
+      <Job entry={getEntry('jobs', 'meta')} />
+      <Separator />
+      <Job entry={getEntry('jobs', 'shopify')} />
+      <Separator />
+      <Job entry={getEntry('jobs', 'codepen')} />
+    </VerticalList>
   </Section>
-  <Section title="Projects">
-    <Projects entries={projects} />
+  <Section>
+    <SectionTitle>Projects</SectionTitle>
+    <VerticalList class="gap-10">
+      <Project entry={getEntry('projects', 'moni-buddy')} />
+      <Separator />
+      <Project entry={getEntry('projects', 'user-board')} />
+    </VerticalList>
   </Section>
-  <Section title="References">
-    <References entries={references} />
+  <Section>
+    <SectionTitle>References</SectionTitle>
+    <VerticalList class="gap-10">
+      <Reference entry={getEntry('references', 'jane-smith')} />
+      <Separator />
+      <Reference entry={getEntry('references', 'john-doe')} />
+    </VerticalList>
   </Section>
-  <Section title="Achievements">
-    <Achievements entries={achievements} class="space-y-8" />
+  <Section>
+    <SectionTitle>Achievements</SectionTitle>
+    <VerticalList class="gap-8">
+      <Achievement entry={getEntry('achievements', 'advanced-react-developer')} />
+      <Achievement entry={getEntry('achievements', 'google-developer-expert')} />
+      <Achievement entry={getEntry('achievements', 'reactathon-hackathon')} />
+      <Achievement entry={getEntry('achievements', 'redux-toolkit-contributor')} />
+    </VerticalList>
   </Section>
-  <Section title="Education">
-    <Education entries={education} />
+  <Section>
+    <SectionTitle>Education</SectionTitle>
+    <VerticalList class="gap-10">
+      <Education entry={getEntry('education', 'master')} />
+      <Separator />
+      <Education entry={getEntry('education', 'bachelor')} />
+    </VerticalList>
   </Section>
-  <Section title="Favorites" contentClass="space-y-10">
-    <Subsection title="Books I read">
-      <Favorites entries={bookFavorites} icon="material-symbols:book-2" class="lg:grid-cols-2" />
-    </Subsection>
-    <Subsection title="Articles I come back to">
-      <Favorites withSource entries={articleFavorites} icon="material-symbols:article" class="lg:grid-cols-2" />
-    </Subsection>
-    <Subsection title="People I learn from">
-      <Favorites entries={peopleFavorites} icon="material-symbols:person" class="md:grid-cols-2 lg:grid-cols-3" />
-    </Subsection>
+  <Section>
+    <SectionTitle>Favorites</SectionTitle>
+    <VerticalList class="gap-10">
+      <Subsection>
+        <SubsectionTitle>Books I read</SubsectionTitle>
+        <GridList class="gap-4 lg:grid-cols-2">
+          <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/domain-driven-design')} />
+          <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/grokkking-simplicity')} />
+          <Favorite
+            icon="material-symbols:book-2"
+            entry={getEntry('favorites', 'books/learning-javascript-design-patterns')}
+          />
+          <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/the-pragmatic-programmer')} />
+        </GridList>
+      </Subsection>
+      <Subsection>
+        <SubsectionTitle>Articles I come back to</SubsectionTitle>
+        <GridList class="gap-4 lg:grid-cols-2">
+          <Favorite
+            icon="material-symbols:article"
+            entry={getEntry('favorites', 'articles/client-side-architecture-basics')}
+          />
+          <Favorite
+            icon="material-symbols:article"
+            entry={getEntry('favorites', 'articles/future-facing-frontend-architectures')}
+          />
+          <Favorite icon="material-symbols:article" entry={getEntry('favorites', 'articles/practical-react-query')} />
+          <Favorite
+            icon="material-symbols:article"
+            entry={getEntry('favorites', 'articles/the-least-worst-architecture')}
+          />
+        </GridList>
+      </Subsection>
+      <Subsection>
+        <SubsectionTitle>People I learn from</SubsectionTitle>
+        <GridList class="gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/addy-osmani')} />
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/anthony-fu')} />
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/dan-abramov')} />
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/josh-w-comeau')} />
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/kent-c-dodds')} />
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/lee-robinson')} />
+        </GridList>
+      </Subsection>
+    </VerticalList>
   </Section>
-  <Section title="Interests">
-    <Interests entries={interests} />
+  <Section>
+    <SectionTitle>Interests</SectionTitle>
+    <HorizontalList class="gap-x-4 gap-y-3">
+      <Interest entry={getEntry('interests', 'cooking')} />
+      <Interest entry={getEntry('interests', 'running')} />
+      <Interest entry={getEntry('interests', 'technical-blogging')} />
+      <Interest entry={getEntry('interests', 'video-montage')} />
+    </HorizontalList>
   </Section>
 </MainLayout>

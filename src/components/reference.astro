@@ -8,14 +8,12 @@ import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
-  referenceEntry: CollectionEntry<'references'>;
+  entry: CollectionEntry<'references'> | Promise<CollectionEntry<'references'>>;
 }
 
-const {
-  referenceEntry: { data, body, render },
-} = Astro.props;
-
-const { author } = data;
+const { entry } = Astro.props;
+const { data: reference, body, render } = await entry;
+const { author } = reference;
 
 const role = author.role && removeTopElement(markdownToHtml(author.role));
 const relation = author.relation && removeTopElement(markdownToHtml(author.relation));

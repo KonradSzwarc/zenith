@@ -8,6 +8,6 @@ interface Props extends HTMLAttributes<'div'> {}
 const { class: className, ...props } = Astro.props;
 ---
 
-<div class={cn('grid', className)} {...props}>
+<h3 class={cn('mb-2 font-header text-lg font-bold text-color-text-title sm:text-xl', className)} {...props}>
   <slot />
-</div>
+</h3>

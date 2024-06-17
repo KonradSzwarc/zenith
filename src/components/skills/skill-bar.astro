@@ -7,12 +7,11 @@ import Popover from '@/components/popover.astro';
 import { cn } from '@/utils/cn';
 
 interface Props {
-  skillEntry: CollectionEntry<'skills'>;
+  entry: CollectionEntry<'skills'> | Promise<CollectionEntry<'skills'>>;
 }
 
-const {
-  skillEntry: { data: skill, body, render },
-} = Astro.props;
+const { entry } = Astro.props;
+const { data: skill, body, render } = await entry;
 
 if (!skill.level) {
   throw new Error(`Skill "${skill.name}" is missing a "level" field.`);
@@ -27,7 +26,7 @@ const iconClass = cn('my-0.5 size-4 sm:my-1');
 const textClass = cn('text-sm font-medium text-color-text-primary sm:text-base');
 ---
 
-<li class="flex flex-col gap-1.5">
+<div class="flex flex-col gap-1.5">
   <div class="flex items-start gap-1.5">
     {skill.icon && <Icon name={skill.icon} style={iconStyle} class={iconClass} />}
     <Linkable class={textClass} href={skill.url}>
@@ -56,4 +55,4 @@ const textClass = cn('text-sm font-medium text-color-text-primary sm:text-base')
       }
     </div>
   </div>
-</li>
+</div>

@@ -11,12 +11,11 @@ import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
-  achevementEntry: CollectionEntry<'achievements'>;
+  entry: CollectionEntry<'achievements'> | Promise<CollectionEntry<'achievements'>>;
 }
 
-const {
-  achevementEntry: { data: achievement, body, render },
-} = Astro.props;
+const { entry } = Astro.props;
+const { data: achievement, body, render } = await entry;
 
 const date = achievement.date && formatDate(achievement.date, Astro);
 ---

@@ -7,18 +7,17 @@ import Popover from '@/components/popover.astro';
 import { cn } from '@/utils/cn';
 
 interface Props {
-  skillEntry: CollectionEntry<'skills'>;
+  entry: CollectionEntry<'skills'> | Promise<CollectionEntry<'skills'>>;
 }
 
-const {
-  skillEntry: { data: skill, body, render },
-} = Astro.props;
+const { entry } = Astro.props;
+const { data: skill, body, render } = await entry;
 
 const Description = body.trim().length > 0 && (await render()).Content;
 const iconStyle = skill.color ? { color: skill.color } : undefined;
 ---
 
-<li class="flex items-center gap-2 overflow-hidden rounded bg-color-bg-light pl-2">
+<div class="flex items-center gap-2 overflow-hidden rounded bg-color-bg-light pl-2">
   {skill.icon && <Icon name={skill.icon} class="size-4" style={iconStyle} />}
   <Linkable class={cn('py-1 text-sm font-medium text-color-text-primary', !Description && 'pr-2')} href={skill.url}>
     {skill.name}
@@ -36,4 +35,4 @@ const iconStyle = skill.color ? { color: skill.color } : undefined;
       </Popover>
     )
   }
-</li>
+</div>

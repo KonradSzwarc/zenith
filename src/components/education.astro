@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import DateRange from '@/components/date-range.astro';
+import Details from '@/components/details.astro';
+import Img from '@/components/img.astro';
+import RenderedContent from '@/components/rendered-content.astro';
+import { RelatedSkills } from '@/components/skills';
+import { markdownToHtml } from '@/utils/markdown-to-html';
+import { removeTopElement } from '@/utils/remove-top-element';
+
+interface Props {
+  entry: CollectionEntry<'education'> | Promise<CollectionEntry<'education'>>;
+}
+
+const { entry } = Astro.props;
+const { data: education, body, render } = await entry;
+---
+
+<div>
+  <div class="mb-5 flex items-start gap-4">
+    {
+      education.image && (
+        <Img
+          class="hidden size-20 rounded object-contain sm:block"
+          src={education.image}
+          alt={education.institution}
+          width={160}
+          height={160}
+        />
+      )
+    }
+    <div>
+      <h3 class="text-lg font-bold text-color-text-title sm:text-xl">
+        {education.title}
+      </h3>
+      <div
+        class="text-sm font-medium text-color-text-title sm:text-base"
+        set:html={removeTopElement(markdownToHtml(education.institution))}
+      />
+      <DateRange
+        class="text-sm font-normal text-color-text-primary sm:text-base"
+        startDate={education.startDate}
+        endDate={education.endDate}
+      />
+    </div>
+  </div>
+  {education.details && <Details class="mb-3" details={education.details} />}
+  {body.trim().length > 0 && <RenderedContent {render} />}
+  {education.skills && <RelatedSkills class="mt-5" skillRefs={education.skills} />}
+</div>

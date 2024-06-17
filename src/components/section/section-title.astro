@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import { cn } from '@/utils/cn';
+
+interface Props extends HTMLAttributes<'div'> {
+  classes?: {
+    text?: string;
+    underline?: string;
+  };
+}
+
+const { class: className, classes, ...props } = Astro.props;
+---
+
+<div class={cn('relative mb-8 w-fit', className)} {...props}>
+  <hr class={cn('absolute bottom-px border-4 border-color-primary-light', classes?.underline)} />
+  <h2 class={cn('relative pr-2 font-header text-3xl font-black text-color-text-title sm:text-4xl', classes?.text)}>
+    <slot />
+  </h2>
+</div>
+
+<style>
+  hr {
+    width: calc(100% + 4px);
+  }
+</style>
