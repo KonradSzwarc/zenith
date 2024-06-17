@@ -3,16 +3,16 @@ import type { CollectionEntry } from 'astro:content';
 
 import { dateRangeSorter } from '@/utils/date-sorters';
 
-import TimelineItem from './timeline-item.astro';
+import TimelineItem from './project.astro';
 
 interface Props {
-  entries: CollectionEntry<'work'>[] | CollectionEntry<'education'>[] | CollectionEntry<'projects'>[];
+  entries: CollectionEntry<'projects'>[];
 }
 
 const { entries } = Astro.props;
 ---
 
-<ul class="space-y-10">
+<ul class="space-y-6">
   {
     entries
       .map((entry) => ({

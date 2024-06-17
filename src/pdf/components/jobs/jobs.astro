@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import { dateRangeSorter } from '@/utils/date-sorters';
+
+import TimelineItem from './job.astro';
+
+interface Props {
+  entries: CollectionEntry<'jobs'>[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ul class="space-y-6">
+  {
+    entries
+      .map((entry) => ({
+        entry,
+        startDate: entry.data.startDate,
+        endDate: entry.data.endDate,
+      }))
+      .toSorted(dateRangeSorter)
+      .map(({ entry }, i, arr) => (
+        <>
+          <TimelineItem {entry} />
+          {i < arr.length - 1 && <hr class="border-color-separator" />}
+        </>
+      ))
+  }
+</ul>

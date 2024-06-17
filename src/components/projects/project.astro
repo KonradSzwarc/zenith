@@ -10,39 +10,29 @@ import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
-  entry: CollectionEntry<'education'> | CollectionEntry<'work'> | CollectionEntry<'projects'>;
+  entry: CollectionEntry<'projects'>;
 }
 
 const {
   entry: { data, body, render },
 } = Astro.props;
-
-const isEducation = 'institution' in data;
-const isWork = 'organization' in data;
-
-const { title, description, alt } = (() => {
-  if (isEducation) {
-    return { title: data.title, description: data.institution, alt: data.institution };
-  } else if (isWork) {
-    return { title: data.position, description: data.organization, alt: data.organization };
-  } else {
-    return { title: data.name, description: data.description, alt: data.name };
-  }
-})();
 ---
 
 <li>
   <div class="mb-4 flex items-start gap-3">
     {
       data.image && (
-        <Img class="size-[60px] rounded object-contain" src={data.image} alt={alt} width={128} height={128} />
+        <Img class="size-[60px] rounded object-contain" src={data.image} alt={data.name} width={128} height={128} />
       )
     }
     <div>
       <h3 class="text-base font-black leading-tight text-color-text-title">
-        {title}
+        {data.name}
       </h3>
-      <div class="text-sm font-medium text-color-text-title" set:html={removeTopElement(markdownToHtml(description))} />
+      <div
+        class="text-sm font-medium text-color-text-title"
+        set:html={removeTopElement(markdownToHtml(data.description))}
+      />
       <DateRange
         class="text-sm font-normal text-color-text-primary"
         startDate={data.startDate}

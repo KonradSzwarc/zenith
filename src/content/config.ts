@@ -67,6 +67,19 @@ export const collections = {
       icon: z.string().optional(),
     }),
   }),
+  jobs: defineCollection({
+    type: 'content',
+    schema: ({ image }) =>
+      z.object({
+        position: z.string(),
+        organization: z.string(),
+        image: image().optional(),
+        startDate: z.date(),
+        endDate: z.date().optional(),
+        details: z.array(labelledValueSchema).min(1).optional(),
+        skills: z.array(reference('skills')).min(1).optional(),
+      }),
+  }),
   metadata: defineCollection({
     type: 'data',
     schema: ({ image }) =>
@@ -127,18 +140,5 @@ export const collections = {
         .optional(),
       url: z.string().url().optional(),
     }),
-  }),
-  work: defineCollection({
-    type: 'content',
-    schema: ({ image }) =>
-      z.object({
-        position: z.string(),
-        organization: z.string(),
-        image: image().optional(),
-        startDate: z.date(),
-        endDate: z.date().optional(),
-        details: z.array(labelledValueSchema).min(1).optional(),
-        skills: z.array(reference('skills')).min(1).optional(),
-      }),
   }),
 };

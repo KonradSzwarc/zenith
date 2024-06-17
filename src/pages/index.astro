@@ -4,13 +4,15 @@ import { enUS } from 'date-fns/locale';
 
 import { Achievements } from '@/components/achievements';
 import Basics from '@/components/basics.astro';
+import { Education } from '@/components/education';
 import { Favorites } from '@/components/favorites';
 import { Interests } from '@/components/interests';
+import { Jobs } from '@/components/jobs';
 import { Metadata } from '@/components/metadata';
+import { Projects } from '@/components/projects';
 import { References } from '@/components/references';
 import { Section, Subsection } from '@/components/section';
 import { Skills } from '@/components/skills';
-import { Timeline } from '@/components/timeline';
 import MainLayout from '@/layouts/main-layout.astro';
 import { initializePageContext } from '@/utils/initialize-page-context';
 import { selectEntriesBySlug, selectEntriesBySlugPrefix } from '@/utils/select-entries-by-slug';
@@ -36,7 +38,7 @@ const toolSkills = selectEntriesBySlug(skills, ['neon', 'sentry', 'stripe', 'ver
 const languageSkills = selectEntriesBySlug(skills, ['english', 'spanish']);
 
 const education = await getCollection('education');
-const work = await getCollection('work');
+const jobs = await getCollection('jobs');
 const projects = await getCollection('projects');
 const references = await getCollection('references');
 const achievements = await getCollection('achievements');
@@ -63,10 +65,10 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
     </Subsection>
   </Section>
   <Section title="Work">
-    <Timeline entries={work} />
+    <Jobs entries={jobs} />
   </Section>
   <Section title="Projects">
-    <Timeline entries={projects} />
+    <Projects entries={projects} />
   </Section>
   <Section title="References">
     <References entries={references} />
@@ -75,7 +77,7 @@ const peopleFavorites = selectEntriesBySlugPrefix(favorites, 'people');
     <Achievements entries={achievements} class="space-y-8" />
   </Section>
   <Section title="Education">
-    <Timeline entries={education} />
+    <Education entries={education} />
   </Section>
   <Section title="Favorites" contentClass="space-y-10">
     <Subsection title="Books I read">
