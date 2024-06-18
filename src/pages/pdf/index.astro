@@ -8,8 +8,10 @@ import Achievement from '@/pdf/components/achievement.astro';
 import Basics from '@/pdf/components/basics.astro';
 import Education from '@/pdf/components/education.astro';
 import Favorite from '@/pdf/components/favorite.astro';
+import Footer from '@/pdf/components/footer.astro';
 import Interest from '@/pdf/components/interest.astro';
 import Job from '@/pdf/components/job.astro';
+import PdfConfig from '@/pdf/components/pdf-config.astro';
 import Project from '@/pdf/components/project.astro';
 import Reference from '@/pdf/components/reference.astro';
 import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/pdf/components/section';
@@ -25,6 +27,7 @@ initializePdfContext(Astro, {
 ---
 
 <MainLayout class="gap-7">
+  <PdfConfig margin="11mm" slot="head" />
   <Basics entry={getEntry('basics', 'main-pdf')} />
   <Section class="gap-4">
     <SectionTitle>Skills</SectionTitle>
@@ -171,4 +174,8 @@ initializePdfContext(Astro, {
       <Interest entry={getEntry('interests', 'video-montage')} />
     </HorizontalList>
   </Section>
+  <Footer>
+    I hereby give consent for my personal data included in my application to be processed for the purposes of the
+    recruitment process.
+  </Footer>
 </MainLayout>

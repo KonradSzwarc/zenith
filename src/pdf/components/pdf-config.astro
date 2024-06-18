@@ -1,0 +1,16 @@
+---
+interface Props {
+  margin: string;
+  marginTop?: string;
+  marginRight?: string;
+  marginBottom?: string;
+  marginLeft?: string;
+}
+
+const { margin, marginBottom, marginLeft, marginRight, marginTop } = Astro.props;
+---
+
+<meta name="pdf-margin-top" content={marginTop ?? margin} />
+<meta name="pdf-margin-right" content={marginRight ?? margin} />
+<meta name="pdf-margin-bottom" content={marginBottom ?? margin} />
+<meta name="pdf-margin-left" content={marginLeft ?? margin} />

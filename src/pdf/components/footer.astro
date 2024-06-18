@@ -1,0 +1,20 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import { cn } from '@/utils/cn';
+
+interface Props extends Omit<HTMLAttributes<'footer'>, 'id'> {}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div
+  class={cn(
+    'flex w-full justify-center rounded border border-color-border bg-color-bg-light px-2 py-0.5 text-justify font-body text-[11px] text-color-text-secondary',
+    className,
+  )}
+  id="footer"
+  {...props}
+>
+  <slot />
+</div>
