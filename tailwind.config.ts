@@ -8,6 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        ['color-primary-dark']: 'hsl(var(--primary-dark) / <alpha-value>)',
         ['color-primary']: 'hsl(var(--primary) / <alpha-value>)',
         ['color-primary-light']: 'hsl(var(--primary-light) / <alpha-value>)',
         ['color-primary-contrast']: 'hsl(var(--primary-contrast) / <alpha-value>)',

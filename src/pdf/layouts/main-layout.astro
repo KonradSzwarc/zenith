@@ -2,8 +2,10 @@
 import type { HTMLAttributes } from 'astro/types';
 
 import BaseLayout from '@/layouts/base-layout.astro';
-import SlateDusk from '@/styles/dusk-color/slate.astro';
-import InterFont from '@/styles/fonts/inter.astro';
+import GrayscaleVariables from '@/styles/colors/dusk/slate.astro';
+import ElementStyleVariables from '@/styles/colors/elements/default.astro';
+import PrimaryColorVariables from '@/styles/colors/primary/indigo.astro';
+import FontStyles from '@/styles/fonts/inter.astro';
 import { cn } from '@/utils/cn';
 
 interface Props extends HTMLAttributes<'main'> {}
@@ -13,44 +15,13 @@ const { class: className, ...props } = Astro.props;
 
 <BaseLayout bodyClass="bg-color-bg-card antialiased">
   <Fragment slot="head">
-    <InterFont />
-    <SlateDusk />
+    <FontStyles />
+    <GrayscaleVariables />
+    <PrimaryColorVariables />
+    <ElementStyleVariables />
     <slot name="head" />
   </Fragment>
   <main class={cn('mx-auto grid w-[720px]', className)} {...props}>
     <slot />
   </main>
 </BaseLayout>
-
-<style is:global>
-  :root {
-    /*-----------------------------
-      FUNCTIONAL COLORS
-    -----------------------------*/
-
-    color-scheme: light;
-
-    --primary: 243 75% 59%;
-    --primary-light: 234 89% 74%;
-    --primary-contrast: var(--white);
-
-    --text-title: var(--dusk-900);
-    --text-primary: var(--dusk-700);
-    --text-secondary: var(--dusk-500);
-
-    --icon-light: var(--dusk-400);
-    --icon-main: var(--dusk-500);
-    --icon-dark: var(--dusk-600);
-
-    --border: var(--dusk-200);
-    --separator: var(--dusk-300);
-
-    --bg-body: var(--dusk-50);
-    --bg-card: var(--white);
-    --bg-popover: var(--white);
-
-    --bg-light: var(--dusk-100);
-    --bg-main: var(--dusk-200);
-    --bg-dark: var(--dusk-500);
-  }
-</style>

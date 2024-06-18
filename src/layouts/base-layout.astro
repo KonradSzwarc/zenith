@@ -23,3 +23,18 @@ const context = getGlobalContext<ContextSlice<'locale'>>(Astro);
     <slot />
   </body>
 </html>
+
+<style is:global>
+  :root {
+    --black: 0 0% 0%;
+    --white: 0 0% 100%;
+
+    &:not(.dark) {
+      color-scheme: light;
+    }
+
+    &.dark {
+      color-scheme: dark;
+    }
+  }
+</style>
