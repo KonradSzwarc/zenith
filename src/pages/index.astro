@@ -4,18 +4,22 @@ import { enUS } from 'date-fns/locale';
 
 import { GridList, HorizontalList, VerticalList } from '@/components/list';
 import Separator from '@/components/separator.astro';
+import GrayscaleColors from '@/styles/colors/dusk/slate.astro';
+import ElementColors from '@/styles/colors/elements/default.astro';
+import PrimaryColors from '@/styles/colors/primary/indigo.astro';
+import Font from '@/styles/fonts/inter.astro';
 import Achievement from '@/web/components/achievement.astro';
 import Basics from '@/web/components/basics.astro';
 import Education from '@/web/components/education.astro';
 import Favorite from '@/web/components/favorite.astro';
 import Interest from '@/web/components/interest.astro';
 import Job from '@/web/components/job.astro';
+import Layout from '@/web/components/layout.astro';
 import { Metadata } from '@/web/components/metadata';
 import Project from '@/web/components/project.astro';
 import Reference from '@/web/components/reference.astro';
 import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/web/components/section';
 import { Skill } from '@/web/components/skills';
-import MainLayout from '@/web/layouts/main-layout.astro';
 import { initializeWebContext } from '@/web/utils/initialize-web-context';
 
 await initializeWebContext(Astro, {
@@ -31,8 +35,14 @@ await initializeWebContext(Astro, {
 });
 ---
 
-<MainLayout class="gap-16">
-  <Metadata entry={getEntry('metadata', 'main')} slot="head" />
+<Layout class="gap-16">
+  <Fragment slot="head">
+    <Font />
+    <GrayscaleColors />
+    <PrimaryColors />
+    <ElementColors />
+    <Metadata entry={getEntry('metadata', 'main')} />
+  </Fragment>
   <Basics entry={getEntry('basics', 'main')} />
   <Section class="gap-8">
     <SectionTitle>Skills</SectionTitle>
@@ -104,8 +114,11 @@ await initializeWebContext(Astro, {
     <SectionTitle>Achievements</SectionTitle>
     <VerticalList class="gap-8">
       <Achievement entry={getEntry('achievements', 'advanced-react-developer')} />
+      <Separator />
       <Achievement entry={getEntry('achievements', 'google-developer-expert')} />
+      <Separator />
       <Achievement entry={getEntry('achievements', 'reactathon-hackathon')} />
+      <Separator />
       <Achievement entry={getEntry('achievements', 'redux-toolkit-contributor')} />
     </VerticalList>
   </Section>
@@ -179,4 +192,4 @@ await initializeWebContext(Astro, {
       <Interest entry={getEntry('interests', 'video-montage')} />
     </HorizontalList>
   </Section>
-</MainLayout>
+</Layout>

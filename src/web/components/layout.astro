@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import BaseLayout from '@/layouts/base-layout.astro';
+import { cn } from '@/utils/cn';
+import ThemeSwitcher from '@/web/components/theme-switcher.astro';
+
+interface Props extends HTMLAttributes<'main'> {
+  bodyClass?: string;
+}
+
+const { class: className, bodyClass, ...props } = Astro.props;
+---
+
+<BaseLayout bodyClass={cn('bg-color-bg-body antialiased sm:p-6 md:p-8 lg:p-10', bodyClass)}>
+  <slot name="head" slot="head" />
+  <ThemeSwitcher />
+  <main
+    class={cn('mx-auto grid w-full max-w-screen-lg bg-color-bg-card p-6 shadow-2xl sm:rounded-3xl sm:p-10', className)}
+    {...props}
+  >
+    <slot />
+  </main>
+</BaseLayout>

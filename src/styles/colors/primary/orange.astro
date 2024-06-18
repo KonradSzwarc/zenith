@@ -1,0 +1,17 @@
+<style is:global>
+  :root {
+    &:not(.dark) {
+      --primary-dark: 21 90% 48%;
+      --primary: 27 96% 61%;
+      --primary-light: 32 98% 83%;
+      --primary-contrast: var(--white);
+    }
+
+    &.dark {
+      --primary-dark: 21 90% 48%;
+      --primary: 27 96% 61%;
+      --primary-light: 21 90% 48%;
+      --primary-contrast: var(--white);
+    }
+  }
+</style>

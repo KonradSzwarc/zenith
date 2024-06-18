@@ -1,0 +1,19 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import BaseLayout from '@/layouts/base-layout.astro';
+import { cn } from '@/utils/cn';
+
+interface Props extends HTMLAttributes<'main'> {
+  bodyClass?: string;
+}
+
+const { class: className, bodyClass, ...props } = Astro.props;
+---
+
+<BaseLayout bodyClass={cn('bg-color-bg-card antialiased', bodyClass)}>
+  <slot name="head" slot="head" />
+  <main class={cn('mx-auto grid w-[720px]', className)} {...props}>
+    <slot />
+  </main>
+</BaseLayout>
