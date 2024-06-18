@@ -1,5 +1,12 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
 import BaseLayout from '@/layouts/base-layout.astro';
+import { cn } from '@/utils/cn';
+
+interface Props extends HTMLAttributes<'main'> {}
+
+const { class: className, ...props } = Astro.props;
 ---
 
 <BaseLayout bodyClass="bg-color-bg-card antialiased">
@@ -8,7 +15,7 @@ import BaseLayout from '@/layouts/base-layout.astro';
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <slot name="head" />
   </Fragment>
-  <main class="mx-auto w-[720px] space-y-7">
+  <main class={cn('mx-auto grid w-[720px]', className)} {...props}>
     <slot />
   </main>
 </BaseLayout>
