@@ -1,0 +1,10 @@
+{
+  "age": "Alter",
+  "age_value_one": "{{count}} Jahr",
+  "age_value_other": "{{count}} Jahre",
+  "email": "E-Mail",
+  "phone": "Telefon",
+  "location": "Standort",
+  "current": "Aktuell",
+  "related_skills": "Verwandte Fähigkeiten"
+}

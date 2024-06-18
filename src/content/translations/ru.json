@@ -1,0 +1,11 @@
+{
+  "age": "Возраст",
+  "age_value_one": "{{count}} год",
+  "age_value_few": "{{count}} года",
+  "age_value_many": "{{count}} лет",
+  "email": "Эл. почта",
+  "phone": "Телефон",
+  "location": "Местоположение",
+  "current": "н.в.",
+  "related_skills": "Развитые навыки"
+}

@@ -141,4 +141,8 @@ export const collections = {
       url: z.string().url().optional(),
     }),
   }),
+  translations: defineCollection({
+    type: 'data',
+    schema: z.record(z.string()),
+  }),
 };

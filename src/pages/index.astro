@@ -18,8 +18,9 @@ import { Skill } from '@/web/components/skills';
 import MainLayout from '@/web/layouts/main-layout.astro';
 import { initializeWebContext } from '@/web/utils/initialize-web-context';
 
-initializeWebContext(Astro, {
+await initializeWebContext(Astro, {
   locale: enUS,
+  translations: getEntry('translations', 'en'),
   dateFormat: 'MMMM yyyy',
   theme: 'custom',
   pdf: {

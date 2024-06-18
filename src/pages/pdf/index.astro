@@ -19,8 +19,9 @@ import { Skill } from '@/pdf/components/skills';
 import MainLayout from '@/pdf/layouts/main-layout.astro';
 import { initializePdfContext } from '@/pdf/utils/initialize-pdf-context';
 
-initializePdfContext(Astro, {
+await initializePdfContext(Astro, {
   locale: enUS,
+  translations: getEntry('translations', 'en'),
   dateFormat: 'MMMM yyyy',
   website: '/',
 });

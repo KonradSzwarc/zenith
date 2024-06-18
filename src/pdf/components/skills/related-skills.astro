@@ -2,7 +2,9 @@
 import type { ValidContentEntrySlug } from 'astro:content';
 import { getEntries } from 'astro:content';
 
+import type { ContextSlice } from '@/types/context';
 import { cn } from '@/utils/cn';
+import { getGlobalContext } from '@/utils/get-global-context';
 
 import SkillWithoutLevel from './skill-without-level.astro';
 
@@ -15,13 +17,15 @@ interface Props {
   }[];
 }
 
-const { skillRefs, label = 'Skills I developed:', class: className } = Astro.props;
+const context = getGlobalContext<ContextSlice<'i18n'>>(Astro);
+
+const { skillRefs, label = context.i18n.t('related_skills'), class: className } = Astro.props;
 
 const skillEntries = (await getEntries(skillRefs)).map((entry) => ({ ...entry, body: '' }));
 ---
 
 <div class={cn('flex flex-wrap gap-1', className)}>
-  <div class="text-sm font-semibold leading-6 text-color-text-title">{label}</div>
+  <div class="text-sm font-semibold leading-6 text-color-text-title">{label}:</div>
   <div class="flex flex-wrap gap-1.5">
     {skillEntries.map((entry) => <SkillWithoutLevel {entry} />)}
   </div>

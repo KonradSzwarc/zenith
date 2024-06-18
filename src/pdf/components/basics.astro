@@ -17,16 +17,19 @@ interface Props {
 const { entry } = Astro.props;
 const { data: basics, body, render } = await entry;
 
-const context = getGlobalContext<ContextSlice<'website'>>(Astro);
+const context = getGlobalContext<ContextSlice<'website' | 'i18n'>>(Astro);
+const t = context.i18n.t;
+
+const age = basics.birthdate && intervalToDuration({ start: basics.birthdate, end: new Date() }).years;
 
 const details = [
-  basics.birthdate && {
-    label: 'Age',
-    value: `${intervalToDuration({ start: basics.birthdate, end: new Date() }).years} years`,
+  age && { label: t('age'), value: t('age_value', { count: age }) },
+  basics.email && { label: t('email'), value: `[${basics.email}](mailto:${basics.email})` },
+  basics.phone && { label: t('phone'), value: `[${basics.phone}](tel:${basics.phone})` },
+  (basics.city || basics.country) && {
+    label: t('location'),
+    value: joinNonEmpty([basics.city, basics.country], ', '),
   },
-  basics.email && { label: 'Email', value: `[${basics.email}](mailto:${basics.email})` },
-  basics.phone && { label: 'Phone', value: `[${basics.phone}](tel:${basics.phone})` },
-  (basics.city || basics.country) && { label: 'Location', value: joinNonEmpty([basics.city, basics.country], ', ') },
   ...(basics.details || []),
 ].filter(Boolean);
 ---
