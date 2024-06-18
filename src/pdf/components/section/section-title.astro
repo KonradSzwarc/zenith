@@ -15,7 +15,7 @@ interface Props extends HTMLAttributes<'div'> {
 const { class: className, classes, ...props } = Astro.props;
 ---
 
-<div class={cn('mb-4 grid', className)} {...props}>
+<div class={cn('grid', className)} {...props}>
   <h2 data-section-title class={cn('w-fit font-header text-xl font-black text-color-text-title', classes?.text)}>
     <slot />
   </h2>

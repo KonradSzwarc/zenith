@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<'div'> {
 const { class: className, classes, ...props } = Astro.props;
 ---
 
-<div class={cn('relative mb-8 w-fit', className)} {...props}>
+<div class={cn('relative w-fit', className)} {...props}>
   <hr class={cn('absolute bottom-px border-4 border-color-primary-light', classes?.underline)} />
   <h2 class={cn('relative pr-2 font-header text-3xl font-black text-color-text-title sm:text-4xl', classes?.text)}>
     <slot />

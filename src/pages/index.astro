@@ -33,10 +33,10 @@ initializeWebContext(Astro, {
 <MainLayout>
   <Metadata entry={getEntry('metadata', 'main')} slot="head" />
   <Basics entry={getEntry('basics', 'main')} />
-  <Section>
+  <Section class="gap-8">
     <SectionTitle>Skills</SectionTitle>
     <VerticalList class="gap-8">
-      <Subsection>
+      <Subsection class="gap-2">
         <SubsectionTitle>Technologies</SubsectionTitle>
         <GridList class="gap-8" minColWidth="200px">
           <Skill withLevel entry={getEntry('skills', 'astro')} />
@@ -55,7 +55,7 @@ initializeWebContext(Astro, {
           <Skill withLevel entry={getEntry('skills', 'vitest')} />
         </GridList>
       </Subsection>
-      <Subsection>
+      <Subsection class="gap-2">
         <SubsectionTitle>Tools</SubsectionTitle>
         <HorizontalList class="gap-3">
           <Skill entry={getEntry('skills', 'neon')} />
@@ -64,7 +64,7 @@ initializeWebContext(Astro, {
           <Skill entry={getEntry('skills', 'vercel')} />
         </HorizontalList>
       </Subsection>
-      <Subsection>
+      <Subsection class="gap-2">
         <SubsectionTitle>Languages</SubsectionTitle>
         <HorizontalList class="gap-3">
           <Skill entry={getEntry('skills', 'english')} />
@@ -73,7 +73,7 @@ initializeWebContext(Astro, {
       </Subsection>
     </VerticalList>
   </Section>
-  <Section title="Work">
+  <Section class="gap-8">
     <SectionTitle>Work</SectionTitle>
     <VerticalList class="gap-10">
       <Job entry={getEntry('jobs', 'meta')} />
@@ -83,7 +83,7 @@ initializeWebContext(Astro, {
       <Job entry={getEntry('jobs', 'codepen')} />
     </VerticalList>
   </Section>
-  <Section>
+  <Section class="gap-8">
     <SectionTitle>Projects</SectionTitle>
     <VerticalList class="gap-10">
       <Project entry={getEntry('projects', 'moni-buddy')} />
@@ -91,7 +91,7 @@ initializeWebContext(Astro, {
       <Project entry={getEntry('projects', 'user-board')} />
     </VerticalList>
   </Section>
-  <Section>
+  <Section class="gap-8">
     <SectionTitle>References</SectionTitle>
     <VerticalList class="gap-10">
       <Reference entry={getEntry('references', 'jane-smith')} />
@@ -99,7 +99,7 @@ initializeWebContext(Astro, {
       <Reference entry={getEntry('references', 'john-doe')} />
     </VerticalList>
   </Section>
-  <Section>
+  <Section class="gap-8">
     <SectionTitle>Achievements</SectionTitle>
     <VerticalList class="gap-8">
       <Achievement entry={getEntry('achievements', 'advanced-react-developer')} />
@@ -108,7 +108,7 @@ initializeWebContext(Astro, {
       <Achievement entry={getEntry('achievements', 'redux-toolkit-contributor')} />
     </VerticalList>
   </Section>
-  <Section>
+  <Section class="gap-8">
     <SectionTitle>Education</SectionTitle>
     <VerticalList class="gap-10">
       <Education entry={getEntry('education', 'master')} />
@@ -116,10 +116,10 @@ initializeWebContext(Astro, {
       <Education entry={getEntry('education', 'bachelor')} />
     </VerticalList>
   </Section>
-  <Section>
+  <Section class="gap-8">
     <SectionTitle>Favorites</SectionTitle>
     <VerticalList class="gap-10">
-      <Subsection>
+      <Subsection class="gap-2">
         <SubsectionTitle>Books I read</SubsectionTitle>
         <GridList class="gap-4 lg:grid-cols-2">
           <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/domain-driven-design')} />
@@ -131,7 +131,7 @@ initializeWebContext(Astro, {
           <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/the-pragmatic-programmer')} />
         </GridList>
       </Subsection>
-      <Subsection>
+      <Subsection class="gap-2">
         <SubsectionTitle>Articles I come back to</SubsectionTitle>
         <GridList class="gap-4 lg:grid-cols-2">
           <Favorite
@@ -156,7 +156,7 @@ initializeWebContext(Astro, {
           />
         </GridList>
       </Subsection>
-      <Subsection>
+      <Subsection class="gap-2">
         <SubsectionTitle>People I learn from</SubsectionTitle>
         <GridList class="gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/addy-osmani')} />
@@ -169,7 +169,7 @@ initializeWebContext(Astro, {
       </Subsection>
     </VerticalList>
   </Section>
-  <Section>
+  <Section class="gap-8">
     <SectionTitle>Interests</SectionTitle>
     <HorizontalList class="gap-x-4 gap-y-3">
       <Interest entry={getEntry('interests', 'cooking')} />
