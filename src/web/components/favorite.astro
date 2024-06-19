@@ -37,8 +37,13 @@ const imageSizes = {
 ---
 
 <div class={rootClass}>
-  {favorite.image && image && <Img class={imageSizes[image]} src={favorite.image} alt={favorite.title} />}
-  {icon && <Icon name={icon} class={cn(iconSizeClass, 'text-color-icon-dark')} />}
+  {
+    favorite.image && image ? (
+      <Img class={imageSizes[image]} src={favorite.image} alt={favorite.title} />
+    ) : icon ? (
+      <Icon name={icon} class={cn(iconSizeClass, 'text-color-icon-dark')} />
+    ) : null
+  }
   <div class="flex w-full flex-col">
     <Linkable class="text-sm font-medium text-color-text-title sm:text-base" href={favorite.url}>
       {favorite.title}
