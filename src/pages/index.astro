@@ -136,13 +136,10 @@ await initializeWebContext(Astro, {
       <Subsection class="gap-2">
         <SubsectionTitle>Books I read</SubsectionTitle>
         <GridList class="gap-4 lg:grid-cols-2">
-          <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/domain-driven-design')} />
-          <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/grokkking-simplicity')} />
-          <Favorite
-            icon="material-symbols:book-2"
-            entry={getEntry('favorites', 'books/learning-javascript-design-patterns')}
-          />
-          <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/the-pragmatic-programmer')} />
+          <Favorite image="poster" entry={getEntry('favorites', 'books/domain-driven-design')} />
+          <Favorite image="poster" entry={getEntry('favorites', 'books/grokkking-simplicity')} />
+          <Favorite image="poster" entry={getEntry('favorites', 'books/learning-javascript-design-patterns')} />
+          <Favorite image="poster" entry={getEntry('favorites', 'books/the-pragmatic-programmer')} />
         </GridList>
       </Subsection>
       <Subsection class="gap-2">
@@ -150,35 +147,36 @@ await initializeWebContext(Astro, {
         <GridList class="gap-4 lg:grid-cols-2">
           <Favorite
             withSource
-            icon="material-symbols:article"
+            image="favicon"
             entry={getEntry('favorites', 'articles/client-side-architecture-basics')}
           />
           <Favorite
             withSource
-            icon="material-symbols:article"
+            image="favicon"
             entry={getEntry('favorites', 'articles/future-facing-frontend-architectures')}
           />
-          <Favorite
-            withSource
-            icon="material-symbols:article"
-            entry={getEntry('favorites', 'articles/practical-react-query')}
-          />
-          <Favorite
-            withSource
-            icon="material-symbols:article"
-            entry={getEntry('favorites', 'articles/the-least-worst-architecture')}
-          />
+          <Favorite withSource image="favicon" entry={getEntry('favorites', 'articles/practical-react-query')} />
+          <Favorite withSource image="favicon" entry={getEntry('favorites', 'articles/the-least-worst-architecture')} />
+        </GridList>
+      </Subsection>
+      <Subsection class="gap-2">
+        <SubsectionTitle>Videos I watched</SubsectionTitle>
+        <GridList class="gap-4 lg:grid-cols-2">
+          <Favorite image="video" entry={getEntry('favorites', 'videos/principled-coders')} />
+          <Favorite image="video" entry={getEntry('favorites', 'videos/scaling-yourself')} />
+          <Favorite image="video" entry={getEntry('favorites', 'videos/mind-the-gap')} />
+          <Favorite image="video" entry={getEntry('favorites', 'videos/monads')} />
         </GridList>
       </Subsection>
       <Subsection class="gap-2">
         <SubsectionTitle>People I learn from</SubsectionTitle>
-        <GridList class="gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/addy-osmani')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/anthony-fu')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/dan-abramov')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/josh-w-comeau')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/kent-c-dodds')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/lee-robinson')} />
+        <GridList class="gap-4 md:grid-cols-2">
+          <Favorite image="person" entry={getEntry('favorites', 'people/addy-osmani')} />
+          <Favorite image="person" entry={getEntry('favorites', 'people/anthony-fu')} />
+          <Favorite image="person" entry={getEntry('favorites', 'people/dan-abramov')} />
+          <Favorite image="person" entry={getEntry('favorites', 'people/josh-w-comeau')} />
+          <Favorite image="person" entry={getEntry('favorites', 'people/kent-c-dodds')} />
+          <Favorite image="person" entry={getEntry('favorites', 'people/lee-robinson')} />
         </GridList>
       </Subsection>
     </VerticalList>

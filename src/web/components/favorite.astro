@@ -8,36 +8,44 @@ import { removeTopElement } from '@/utils/remove-top-element';
 import { Icon } from '@/web/components/icon';
 import Popover from '@/web/components/popover.astro';
 
+import Img from './img.astro';
+
 interface Props {
   entry: CollectionEntry<'favorites'> | Promise<CollectionEntry<'favorites'>>;
   icon?: string;
+  image?: keyof typeof imageSizes;
   withSource?: boolean;
 }
 
-const { entry, icon, withSource } = Astro.props;
+const { entry, icon, image, withSource } = Astro.props;
 const { data: favorite, body, render } = await entry;
 
 const Description = body.trim().length > 0 && (await render()).Content;
 const subtitle = favorite.subtitle && removeTopElement(markdownToHtml(favorite.subtitle));
-const rootClass = cn(
-  'relative flex overflow-hidden rounded border border-color-border py-3 pl-4',
-  Description ? 'pr-8' : 'pr-4',
-);
 const url = withSource && new URL(favorite.url);
+const rootClass = cn(
+  'relative flex overflow-hidden rounded border border-color-border py-2 pl-2 sm:py-3 sm:pl-3',
+  Description ? 'pr-7 sm:pr-8' : 'pr-3 sm:pr-4',
+);
+const iconSizeClass = cn('my-0.5 mr-2 size-4 shrink-0 sm:size-5');
+const imageSizes = {
+  poster: cn('mr-4 h-24 w-18 rounded-sm object-contain object-top sm:h-32 sm:w-24'),
+  person: cn('mr-3 size-10 rounded-full object-cover sm:mr-4 sm:size-12'),
+  favicon: cn(iconSizeClass, 'object-contain'),
+  video: cn('mr-3 h-[54px] w-24 rounded-sm object-cover object-top sm:mr-4 sm:h-18 sm:w-32'),
+};
 ---
 
 <div class={rootClass}>
-  {icon && <Icon name={icon} class="my-0.5 -ml-1 mr-1.5 size-4 shrink-0 text-color-icon-dark sm:size-5" />}
+  {favorite.image && image && <Img class={imageSizes[image]} src={favorite.image} alt={favorite.title} />}
+  {icon && <Icon name={icon} class={cn(iconSizeClass, 'text-color-icon-dark')} />}
   <div class="flex w-full flex-col">
-    <Linkable class="text-sm font-medium leading-snug text-color-text-title sm:text-base" href={favorite.url}>
+    <Linkable class="text-sm font-medium text-color-text-title sm:text-base" href={favorite.url}>
       {favorite.title}
     </Linkable>
     {
       subtitle && (
-        <div
-          class="mt-0.5 text-sm text-color-text-primary sm:text-base [&_a:not(:hover)]:no-underline"
-          set:html={subtitle}
-        />
+        <div class="text-sm text-color-text-primary sm:text-base [&_a:not(:hover)]:no-underline" set:html={subtitle} />
       )
     }
     {

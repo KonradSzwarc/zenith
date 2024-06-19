@@ -54,11 +54,13 @@ export const collections = {
   }),
   favorites: defineCollection({
     type: 'content',
-    schema: z.object({
-      title: z.string(),
-      url: z.string().url(),
-      subtitle: z.string().optional(),
-    }),
+    schema: ({ image }) =>
+      z.object({
+        title: z.string(),
+        subtitle: z.string().optional(),
+        url: z.string().url(),
+        image: image().optional(),
+      }),
   }),
   interests: defineCollection({
     type: 'content',
