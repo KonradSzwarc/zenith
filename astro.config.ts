@@ -13,7 +13,7 @@ export default defineConfig({
   experimental: {
     env: {
       schema: {
-        UMAMI_WEBSITE_ID: envField.string({ context: 'client', access: 'public', optional: true }),
+        PUBLIC_UMAMI_WEBSITE_ID: envField.string({ context: 'client', access: 'public', optional: true }),
       },
     },
   },
