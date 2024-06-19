@@ -2,7 +2,7 @@ import { marked, Renderer } from 'marked';
 
 const renderer = new Renderer();
 
-renderer.link = (href, title, text) => {
+renderer.link = ({ href, text, title }) => {
   const attributes = [
     href && `href="${href}"`,
     title && `title="${title}"`,
