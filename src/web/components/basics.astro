@@ -73,6 +73,7 @@ const details = [
             href={context.pdf.path}
             class="flex h-9 items-center text-nowrap rounded-md bg-color-primary-dark px-4 font-medium text-color-primary-contrast transition-colors hover:bg-color-primary-dark/90"
             download={context.pdf.filename}
+            data-umami-event="Download PDF"
           >
             {context.pdf.label}
           </a>

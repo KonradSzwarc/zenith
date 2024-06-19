@@ -12,7 +12,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "dev:pdf": "cross-env PDF_MODE=true astro dev",
+    "dev:pdf": "cross-env DISABLE_TOOLBAR=true astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "pdf": "nodemon ./scripts/generate-pdf.ts",

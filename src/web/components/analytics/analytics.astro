@@ -1,0 +1,7 @@
+---
+import { UMAMI_WEBSITE_ID } from 'astro:env/client';
+
+import Umami from './umami.astro';
+---
+
+{UMAMI_WEBSITE_ID && <Umami websiteId={UMAMI_WEBSITE_ID} />}

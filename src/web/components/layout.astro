@@ -3,6 +3,7 @@ import type { HTMLAttributes } from 'astro/types';
 
 import BaseLayout from '@/layouts/base-layout.astro';
 import { cn } from '@/utils/cn';
+import { Analytics } from '@/web/components/analytics';
 import ThemeSwitcher from '@/web/components/theme-switcher.astro';
 
 interface Props extends HTMLAttributes<'main'> {
@@ -13,7 +14,10 @@ const { class: className, bodyClass, ...props } = Astro.props;
 ---
 
 <BaseLayout bodyClass={cn('bg-color-bg-body antialiased sm:p-6 md:p-8 lg:p-10', bodyClass)}>
-  <slot name="head" slot="head" />
+  <Fragment slot="head">
+    <slot name="head" />
+    <Analytics />
+  </Fragment>
   <ThemeSwitcher />
   <main
     class={cn('mx-auto grid w-full max-w-screen-lg bg-color-bg-card p-6 shadow-2xl sm:rounded-3xl sm:p-10', className)}

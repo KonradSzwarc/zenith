@@ -1,6 +1,6 @@
 import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
 
 // https://astro.build/config
@@ -8,6 +8,13 @@ export default defineConfig({
   integrations: [tailwind(), mdx(), icon()],
   site: 'https://example.com',
   devToolbar: {
-    enabled: process.env['PDF_MODE'] !== 'true',
+    enabled: process.env['DISABLE_TOOLBAR'] !== 'true',
+  },
+  experimental: {
+    env: {
+      schema: {
+        UMAMI_WEBSITE_ID: envField.string({ context: 'client', access: 'public', optional: true }),
+      },
+    },
   },
 });
