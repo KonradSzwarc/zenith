@@ -34,10 +34,23 @@ const { data: job, body, render } = await entry;
       <h3 class="text-lg font-bold text-color-text-title sm:text-xl">
         {job.position}
       </h3>
-      <div
-        class="text-sm font-medium text-color-text-title sm:text-base"
-        set:html={removeTopElement(markdownToHtml(job.organization))}
-      />
+      <div class="flex gap-1.5">
+        {
+          job.image && (
+            <Img
+              class="size-5 rounded object-contain sm:hidden"
+              src={job.image}
+              alt={job.organization}
+              width={40}
+              height={40}
+            />
+          )
+        }
+        <div
+          class="text-sm font-medium text-color-text-title sm:text-base"
+          set:html={removeTopElement(markdownToHtml(job.organization))}
+        />
+      </div>
       <DateRange
         class="text-sm font-normal text-color-text-primary sm:text-base"
         startDate={job.startDate}

@@ -21,18 +21,20 @@ const date = achievement.date && formatDate(achievement.date, Astro);
 ---
 
 <div class="grid gap-2">
-  <div class="flex items-start gap-3">
-    {
-      achievement.icon && (
-        <div class="hidden size-7 shrink-0 items-center justify-center rounded bg-color-bg-main sm:flex">
-          <Icon name={achievement.icon} class="size-4 text-color-icon-dark" />
-        </div>
-      )
-    }
-    <div>
+  <div class="grid">
+    <div class="flex gap-1.5">
+      {
+        achievement.icon && (
+          <div class="my-0.5 flex size-6 shrink-0 items-center justify-center rounded bg-color-bg-main">
+            <Icon name={achievement.icon} class="size-3.5 text-color-icon-dark" />
+          </div>
+        )
+      }
       <Linkable class="text-lg font-bold text-color-text-title sm:text-xl" href={achievement.url}>
         {achievement.name}
       </Linkable>
+    </div>
+    <div class={cn(achievement.icon && 'sm:pl-10')}>
       {
         achievement.issuer && (
           <div
@@ -44,7 +46,7 @@ const date = achievement.date && formatDate(achievement.date, Astro);
       {date && <div class="text-sm font-normal text-color-text-primary sm:text-base">{date}</div>}
     </div>
   </div>
-  <div class={cn(achievement.icon && 'lg:pl-10')}>
+  <div class={cn(achievement.icon && 'sm:pl-10')}>
     {body.trim().length > 0 && <RenderedContent {render} />}
     {achievement.skills && <RelatedSkills class="mt-5" skillRefs={achievement.skills} />}
   </div>
