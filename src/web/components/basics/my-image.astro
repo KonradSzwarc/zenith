@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import { cn } from '@/utils/cn';
+import Img from '@/web/components/img.astro';
+
+interface Props {
+  basics: CollectionEntry<'basics'>['data'];
+  size: number;
+  class?: string;
+}
+
+const { basics, class: className, size } = Astro.props;
+---
+
+{
+  basics.image && (
+    <Img
+      loading="eager"
+      class={cn('h-fit rounded-xl', className)}
+      src={basics.image}
+      alt={basics.name}
+      width={size}
+      height={size}
+    />
+  )
+}

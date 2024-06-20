@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import RenderedContent from '@/web/components/rendered-content.astro';
+
+import BasicsDetails from './basics-details.astro';
+import MyImage from './my-image.astro';
+import PdfButton from './pdf-button.astro';
+import Socials from './socials.astro';
+
+interface Props {
+  entry: CollectionEntry<'basics'> | Promise<CollectionEntry<'basics'>>;
+}
+
+const { entry } = Astro.props;
+const { data: basics, body, render } = await entry;
+
+if (!basics.image) {
+  throw new Error(
+    'Entry provided to Basics2 component must have an image property. Add the image or use Basics component.',
+  );
+}
+---
+
+<section class="flex flex-col-reverse gap-6 lg:flex-row">
+  <div class="grid auto-rows-min gap-4">
+    <MyImage size={400} class="hidden size-50 min-w-50 lg:block" basics={basics} />
+    <Socials listClass="hidden w-full lg:flex flex-wrap" itemClass="h-9 min-w-9 flex-1" socials={basics.socials} />
+    <PdfButton />
+  </div>
+  <div>
+    <div class="flex flex-row flex-wrap gap-x-4 gap-y-2">
+      <MyImage size={208} class="size-26 lg:hidden" basics={basics} />
+      <div>
+        <h1 class="text-2xl font-black text-color-text-title sm:text-3xl">{basics.name}</h1>
+        {basics.label && <h2 class="text-lg font-medium text-color-text-title sm:text-xl">{basics.label}</h2>}
+        <Socials listClass="mt-2 gap-2 lg:hidden" itemClass="size-7" iconClass="size-3.5" socials={basics.socials} />
+      </div>
+    </div>
+    <BasicsDetails class="mt-6 lg:mt-4" basics={basics} />
+    {body.trim().length > 0 && <RenderedContent class="mt-6 lg:mt-4" {render} />}
+  </div>
+</section>

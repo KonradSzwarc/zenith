@@ -21,13 +21,7 @@ const { data: project, body, render } = await entry;
   <div class="mb-4 flex items-start gap-3">
     {
       project.image && (
-        <Img
-          class="size-[60px] rounded object-contain"
-          src={project.image}
-          alt={project.name}
-          width={128}
-          height={128}
-        />
+        <Img class="size-15 rounded object-contain" src={project.image} alt={project.name} width={128} height={128} />
       )
     }
     <div>

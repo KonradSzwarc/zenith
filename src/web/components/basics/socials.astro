@@ -1,0 +1,37 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { CollectionEntry } from 'astro:content';
+
+import { cn } from '@/utils/cn';
+import { Icon } from '@/web/components/icon';
+
+interface Props extends HTMLAttributes<'div'> {
+  socials: CollectionEntry<'basics'>['data']['socials'];
+  listClass?: string;
+  itemClass?: string;
+  iconClass?: string;
+}
+
+const { socials, iconClass, itemClass, listClass, ...props } = Astro.props;
+---
+
+{
+  socials.length > 0 && (
+    <div class={cn('flex h-fit gap-3', listClass)} {...props}>
+      {socials.map((social) => (
+        <a
+          aria-label={social.label}
+          href={social.url}
+          class={cn(
+            'flex items-center justify-center rounded bg-color-bg-main transition-colors hover:bg-color-bg-main/80',
+            itemClass,
+          )}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon class={cn('size-4 text-color-icon-dark', iconClass)} name={social.icon} aria-hidden />
+        </a>
+      ))}
+    </div>
+  )
+}

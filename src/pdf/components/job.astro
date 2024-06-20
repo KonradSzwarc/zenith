@@ -21,13 +21,7 @@ const { data: job, body, render } = await entry;
   <div class="mb-4 flex items-start gap-3">
     {
       job.image && (
-        <Img
-          class="size-[60px] rounded object-contain"
-          src={job.image}
-          alt={job.organization}
-          width={128}
-          height={128}
-        />
+        <Img class="size-15 rounded object-contain" src={job.image} alt={job.organization} width={128} height={128} />
       )
     }
     <div>

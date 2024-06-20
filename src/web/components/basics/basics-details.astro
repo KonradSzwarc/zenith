@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { intervalToDuration } from 'date-fns';
+
+import type { ContextSlice } from '@/types/context';
+import { getGlobalContext } from '@/utils/get-global-context';
+import { joinNonEmpty } from '@/utils/join-non-empty';
+import Details from '@/web/components/details.astro';
+
+interface Props {
+  basics: CollectionEntry<'basics'>['data'];
+  class?: string;
+}
+
+const { basics, class: className } = Astro.props;
+
+const context = getGlobalContext<ContextSlice<'pdf' | 'i18n'>>(Astro);
+const t = context.i18n.t;
+
+const age = basics.birthdate && intervalToDuration({ start: basics.birthdate, end: new Date() }).years;
+const details = [
+  age && { label: t('age'), value: t('age_value', { count: age }) },
+  basics.email && { label: t('email'), value: `[${basics.email}](mailto:${basics.email})` },
+  basics.phone && { label: t('phone'), value: `[${basics.phone}](tel:${basics.phone})` },
+  (basics.city || basics.country) && { label: t('location'), value: joinNonEmpty([basics.city, basics.country], ', ') },
+  ...(basics.details || []),
+].filter(Boolean);
+---
+
+{details.length > 0 && <Details class={className} {details} />}

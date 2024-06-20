@@ -8,7 +8,10 @@ export default {
   theme: {
     extend: {
       spacing: {
+        15: '3.75rem',
         18: '4.5rem',
+        26: '6.5rem',
+        50: '12.5rem',
       },
       colors: {
         ['color-primary-dark']: 'hsl(var(--primary-dark) / <alpha-value>)',
