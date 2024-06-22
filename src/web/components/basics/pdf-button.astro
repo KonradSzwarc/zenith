@@ -14,16 +14,26 @@ const context = getGlobalContext<ContextSlice<'pdf'>>(Astro);
 {
   context.pdf ? (
     <a
+      data-pdf-button
       href={context.pdf.path}
       class={cn(
         'flex h-9 items-center justify-center text-nowrap rounded-md bg-color-primary-dark px-4 font-medium text-color-primary-contrast transition-colors hover:bg-color-primary-dark/90',
         className,
       )}
       download={context.pdf.filename}
-      data-umami-event="Download PDF"
       {...props}
     >
       {context.pdf.label}
     </a>
   ) : null
 }
+
+<script>
+  import { trackEvent } from '@/web/services/analytics';
+
+  const button = document.querySelector('[data-pdf-button]');
+
+  if (button) {
+    button.addEventListener('click', () => trackEvent('pdf_downloaded'));
+  }
+</script>

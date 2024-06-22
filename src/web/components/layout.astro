@@ -3,8 +3,8 @@ import type { HTMLAttributes } from 'astro/types';
 
 import BaseLayout from '@/layouts/base-layout.astro';
 import { cn } from '@/utils/cn';
-import { Analytics } from '@/web/components/analytics';
 import ThemeSwitcher from '@/web/components/theme-switcher.astro';
+import { Analytics } from '@/web/services/analytics';
 
 interface Props extends HTMLAttributes<'main'> {
   bodyClass?: string;
