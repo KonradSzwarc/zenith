@@ -23,6 +23,8 @@ async function main() {
   }
 
   await browser.close();
+
+  console.log(chalk.green(`[SUCCESS] PDFs generated successfully`));
 }
 
 async function generatePdf(name: string, page: Page) {

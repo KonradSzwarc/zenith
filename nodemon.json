@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/nodemon.json",
-  "watch": ["src", "scripts"],
+  "watch": ["src"],
   "exec": "tsx {{filename}}",
   "ext": "ts,astro,json,mdx,md"
 }

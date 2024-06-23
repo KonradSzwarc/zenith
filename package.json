@@ -11,11 +11,14 @@
     "yarn": "please-use-npm"
   },
   "scripts": {
+    "postinstall": "npm run favicons",
     "dev": "astro dev",
     "dev:pdf": "cross-env DISABLE_TOOLBAR=true astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "pdf": "nodemon ./scripts/generate-pdf.ts",
+    "pdf": "tsx ./scripts/generate-pdf.ts",
+    "pdf:watch": "nodemon ./scripts/generate-pdf.ts",
+    "favicons": "tsx ./scripts/generate-favicons.ts",
     "lint": "eslint .",
     "check": "astro check",
     "format": "prettier --write ."
@@ -52,6 +55,7 @@
     "eslint-plugin-astro": "1.2.2",
     "eslint-plugin-simple-import-sort": "12.1.0",
     "eslint-plugin-tailwindcss": "3.17.4",
+    "favicons": "7.2.0",
     "nodemon": "3.1.4",
     "prettier": "3.3.2",
     "prettier-plugin-astro": "0.14.0",

@@ -1,7 +1,7 @@
 ---
 import type { AsyncEntry } from '@/types/entries';
 
-import Favicon from './favicon.astro';
+import GeneratedFavicons from './generated-favicons.astro';
 
 interface Props {
   entry: AsyncEntry<'metadata'>;
@@ -14,7 +14,7 @@ const { data: meta } = await entry;
 <title>{meta.title}</title>
 <meta name="title" content={meta.title} />
 <meta name="description" content={meta.description} />
-<Favicon src={meta.favicon} />
+<GeneratedFavicons />
 <meta property="og:title" content={meta.openGraph?.title ?? meta.title} />
 <meta property="og:description" content={meta.openGraph?.description ?? meta.description} />
 {meta.openGraph?.image && <meta property="og:image" content={meta.openGraph.image.src} />}
