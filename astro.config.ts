@@ -1,4 +1,5 @@
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
@@ -6,7 +7,7 @@ import metaTags from 'astro-meta-tags';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx(), icon(), metaTags()],
+  integrations: [metaTags(), mdx(), icon(), tailwind(), sitemap({ filter: (url) => new URL(url).pathname === '/' })],
   site: 'https://example.com',
   devToolbar: {
     enabled: process.env['DISABLE_TOOLBAR'] !== 'true',

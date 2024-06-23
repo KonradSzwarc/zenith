@@ -20,3 +20,4 @@ const { data: meta } = await entry;
 {meta.openGraph?.image && <meta property="og:image" content={meta.openGraph.image.src} />}
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
+<link rel="sitemap" href="/sitemap-index.xml" />
