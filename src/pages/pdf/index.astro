@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
-import { GridList, HorizontalList, VerticalList } from '@/components/list';
+import { HorizontalList, VerticalList } from '@/components/list';
 import Separator from '@/components/separator.astro';
 import Achievement from '@/pdf/components/achievement.astro';
 import Basics from '@/pdf/components/basics.astro';
@@ -165,14 +165,14 @@ await initializePdfContext(Astro, {
       </Subsection>
       <Subsection class="gap-2">
         <SubsectionTitle>People I learn from</SubsectionTitle>
-        <GridList class="grid-cols-2 gap-2">
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/dan-abramov')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/anthony-fu')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/lee-robinson')} />
+        <VerticalList class="gap-3">
           <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/addy-osmani')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/kent-c-dodds')} />
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/anthony-fu')} />
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/dan-abramov')} />
           <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/josh-w-comeau')} />
-        </GridList>
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/kent-c-dodds')} />
+          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/lee-robinson')} />
+        </VerticalList>
       </Subsection>
     </VerticalList>
   </Section>

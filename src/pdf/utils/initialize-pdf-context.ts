@@ -5,7 +5,7 @@ import i18next from 'i18next';
 
 import type { AsyncEntry } from '@/types/entries';
 
-interface PdfContextData extends Omit<PdfContext, 'i18n'> {
+export interface PdfContextData extends Omit<PdfContext, 'i18n'> {
   translations: AsyncEntry<'translations'>;
 }
 

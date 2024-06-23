@@ -1,0 +1,151 @@
+---
+import type { ComponentProps } from 'astro/types';
+import type { ValidContentEntrySlug } from 'astro:content';
+import type { DataEntryMap } from 'astro:content';
+import { getEntry } from 'astro:content';
+import * as locales from 'date-fns/locale';
+
+import { HorizontalList, VerticalList } from '@/components/list';
+import Separator from '@/components/separator.astro';
+import Achievement from '@/pdf/components/achievement.astro';
+import Basics from '@/pdf/components/basics.astro';
+import Education from '@/pdf/components/education.astro';
+import Favorite from '@/pdf/components/favorite.astro';
+import Footer from '@/pdf/components/footer.astro';
+import Interest from '@/pdf/components/interest.astro';
+import Job from '@/pdf/components/job.astro';
+import Layout from '@/pdf/components/layout.astro';
+import Project from '@/pdf/components/project.astro';
+import Reference from '@/pdf/components/reference.astro';
+import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/pdf/components/section';
+import { Skill } from '@/pdf/components/skills';
+import type { PdfContextData } from '@/pdf/utils/initialize-pdf-context';
+import { initializePdfContext } from '@/pdf/utils/initialize-pdf-context';
+import type { TemplateSection } from '@/types/templates';
+import { pickSectionProps } from '@/utils/templates';
+
+import PdfConfig from '../components/pdf-config.astro';
+
+interface Props {
+  context: Omit<PdfContextData, 'locale' | 'translations'> & {
+    locale: keyof typeof locales;
+    translations: keyof DataEntryMap['translations'];
+  };
+  pdfConfig: ComponentProps<typeof PdfConfig>;
+  basics: ValidContentEntrySlug<'basics'>;
+  footer?: string;
+  sections: TemplateSection[];
+}
+
+await initializePdfContext(Astro, {
+  ...Astro.props.context,
+  locale: locales[Astro.props.context.locale],
+  translations: getEntry('translations', Astro.props.context.translations),
+});
+---
+
+<Layout class="gap-6">
+  <Fragment slot="head">
+    <slot name="head" />
+    <PdfConfig {...Astro.props.pdfConfig} />
+  </Fragment>
+  <Basics entry={getEntry('basics', Astro.props.basics)} />
+  {
+    Astro.props.sections.map((section) => (
+      <Section class="gap-4">
+        <SectionTitle>{section.title}</SectionTitle>
+
+        {section.collection === 'achievements' && (
+          <VerticalList class="gap-3">
+            {section.entries.map((entry) => (
+              <Achievement entry={getEntry('achievements', entry)} {...pickSectionProps(section)} />
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'education' && (
+          <VerticalList class="gap-6">
+            {section.entries.map((entry, i, arr) => (
+              <Fragment>
+                <Education entry={getEntry('education', entry)} {...pickSectionProps(section)} />
+                {i < arr.length - 1 && <Separator />}
+              </Fragment>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'favorites' && (
+          <VerticalList class="gap-5">
+            {section.subsections.map((subsection) => (
+              <Subsection class="gap-2">
+                <SubsectionTitle>{subsection.title}</SubsectionTitle>
+                <VerticalList class="gap-3">
+                  {subsection.entries.map((entry) => (
+                    <Favorite entry={getEntry('favorites', entry)} {...pickSectionProps(subsection)} />
+                  ))}
+                </VerticalList>
+              </Subsection>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'interests' && (
+          <HorizontalList class="gap-3">
+            {section.entries.map((entry) => (
+              <Interest entry={getEntry('interests', entry)} {...pickSectionProps(section)} />
+            ))}
+          </HorizontalList>
+        )}
+
+        {section.collection === 'jobs' && (
+          <VerticalList class="gap-6">
+            {section.entries.map((entry, i, arr) => (
+              <Fragment>
+                <Job entry={getEntry('jobs', entry)} {...pickSectionProps(section)} />
+                {i < arr.length - 1 && <Separator />}
+              </Fragment>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'projects' && (
+          <VerticalList class="gap-6">
+            {section.entries.map((entry, i, arr) => (
+              <Fragment>
+                <Project entry={getEntry('projects', entry)} {...pickSectionProps(section)} />
+                {i < arr.length - 1 && <Separator />}
+              </Fragment>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'references' && (
+          <VerticalList class="gap-4">
+            {section.entries.map((entry, i, arr) => (
+              <Fragment>
+                <Reference entry={getEntry('references', entry)} {...pickSectionProps(section)} />
+                {i < arr.length - 1 && <Separator />}
+              </Fragment>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'skills' && (
+          <VerticalList class="gap-4">
+            {section.subsections.map((subsection) => (
+              <Subsection class="gap-2">
+                <SubsectionTitle>{subsection.title}</SubsectionTitle>
+                <HorizontalList class="gap-3">
+                  {subsection.entries.map((entry) => (
+                    <Skill entry={getEntry('skills', entry)} {...pickSectionProps(subsection)} />
+                  ))}
+                </HorizontalList>
+              </Subsection>
+            ))}
+          </VerticalList>
+        )}
+      </Section>
+    ))
+  }
+  {Astro.props.footer && <Footer>{Astro.props.footer}</Footer>}
+</Layout>

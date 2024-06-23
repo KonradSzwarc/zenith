@@ -1,26 +1,23 @@
 ---
 import type { ComponentProps } from 'astro/types';
 
+import MainTemplate from '@/pdf/templates/main-template.astro';
 import GrayscaleColors from '@/styles/colors/dusk/slate.astro';
 import ElementColors from '@/styles/colors/elements/default.astro';
 import PrimaryColors from '@/styles/colors/primary/indigo.astro';
 import Font from '@/styles/fonts/inter.astro';
-import MainTemplate from '@/web/templates/main-template.astro';
 
 const props: ComponentProps<typeof MainTemplate> = {
   context: {
     locale: 'enUS',
     translations: 'en',
     dateFormat: 'MMMM yyyy',
-    theme: 'custom',
-    pdf: {
-      path: '/pdf/index.pdf',
-      label: 'Download resume',
-      filename: 'mark-freeman-resume.pdf',
-    },
+    website: '/',
   },
-  metadata: 'main',
-  basics: 'main',
+  pdfConfig: { margin: '11mm' },
+  basics: 'main-pdf',
+  footer:
+    'I hereby give consent for my personal data included in my application to be processed for the purposes of the recruitment process.',
   sections: [
     {
       collection: 'skills',
@@ -78,7 +75,7 @@ const props: ComponentProps<typeof MainTemplate> = {
       subsections: [
         {
           title: 'Books I read',
-          image: 'poster',
+          icon: 'material-symbols:book-2',
           entries: [
             'books/domain-driven-design',
             'books/grokkking-simplicity',
@@ -89,7 +86,7 @@ const props: ComponentProps<typeof MainTemplate> = {
         {
           title: 'Articles I come back to',
           withSource: true,
-          image: 'favicon',
+          icon: 'material-symbols:article',
           entries: [
             'articles/client-side-architecture-basics',
             'articles/future-facing-frontend-architectures',
@@ -98,13 +95,8 @@ const props: ComponentProps<typeof MainTemplate> = {
           ],
         },
         {
-          title: 'Videos I watched',
-          image: 'video',
-          entries: ['videos/mind-the-gap', 'videos/monads', 'videos/principled-coders', 'videos/scaling-yourself'],
-        },
-        {
           title: 'People I learn from',
-          image: 'person',
+          icon: 'material-symbols:person',
           entries: [
             'people/addy-osmani',
             'people/anthony-fu',
