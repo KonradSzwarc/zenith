@@ -1,10 +1,9 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-
 import { Icon } from '@/pdf/components/icon';
+import type { AsyncEntry } from '@/types/entries';
 
 interface Props {
-  entry: CollectionEntry<'interests'> | Promise<CollectionEntry<'interests'>>;
+  entry: AsyncEntry<'interests'>;
 }
 
 const { entry } = Astro.props;

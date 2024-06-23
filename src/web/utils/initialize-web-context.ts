@@ -1,13 +1,13 @@
 import type { AstroGlobal } from 'astro';
-import type { CollectionEntry } from 'astro:content';
 import type { Locale } from 'date-fns';
 import type { i18n } from 'i18next';
 import i18next from 'i18next';
 
 import type { IconStore, Theme } from '@/types/context';
+import type { AsyncEntry } from '@/types/entries';
 
 export interface WebContextData extends Omit<WebContext, 'iconStore' | 'i18n'> {
-  translations: CollectionEntry<'translations'> | Promise<CollectionEntry<'translations'>>;
+  translations: AsyncEntry<'translations'>;
 }
 
 export interface WebContext {

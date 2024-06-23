@@ -1,10 +1,10 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { AsyncEntry } from '@/types/entries';
 
 import Favicon from './favicon.astro';
 
 interface Props {
-  entry: CollectionEntry<'metadata'> | Promise<CollectionEntry<'metadata'>>;
+  entry: AsyncEntry<'metadata'>;
 }
 
 const { entry } = Astro.props;

@@ -1,10 +1,10 @@
 ---
 import type { ComponentProps } from 'astro/types';
-import type { CollectionEntry } from 'astro:content';
 
 import Linkable from '@/components/linkable.astro';
 import RenderedContent from '@/pdf/components/rendered-content.astro';
 import { RelatedSkills } from '@/pdf/components/skills';
+import type { AsyncEntry } from '@/types/entries';
 import type { Configurable } from '@/utils/configurable';
 import { shouldDisplay } from '@/utils/configurable';
 import { formatDate } from '@/utils/format-date';
@@ -12,7 +12,7 @@ import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
-  entry: CollectionEntry<'achievements'> | Promise<CollectionEntry<'achievements'>>;
+  entry: AsyncEntry<'achievements'>;
   relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
 }
 

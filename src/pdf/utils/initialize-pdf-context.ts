@@ -1,11 +1,12 @@
 import type { AstroGlobal } from 'astro';
-import type { CollectionEntry } from 'astro:content';
 import type { Locale } from 'date-fns';
 import type { i18n } from 'i18next';
 import i18next from 'i18next';
 
+import type { AsyncEntry } from '@/types/entries';
+
 interface PdfContextData extends Omit<PdfContext, 'i18n'> {
-  translations: CollectionEntry<'translations'> | Promise<CollectionEntry<'translations'>>;
+  translations: AsyncEntry<'translations'>;
 }
 
 export interface PdfContext {

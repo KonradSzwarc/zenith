@@ -1,11 +1,11 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { AsyncEntry } from '@/types/entries';
 
 import SkillWithLevel from './skill-with-level.astro';
 import SkillWithoutLevel from './skill-without-level.astro';
 
 interface Props {
-  entry: CollectionEntry<'skills'> | Promise<CollectionEntry<'skills'>>;
+  entry: AsyncEntry<'skills'>;
   withLevel?: boolean;
 }
 

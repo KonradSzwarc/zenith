@@ -1,13 +1,12 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-
 import Linkable from '@/components/linkable.astro';
 import { Icon } from '@/pdf/components/icon';
+import type { AsyncEntry } from '@/types/entries';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
-  entry: CollectionEntry<'favorites'> | Promise<CollectionEntry<'favorites'>>;
+  entry: AsyncEntry<'favorites'>;
   icon?: string;
   withSource?: boolean;
 }

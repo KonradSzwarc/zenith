@@ -1,6 +1,5 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-
+import type { AsyncEntry } from '@/types/entries';
 import RenderedContent from '@/web/components/rendered-content.astro';
 
 import BasicsDetails from './basics-details.astro';
@@ -9,7 +8,7 @@ import PdfButton from './pdf-button.astro';
 import Socials from './socials.astro';
 
 interface Props {
-  entry: CollectionEntry<'basics'> | Promise<CollectionEntry<'basics'>>;
+  entry: AsyncEntry<'basics'>;
 }
 
 const { entry } = Astro.props;

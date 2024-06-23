@@ -1,11 +1,10 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-
+import type { AsyncEntry } from '@/types/entries';
 import { Icon } from '@/web/components/icon';
 import Popover from '@/web/components/popover.astro';
 
 interface Props {
-  entry: CollectionEntry<'interests'> | Promise<CollectionEntry<'interests'>>;
+  entry: AsyncEntry<'interests'>;
 }
 
 const { entry } = Astro.props;

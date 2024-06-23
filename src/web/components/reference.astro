@@ -1,14 +1,13 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-
 import Linkable from '@/components/linkable.astro';
+import type { AsyncEntry } from '@/types/entries';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 import Img from '@/web/components/img.astro';
 import RenderedContent from '@/web/components/rendered-content.astro';
 
 interface Props {
-  entry: CollectionEntry<'references'> | Promise<CollectionEntry<'references'>>;
+  entry: AsyncEntry<'references'>;
 }
 
 const { entry } = Astro.props;
