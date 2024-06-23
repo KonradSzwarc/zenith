@@ -1,8 +1,11 @@
 ---
+import type { ComponentProps } from 'astro/types';
 import type { CollectionEntry } from 'astro:content';
 
 import Linkable from '@/components/linkable.astro';
 import { cn } from '@/utils/cn';
+import type { Configurable } from '@/utils/configurable';
+import { shouldDisplay } from '@/utils/configurable';
 import { formatDate } from '@/utils/format-date';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
@@ -12,9 +15,10 @@ import { RelatedSkills } from '@/web/components/skills';
 
 interface Props {
   entry: CollectionEntry<'achievements'> | Promise<CollectionEntry<'achievements'>>;
+  relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
 }
 
-const { entry } = Astro.props;
+const { entry, relatedSkills } = Astro.props;
 const { data: achievement, body, render } = await entry;
 
 const date = achievement.date && formatDate(achievement.date, Astro);
@@ -48,6 +52,10 @@ const date = achievement.date && formatDate(achievement.date, Astro);
   </div>
   <div class={cn(achievement.icon && 'sm:pl-9')}>
     {body.trim().length > 0 && <RenderedContent {render} />}
-    {achievement.skills && <RelatedSkills class="mt-5" skillRefs={achievement.skills} />}
+    {
+      achievement.skills && shouldDisplay(relatedSkills) && (
+        <RelatedSkills class="mt-5" skillRefs={achievement.skills} {...relatedSkills} />
+      )
+    }
   </div>
 </div>

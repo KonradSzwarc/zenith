@@ -1,7 +1,10 @@
 ---
+import type { ComponentProps } from 'astro/types';
 import type { CollectionEntry } from 'astro:content';
 
 import DateRange from '@/components/date-range.astro';
+import type { Configurable } from '@/utils/configurable';
+import { shouldDisplay } from '@/utils/configurable';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 import Details from '@/web/components/details.astro';
@@ -11,9 +14,10 @@ import { RelatedSkills } from '@/web/components/skills';
 
 interface Props {
   entry: CollectionEntry<'projects'> | Promise<CollectionEntry<'projects'>>;
+  relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
 }
 
-const { entry } = Astro.props;
+const { entry, relatedSkills } = Astro.props;
 const { data: project, body, render } = await entry;
 ---
 
@@ -60,5 +64,9 @@ const { data: project, body, render } = await entry;
   </div>
   {project.details && <Details class="mb-3" details={project.details} />}
   {body.trim().length > 0 && <RenderedContent {render} />}
-  {project.skills && <RelatedSkills class="mt-5" skillRefs={project.skills} />}
+  {
+    project.skills && shouldDisplay(relatedSkills) && (
+      <RelatedSkills class="mt-5" skillRefs={project.skills} {...relatedSkills} />
+    )
+  }
 </div>

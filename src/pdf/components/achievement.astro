@@ -1,18 +1,22 @@
 ---
+import type { ComponentProps } from 'astro/types';
 import type { CollectionEntry } from 'astro:content';
 
 import Linkable from '@/components/linkable.astro';
 import RenderedContent from '@/pdf/components/rendered-content.astro';
 import { RelatedSkills } from '@/pdf/components/skills';
+import type { Configurable } from '@/utils/configurable';
+import { shouldDisplay } from '@/utils/configurable';
 import { formatDate } from '@/utils/format-date';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
   entry: CollectionEntry<'achievements'> | Promise<CollectionEntry<'achievements'>>;
+  relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
 }
 
-const { entry } = Astro.props;
+const { entry, relatedSkills } = Astro.props;
 const { data: achievement, body, render } = await entry;
 
 const date = achievement.date && formatDate(achievement.date, Astro);
@@ -34,5 +38,9 @@ const date = achievement.date && formatDate(achievement.date, Astro);
     {date && <div class="text-sm font-normal text-color-text-primary">{date}</div>}
   </div>
   {body.trim().length > 0 && <RenderedContent {render} />}
-  {achievement.skills && <RelatedSkills skillRefs={achievement.skills} />}
+  {
+    achievement.skills && shouldDisplay(relatedSkills) && (
+      <RelatedSkills skillRefs={achievement.skills} {...relatedSkills} />
+    )
+  }
 </div>
