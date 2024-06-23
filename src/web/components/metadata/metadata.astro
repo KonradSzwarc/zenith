@@ -12,6 +12,7 @@ const { data: meta } = await entry;
 ---
 
 <title>{meta.title}</title>
+<meta name="title" content={meta.title} />
 <meta name="description" content={meta.description} />
 <Favicon src={meta.favicon} />
 <meta property="og:title" content={meta.openGraph?.title ?? meta.title} />

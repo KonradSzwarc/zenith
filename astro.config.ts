@@ -2,10 +2,11 @@ import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig, envField } from 'astro/config';
 import icon from 'astro-icon';
+import metaTags from 'astro-meta-tags';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), mdx(), icon()],
+  integrations: [tailwind(), mdx(), icon(), metaTags()],
   site: 'https://example.com',
   devToolbar: {
     enabled: process.env['DISABLE_TOOLBAR'] !== 'true',
