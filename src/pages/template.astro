@@ -1,0 +1,130 @@
+---
+import type { ComponentProps } from 'astro/types';
+
+import GrayscaleColors from '@/styles/colors/dusk/slate.astro';
+import ElementColors from '@/styles/colors/elements/default.astro';
+import PrimaryColors from '@/styles/colors/primary/indigo.astro';
+import Font from '@/styles/fonts/inter.astro';
+import MainTemplate from '@/web/templates/main-template.astro';
+
+const props: ComponentProps<typeof MainTemplate> = {
+  context: {
+    locale: 'enUS',
+    translations: 'en',
+    dateFormat: 'MMMM yyyy',
+    theme: 'custom',
+    pdf: {
+      path: '/pdf/index.pdf',
+      label: 'Download resume',
+      filename: 'mark-freeman-resume.pdf',
+    },
+  },
+  metadata: 'main',
+  basics: 'main',
+  sections: [
+    {
+      collection: 'skills',
+      title: 'Skills',
+      subsections: [
+        {
+          title: 'Technologies',
+          withLevel: true,
+          // prettier-ignore
+          entries: ['astro', 'drizzle-orm', 'eslint', 'next', 'playwright', 'postgresql', 'react-testing-library', 'react', 'shadcn', 'tailwind', 'tanstack-query', 'trpc', 'typescript', 'vitest'],
+        },
+        {
+          title: 'Tools',
+          entries: ['neon', 'sentry', 'stripe', 'vercel'],
+        },
+        {
+          title: 'Languages',
+          entries: ['english', 'spanish'],
+        },
+      ],
+    },
+    {
+      collection: 'jobs',
+      title: 'Work',
+      entries: ['meta', 'shopify', 'codepen'],
+    },
+    {
+      collection: 'projects',
+      title: 'Projects',
+      entries: ['moni-buddy', 'user-board'],
+    },
+    {
+      collection: 'references',
+      title: 'References',
+      entries: ['jane-smith', 'john-doe'],
+    },
+    {
+      collection: 'achievements',
+      title: 'Achievements',
+      entries: [
+        'advanced-react-developer',
+        'google-developer-expert',
+        'reactathon-hackathon',
+        'redux-toolkit-contributor',
+      ],
+    },
+    {
+      collection: 'education',
+      title: 'Education',
+      entries: ['master', 'bachelor'],
+    },
+    {
+      collection: 'favorites',
+      title: 'Favorites',
+      subsections: [
+        {
+          title: 'Books I read',
+          image: 'poster',
+          entries: [
+            'books/domain-driven-design',
+            'books/grokkking-simplicity',
+            'books/learning-javascript-design-patterns',
+            'books/the-pragmatic-programmer',
+          ],
+        },
+        {
+          title: 'Articles I come back to',
+          withSource: true,
+          image: 'favicon',
+          entries: [
+            'articles/client-side-architecture-basics',
+            'articles/future-facing-frontend-architectures',
+            'articles/practical-react-query',
+            'articles/the-least-worst-architecture',
+          ],
+        },
+        {
+          title: 'Videos I watched',
+          image: 'video',
+          entries: ['videos/mind-the-gap', 'videos/monads', 'videos/principled-coders', 'videos/scaling-yourself'],
+        },
+        {
+          title: 'People I learn from',
+          image: 'person',
+          entries: [
+            'people/addy-osmani',
+            'people/anthony-fu',
+            'people/dan-abramov',
+            'people/josh-w-comeau',
+            'people/kent-c-dodds',
+            'people/lee-robinson',
+          ],
+        },
+      ],
+    },
+  ],
+};
+---
+
+<MainTemplate {...props}>
+  <Fragment slot="head">
+    <Font />
+    <GrayscaleColors />
+    <PrimaryColors />
+    <ElementColors />
+  </Fragment>
+</MainTemplate>

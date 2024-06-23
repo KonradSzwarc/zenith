@@ -6,7 +6,7 @@ import i18next from 'i18next';
 
 import type { IconStore, Theme } from '@/types/context';
 
-interface WebContextData extends Omit<WebContext, 'iconStore' | 'i18n'> {
+export interface WebContextData extends Omit<WebContext, 'iconStore' | 'i18n'> {
   translations: CollectionEntry<'translations'> | Promise<CollectionEntry<'translations'>>;
 }
 

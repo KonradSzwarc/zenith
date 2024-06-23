@@ -1,0 +1,190 @@
+---
+import type { ComponentProps } from 'astro/types';
+import type { ValidContentEntrySlug } from 'astro:content';
+import type { DataEntryMap } from 'astro:content';
+import type { ContentEntryMap } from 'astro:content';
+import { getEntry } from 'astro:content';
+import * as locales from 'date-fns/locale';
+
+import { GridList, HorizontalList, VerticalList } from '@/components/list';
+import Separator from '@/components/separator.astro';
+import Achievement from '@/web/components/achievement.astro';
+import { Basics } from '@/web/components/basics';
+import Education from '@/web/components/education.astro';
+import Favorite from '@/web/components/favorite.astro';
+import Interest from '@/web/components/interest.astro';
+import Job from '@/web/components/job.astro';
+import Layout from '@/web/components/layout.astro';
+import { Metadata } from '@/web/components/metadata';
+import Project from '@/web/components/project.astro';
+import Reference from '@/web/components/reference.astro';
+import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/web/components/section';
+import { Skill } from '@/web/components/skills';
+import type { WebContextData } from '@/web/utils/initialize-web-context';
+import { initializeWebContext } from '@/web/utils/initialize-web-context';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type FlatSection<C extends keyof ContentEntryMap, P extends (args: any) => unknown> = Omit<
+  ComponentProps<P>,
+  'entry'
+> & {
+  collection: C;
+  title: string;
+  entries: ValidContentEntrySlug<C>[];
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type NestedSection<C extends keyof ContentEntryMap, P extends (args: any) => unknown> = {
+  collection: C;
+  title: string;
+  subsections: (Omit<ComponentProps<P>, 'entry'> & { title: string; entries: ValidContentEntrySlug<C>[] })[];
+};
+
+type Section =
+  | FlatSection<'achievements', typeof Achievement>
+  | FlatSection<'education', typeof Education>
+  | NestedSection<'favorites', typeof Favorite>
+  | FlatSection<'interests', typeof Interest>
+  | FlatSection<'jobs', typeof Job>
+  | FlatSection<'projects', typeof Project>
+  | FlatSection<'references', typeof Reference>
+  | NestedSection<'skills', typeof Skill>;
+
+function pickProps<S extends object>(section: S) {
+  return Object.fromEntries(
+    Object.entries(section).filter(([key]) => ['collection', 'title', 'entries'].includes(key)),
+  ) as Omit<S, 'collection' | 'title' | 'entries'>;
+}
+
+interface Props {
+  context: Omit<WebContextData, 'locale' | 'translations'> & {
+    locale: keyof typeof locales;
+    translations: keyof DataEntryMap['translations'];
+  };
+  metadata: keyof DataEntryMap['metadata'];
+  basics: ValidContentEntrySlug<'basics'>;
+  sections: Section[];
+}
+
+await initializeWebContext(Astro, {
+  ...Astro.props.context,
+  locale: locales[Astro.props.context.locale],
+  translations: getEntry('translations', Astro.props.context.translations),
+});
+---
+
+<Layout class="gap-16">
+  <Fragment slot="head">
+    <slot name="head" />
+    <Metadata entry={getEntry('metadata', Astro.props.metadata)} />
+  </Fragment>
+  <Basics entry={getEntry('basics', Astro.props.basics)} />
+  {
+    Astro.props.sections.map((section) => (
+      <Section class="gap-8">
+        <SectionTitle>{section.title}</SectionTitle>
+
+        {section.collection === 'achievements' && (
+          <VerticalList class="gap-8">
+            {section.entries.map((entry, i, arr) => (
+              <Fragment>
+                <Achievement entry={getEntry('achievements', entry)} {...pickProps(section)} />
+                {i < arr.length - 1 && <Separator />}
+              </Fragment>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'education' && (
+          <VerticalList class="gap-10">
+            {section.entries.map((entry, i, arr) => (
+              <Fragment>
+                <Education entry={getEntry('education', entry)} {...pickProps(section)} />
+                {i < arr.length - 1 && <Separator />}
+              </Fragment>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'favorites' && (
+          <VerticalList class="gap-10">
+            {section.subsections.map((subsection) => (
+              <Subsection class="gap-2">
+                <SubsectionTitle>{subsection.title}</SubsectionTitle>
+                <GridList class="gap-4 lg:grid-cols-2">
+                  {subsection.entries.map((entry) => (
+                    <Favorite entry={getEntry('favorites', entry)} {...pickProps(subsection)} />
+                  ))}
+                </GridList>
+              </Subsection>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'interests' && (
+          <HorizontalList class="gap-x-4 gap-y-3">
+            {section.entries.map((entry) => (
+              <Interest entry={getEntry('interests', entry)} {...pickProps(section)} />
+            ))}
+          </HorizontalList>
+        )}
+
+        {section.collection === 'jobs' && (
+          <VerticalList class="gap-10">
+            {section.entries.map((entry, i, arr) => (
+              <Fragment>
+                <Job entry={getEntry('jobs', entry)} {...pickProps(section)} />
+                {i < arr.length - 1 && <Separator />}
+              </Fragment>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'projects' && (
+          <VerticalList class="gap-10">
+            {section.entries.map((entry, i, arr) => (
+              <Fragment>
+                <Project entry={getEntry('projects', entry)} {...pickProps(section)} />
+                {i < arr.length - 1 && <Separator />}
+              </Fragment>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'references' && (
+          <VerticalList class="gap-10">
+            {section.entries.map((entry, i, arr) => (
+              <Fragment>
+                <Reference entry={getEntry('references', entry)} {...pickProps(section)} />
+                {i < arr.length - 1 && <Separator />}
+              </Fragment>
+            ))}
+          </VerticalList>
+        )}
+
+        {section.collection === 'skills' && (
+          <VerticalList class="gap-8">
+            {section.subsections.map((subsection) => (
+              <Subsection class="gap-2">
+                <SubsectionTitle>{subsection.title}</SubsectionTitle>
+                {subsection.withLevel ? (
+                  <GridList class="gap-8" minColWidth="200px">
+                    {subsection.entries.map((entry) => (
+                      <Skill withLevel entry={getEntry('skills', entry)} />
+                    ))}
+                  </GridList>
+                ) : (
+                  <HorizontalList class="gap-3">
+                    {subsection.entries.map((entry) => (
+                      <Skill entry={getEntry('skills', entry)} />
+                    ))}
+                  </HorizontalList>
+                )}
+              </Subsection>
+            ))}
+          </VerticalList>
+        )}
+      </Section>
+    ))
+  }
+</Layout>
