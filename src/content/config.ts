@@ -88,7 +88,6 @@ export const collections = {
       z.object({
         title: z.string(),
         description: z.string(),
-        favicon: image().optional(),
         openGraph: z
           .object({
             image: image().optional(),

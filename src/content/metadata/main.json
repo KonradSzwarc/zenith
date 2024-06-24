@@ -1,7 +1,6 @@
 {
   "title": "Mark Freeman - Senior React Developer",
   "description": "I have over 10 years of experience in web development with an emphasis on the Next.js ecosystem. I worked with companies such as CodePen, Shopify, and Meta.",
-  "favicon": "../../assets/me.jpg",
   "openGraph": {
     "image": "../../assets/open-graph.png",
     "title": "Mark Freeman - Senior React Developer",
