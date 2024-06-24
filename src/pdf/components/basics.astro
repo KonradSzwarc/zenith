@@ -7,8 +7,8 @@ import Img from '@/pdf/components/img.astro';
 import RenderedContent from '@/pdf/components/rendered-content.astro';
 import type { ContextSlice } from '@/types/context';
 import type { AsyncEntry } from '@/types/entries';
+import { joinNonEmpty } from '@/utils/array';
 import { getGlobalContext } from '@/utils/get-global-context';
-import { joinNonEmpty } from '@/utils/join-non-empty';
 
 interface Props {
   entry: AsyncEntry<'basics'>;

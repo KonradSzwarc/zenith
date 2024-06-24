@@ -4,6 +4,7 @@ import type { HTMLAttributes } from 'astro/types';
 import { cn } from '@/utils/cn';
 
 interface Props extends HTMLAttributes<'div'> {
+  /** Minimal width of the column. If provided, number of columns will be determined automatically. */
   minColWidth?: string;
 }
 

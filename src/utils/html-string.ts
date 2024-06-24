@@ -1,5 +1,16 @@
+/** Removes the top element from given HTML string. */
+export function removeTopElement(html: string): string {
+  const trimmedHtml = html.trim();
+  const regex = /^<[^>]+>([\s\S]*?)<\/[^>]+>$/;
+
+  const match = trimmedHtml.match(regex);
+
+  return match?.[1] ?? trimmedHtml;
+}
+
 const TAG_WITH_ATTRIBUTES_REGEX = /<(\w+)([^>]*)>/;
 
+/** Returns an object with attributes of the top element in given HTML string. */
 export function getElementAttributes(html: string) {
   const result: Record<string, string | number | boolean> = {};
 
@@ -27,6 +38,7 @@ export function getElementAttributes(html: string) {
   return result;
 }
 
+/** Adds attributes to the top element in given HTML string. */
 export function addElementAttributes(html: string, attributes: Record<string, string | number | boolean>) {
   const currentAttributes = getElementAttributes(html);
   const newAttributes = { ...currentAttributes, ...attributes };

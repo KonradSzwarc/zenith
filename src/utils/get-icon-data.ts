@@ -1,3 +1,4 @@
+/** Returns icon details based on its name. */
 export async function getIconData(name: string) {
   /** Is a path of an icon placed in src/icons. */
   const isLocalIcon = !name.includes(':');

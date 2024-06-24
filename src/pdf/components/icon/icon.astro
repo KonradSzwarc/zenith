@@ -6,6 +6,10 @@ import IconClient from './icon-client.astro';
 import IconLocal from './icon-local.astro';
 
 interface Props extends IconProps {
+  /**
+   * Name of the icon in `"set:name"` format for [Iconify](https://icon-sets.iconify.design/) icons or
+   * `"filename"` format for [local icons](https://www.astroicon.dev/guides/customization/#local-icons).
+   **/
   name: string;
 }
 

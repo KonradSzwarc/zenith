@@ -7,7 +7,20 @@ import IconLocal from './icon-local.astro';
 import IconServer from './icon-server.astro';
 
 interface Props extends IconProps {
+  /**
+   * Name of the icon in `"set:name"` format for [Iconify](https://icon-sets.iconify.design/) icons or
+   * `"filename"` format for [local icons](https://www.astroicon.dev/guides/customization/#local-icons).
+   **/
   name: string;
+
+  /**
+   * Controls the loading strategy of the icon.
+   *
+   * - `"lazy"`: The icon will be loaded client-side.
+   * - `"eager"`: The icon will be loaded server-side.
+   *
+   * @default "lazy"
+   **/
   loading?: 'lazy' | 'eager';
 }
 

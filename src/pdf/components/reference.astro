@@ -3,8 +3,8 @@ import Linkable from '@/components/linkable.astro';
 import Img from '@/pdf/components/img.astro';
 import RenderedContent from '@/pdf/components/rendered-content.astro';
 import type { AsyncEntry } from '@/types/entries';
+import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
-import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
   entry: AsyncEntry<'references'>;

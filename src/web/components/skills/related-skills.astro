@@ -11,10 +11,19 @@ import { getGlobalContext } from '@/utils/get-global-context';
 import SkillWithoutLevel from './skill-without-level.astro';
 
 interface Props {
+  /** A list of skills in the form of Astro content collection references. */
   skillRefs: { collection: 'skills'; slug: ValidContentEntrySlug<'skills'> }[];
+
+  /** The label for the list of skills. Provide `null` to rendeer skills without a label. */
   label?: Configurable<string>;
+
+  /** Names (slugs) of the skills to include. */
   include?: ValidContentEntrySlug<'skills'>[];
+
+  /** Names (slugs) of the skills to exclude. */
   exclude?: ValidContentEntrySlug<'skills'>[];
+
+  /** Additional class applied to the container. */
   class?: string;
 }
 

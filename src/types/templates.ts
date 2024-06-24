@@ -11,6 +11,7 @@ import Project from '@/web/components/project.astro';
 import Reference from '@/web/components/reference.astro';
 import { Skill } from '@/web/components/skills';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Component = (args: any) => unknown;
 
 type SectionBase<C extends keyof ContentEntryMap> = {
@@ -26,10 +27,10 @@ type SectionEntries<C extends keyof ContentEntryMap, P extends Component> = Omit
   entries: ValidContentEntrySlug<C>[];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/** Section where entries are defined directly. */
 type FlatSection<C extends keyof ContentEntryMap, P extends Component> = SectionBase<C> & SectionEntries<C, P>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/** Section where entries are defined within subsections. */
 type NestedSection<C extends keyof ContentEntryMap, P extends Component> = SectionBase<C> & {
   subsections: (SectionEntries<C, P> & {
     /** Title displayed above the subsection content. */

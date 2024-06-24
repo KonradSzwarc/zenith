@@ -1,8 +1,8 @@
 ---
 import Linkable from '@/components/linkable.astro';
 import type { AsyncEntry } from '@/types/entries';
+import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
-import { removeTopElement } from '@/utils/remove-top-element';
 import Img from '@/web/components/img.astro';
 import RenderedContent from '@/web/components/rendered-content.astro';
 

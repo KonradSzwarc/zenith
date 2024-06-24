@@ -3,8 +3,8 @@ import type { CollectionEntry } from 'astro:content';
 import { intervalToDuration } from 'date-fns';
 
 import type { ContextSlice } from '@/types/context';
+import { joinNonEmpty } from '@/utils/array';
 import { getGlobalContext } from '@/utils/get-global-context';
-import { joinNonEmpty } from '@/utils/join-non-empty';
 import Details from '@/web/components/details.astro';
 
 interface Props {

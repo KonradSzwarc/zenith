@@ -2,8 +2,8 @@
 import Linkable from '@/components/linkable.astro';
 import type { AsyncEntry } from '@/types/entries';
 import { cn } from '@/utils/cn';
+import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
-import { removeTopElement } from '@/utils/remove-top-element';
 import { Icon } from '@/web/components/icon';
 import Popover from '@/web/components/popover.astro';
 
@@ -11,8 +11,23 @@ import Img from './img.astro';
 
 interface Props {
   entry: AsyncEntry<'favorites'>;
+
+  /**
+   * [Iconify](https://icon-sets.iconify.design/) icon to display for the favorite.
+   * Icon is displayed if `image` prop is not provided or when given favorite has no image specified.
+   **/
   icon?: string;
+
+  /**
+   * Image variant to display for the favorite. Possible values are:
+   * - `poster` - vertical image with 3:4 aspect ratio.
+   * - `person` - large circular image.
+   * - `favicon` - small square image.
+   * - `video` - horizontal image with 16:9 aspect ratio.
+   **/
   image?: keyof typeof imageSizes;
+
+  /** Whether to display an origin address of the favorite's url. **/
   withSource?: boolean;
 }
 

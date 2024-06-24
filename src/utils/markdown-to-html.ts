@@ -15,6 +15,7 @@ renderer.link = ({ href, text, title }) => {
   return `<a ${attributes}>${text}</a>`;
 };
 
+/** Converts given markdown to HTML string. */
 export function markdownToHtml(text: string) {
   return marked.parse(text, { async: false, renderer }) as string;
 }

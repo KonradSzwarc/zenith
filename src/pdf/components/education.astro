@@ -9,11 +9,13 @@ import { RelatedSkills } from '@/pdf/components/skills';
 import type { AsyncEntry } from '@/types/entries';
 import type { Configurable } from '@/utils/configurable';
 import { shouldDisplay } from '@/utils/configurable';
+import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
-import { removeTopElement } from '@/utils/remove-top-element';
 
 interface Props {
   entry: AsyncEntry<'education'>;
+
+  /** Configuration for education related skills. Pass `null` to hide related skills. */
   relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
 }
 

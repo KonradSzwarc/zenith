@@ -5,8 +5,8 @@ import DateRange from '@/components/date-range.astro';
 import type { AsyncEntry } from '@/types/entries';
 import type { Configurable } from '@/utils/configurable';
 import { shouldDisplay } from '@/utils/configurable';
+import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
-import { removeTopElement } from '@/utils/remove-top-element';
 import Details from '@/web/components/details.astro';
 import Img from '@/web/components/img.astro';
 import RenderedContent from '@/web/components/rendered-content.astro';
@@ -14,6 +14,8 @@ import { RelatedSkills } from '@/web/components/skills';
 
 interface Props {
   entry: AsyncEntry<'education'>;
+
+  /** Configuration for education related skills. Pass `null` to hide related skills. */
   relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
 }
 

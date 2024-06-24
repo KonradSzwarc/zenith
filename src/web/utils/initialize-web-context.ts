@@ -11,18 +11,40 @@ export interface WebContextData extends Omit<WebContext, 'iconStore' | 'i18n'> {
 }
 
 export interface WebContext {
+  /** Initialized instance of i18next. */
   i18n: i18n;
+
+  /** Locale imported from date-fns/locale. */
   locale: Locale;
+
+  /** [Format](https://date-fns.org/v3.6.0/docs/format) of all dates across the resume. */
   dateFormat: string;
+
+  /** Store used for server icon caching. */
   iconStore: IconStore;
+
+  /** Configuration of the resume ThemeSwitcher. Possible values are:
+   * - `light` - use light theme.
+   * - `dark` - use dark theme.
+   * - `system` - use system theme.
+   * - `custom` - use system theme by default, but allow user to change it.
+   */
   theme: Theme;
+
+  /** Details of the PDF resume linked on the website. */
   pdf?: {
+    /** Path of the PDF resume within the `/public` directory. */
     path: string;
+
+    /** Label displayed on the PDF download button. */
     label: string;
+
+    /** Name of the downloaded PDF file. */
     filename: string;
   };
 }
 
+/** Initializes global context for a web resume. */
 export async function initializeWebContext(astro: AstroGlobal, data: WebContextData) {
   await i18next.init({
     lng: data.locale.code,
