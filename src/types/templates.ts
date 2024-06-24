@@ -11,21 +11,30 @@ import Project from '@/web/components/project.astro';
 import Reference from '@/web/components/reference.astro';
 import { Skill } from '@/web/components/skills';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type FlatSection<C extends keyof ContentEntryMap, P extends (args: any) => unknown> = Omit<
-  ComponentProps<P>,
-  'entry'
-> & {
+type Component = (args: any) => unknown;
+
+type SectionBase<C extends keyof ContentEntryMap> = {
+  /** Name of the folder within `src/content` to use for content. */
   collection: C;
+
+  /** Title displayed above the section content. */
   title: string;
+};
+
+type SectionEntries<C extends keyof ContentEntryMap, P extends Component> = Omit<ComponentProps<P>, 'entry'> & {
+  /** Names of the files within `src/content/[collection]` to use for content. */
   entries: ValidContentEntrySlug<C>[];
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type NestedSection<C extends keyof ContentEntryMap, P extends (args: any) => unknown> = {
-  collection: C;
-  title: string;
-  subsections: (Omit<ComponentProps<P>, 'entry'> & { title: string; entries: ValidContentEntrySlug<C>[] })[];
+type FlatSection<C extends keyof ContentEntryMap, P extends Component> = SectionBase<C> & SectionEntries<C, P>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type NestedSection<C extends keyof ContentEntryMap, P extends Component> = SectionBase<C> & {
+  subsections: (SectionEntries<C, P> & {
+    /** Title displayed above the subsection content. */
+    title: string;
+  })[];
 };
 
 export type TemplateSection =
