@@ -11,7 +11,7 @@ interface Props extends HTMLAttributes<'main'> {
 const { class: className, bodyClass, ...props } = Astro.props;
 ---
 
-<BaseLayout bodyClass={cn('bg-color-bg-card antialiased', bodyClass)}>
+<BaseLayout bodyClass={cn('bg-white', bodyClass)}>
   <slot name="head" slot="head" />
   <main class={cn('mx-auto grid w-[720px]', className)} {...props}>
     <slot />

@@ -1,25 +1,27 @@
 ---
 import type { ContextSlice } from '@/types/context';
+import { cn } from '@/utils/cn';
 import { getGlobalContext } from '@/utils/get-global-context';
 
 interface Props {
   bodyClass?: string;
+  lang?: string;
 }
 
 const { bodyClass } = Astro.props;
 
-const context = getGlobalContext<ContextSlice<'locale'>>(Astro);
+const lang = Astro.props.lang ?? (await getGlobalContext<ContextSlice<'locale'>>(Astro)).locale.code;
 ---
 
 <!doctype html>
-<html lang={context.locale.code}>
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <slot name="head" />
   </head>
-  <body class={bodyClass}>
+  <body class={cn('font-body antialiased', bodyClass)}>
     <slot />
   </body>
 </html>

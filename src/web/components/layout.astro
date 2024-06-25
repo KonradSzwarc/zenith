@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<'main'> {
 const { class: className, bodyClass, ...props } = Astro.props;
 ---
 
-<BaseLayout bodyClass={cn('bg-color-bg-body antialiased sm:p-6 md:p-8 lg:p-10', bodyClass)}>
+<BaseLayout bodyClass={cn('bg-color-bg-body sm:p-6 md:p-8 lg:p-10', bodyClass)}>
   <Fragment slot="head">
     <slot name="head" />
     <Analytics />

@@ -9,9 +9,6 @@ import metaTags from 'astro-meta-tags';
 export default defineConfig({
   integrations: [metaTags(), mdx(), icon(), tailwind(), sitemap({ filter: (url) => new URL(url).pathname === '/' })],
   site: 'https://example.com',
-  devToolbar: {
-    enabled: process.env['DISABLE_TOOLBAR'] !== 'true',
-  },
   experimental: {
     env: {
       schema: {

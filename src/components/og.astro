@@ -1,0 +1,38 @@
+---
+import BaseLayout from '@/layouts/base-layout.astro';
+import { Icon } from '@/pdf/components/icon';
+import Img from '@/pdf/components/img.astro';
+
+type Props = {
+  title: string;
+  subtitle?: string;
+  image?: ImageMetadata;
+} & ({ tag?: string; icons?: never } | { tag?: never; icons?: string[] });
+
+const { title, subtitle, image, tag, icons } = Astro.props;
+---
+
+<BaseLayout lang="en" bodyClass="bg-black">
+  <slot name="default" slot="head" />
+  <main class="flex h-[630px] w-[1200px] flex-col items-center justify-center bg-color-bg-card pb-4 text-center">
+    {image && <Img src={image} alt={title} width={400} height={400} class="mb-6 size-50 rounded-2xl" />}
+    <h1 class="text-7xl font-black leading-tight text-color-text-title">{title}</h1>
+    {subtitle && <p class="text-5xl font-medium leading-tight text-color-text-primary">{subtitle}</p>}
+    {
+      tag && (
+        <div class="mt-8 rounded-full bg-color-primary-dark px-8 py-3 text-4xl font-medium text-color-primary-contrast">
+          {tag}
+        </div>
+      )
+    }
+    {
+      icons && (
+        <div class="mt-8 flex gap-7 text-color-icon-light">
+          {icons.map((icon) => (
+            <Icon name={icon} class="size-14" />
+          ))}
+        </div>
+      )
+    }
+  </main>
+</BaseLayout>

@@ -13,11 +13,12 @@
   "scripts": {
     "postinstall": "npm run favicons",
     "dev": "astro dev",
-    "dev:pdf": "cross-env DISABLE_TOOLBAR=true astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "pdf": "tsx ./scripts/generate-pdf.ts",
     "pdf:watch": "nodemon ./scripts/generate-pdf.ts",
+    "og": "tsx ./scripts/generate-og.ts",
+    "og:watch": "nodemon ./scripts/generate-og.ts",
     "favicons": "tsx ./scripts/generate-favicons.ts",
     "lint": "eslint .",
     "check": "astro check",

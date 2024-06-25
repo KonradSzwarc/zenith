@@ -1,0 +1,27 @@
+---
+import { getEntry } from 'astro:content';
+
+import OpenGraph from '@/components/og.astro';
+import GrayscaleColors from '@/styles/colors/dusk/slate.astro';
+import ElementColors from '@/styles/colors/elements/default.astro';
+import PrimaryColors from '@/styles/colors/primary/indigo.astro';
+import Font from '@/styles/fonts/inter.astro';
+
+const {
+  data: { name, label, image },
+} = await getEntry('basics', 'main');
+
+const footerProps = {
+  tag: 'Virtual resume',
+};
+// const footerProps = {
+//   icons: ['simple-icons:react', 'simple-icons:nextdotjs', 'simple-icons:tailwindcss', 'simple-icons:reactquery'],
+// };
+---
+
+<OpenGraph title={name} subtitle={label} image={image} {...footerProps}>
+  <Font />
+  <GrayscaleColors />
+  <PrimaryColors />
+  <ElementColors />
+</OpenGraph>

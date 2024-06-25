@@ -90,7 +90,7 @@ export const collections = {
         description: z.string(),
         openGraph: z
           .object({
-            image: image().optional(),
+            image: image().or(z.string()).optional(),
             title: z.string().optional(),
             description: z.string().optional(),
           })

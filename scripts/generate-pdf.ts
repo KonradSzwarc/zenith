@@ -38,6 +38,7 @@ async function generatePdf(name: string, page: Page) {
   }
 
   await page.goto(url, { waitUntil: 'networkidle0' });
+  await removeAstroToolbar(page);
 
   const footer = await getFooter(page);
   const { margin } = await getPdfConfig(page);
@@ -71,9 +72,7 @@ async function ensureServerIsRunning() {
   try {
     await fetch(LOCAL_PDF_URL);
   } catch {
-    console.error(
-      chalk.red('[ERROR] Server is not running. Invoke `npm run dev:pdf` in another terminal and try again.'),
-    );
+    console.error(chalk.red('[ERROR] Server is not running. Invoke `npm run dev` in another terminal and try again.'));
     process.exit(1);
   }
 }
@@ -116,4 +115,8 @@ async function getPdfConfig(page: Page) {
   });
 
   return { margin };
+}
+
+async function removeAstroToolbar(page: Page) {
+  await page.evaluate(() => document.querySelector('astro-dev-toolbar')?.remove());
 }
