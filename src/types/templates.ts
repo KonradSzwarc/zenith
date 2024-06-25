@@ -15,7 +15,7 @@ import { Skill } from '@/web/components/skills';
 type Component = (args: any) => unknown;
 
 type SectionBase<C extends keyof ContentEntryMap> = {
-  /** Name of the folder within `src/content` to use for content. */
+  /** Name of the folder within `src/content` to use for the section content. */
   collection: C;
 
   /** Title displayed above the section content. */
@@ -23,7 +23,7 @@ type SectionBase<C extends keyof ContentEntryMap> = {
 };
 
 type SectionEntries<C extends keyof ContentEntryMap, P extends Component> = Omit<ComponentProps<P>, 'entry'> & {
-  /** Names of the files within `src/content/[collection]` to use for content. */
+  /** Names of the files within `src/content/[collection]` to use for the section content. */
   entries: ValidContentEntrySlug<C>[];
 };
 

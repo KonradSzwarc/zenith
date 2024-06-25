@@ -27,13 +27,25 @@ import { pickSectionProps } from '@/utils/templates';
 import PdfConfig from '../components/pdf-config.astro';
 
 interface Props {
+  /** Basic configuration of the page used for PDF generation. */
   context: Omit<PdfContextData, 'locale' | 'translations'> & {
+    /** Name of the locale used as website language. */
     locale: keyof typeof locales;
+
+    /** Name of translations file from `src/content/translations` */
     translations: keyof DataEntryMap['translations'];
   };
+
+  /** Configuration of the PDF document generation. */
   pdfConfig: ComponentProps<typeof PdfConfig>;
+
+  /** Name of file from `src/content/basics``to use for the top resume section. */
   basics: ValidContentEntrySlug<'basics'>;
+
+  /** Text of the footer displayed at the end of each PDF page. */
   footer?: string;
+
+  /** Array of sections to be displayed under the top (basics) section. */
   sections: TemplateSection[];
 }
 

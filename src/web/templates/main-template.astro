@@ -24,12 +24,22 @@ import type { WebContextData } from '@/web/utils/initialize-web-context';
 import { initializeWebContext } from '@/web/utils/initialize-web-context';
 
 interface Props {
+  /** Basic configuration of the page. */
   context: Omit<WebContextData, 'locale' | 'translations'> & {
+    /** Name of the locale used as website language. */
     locale: keyof typeof locales;
+
+    /** Name of translations file from `src/content/translations` */
     translations: keyof DataEntryMap['translations'];
   };
+
+  /** Name of file from `src/content/metadata``to use as page metadata. */
   metadata: keyof DataEntryMap['metadata'];
+
+  /** Name of file from `src/content/basics``to use for the top resume section. */
   basics: ValidContentEntrySlug<'basics'>;
+
+  /** Array of sections to be displayed under the top (basics) section. */
   sections: TemplateSection[];
 }
 
