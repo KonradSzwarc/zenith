@@ -24,11 +24,12 @@ async function main() {
   await generateAstroFile(html);
 
   log.success('Favicons generated successfully');
+  process.exit(0);
 }
 
 async function generateFavicons() {
   return favicons(INPUT_IMAGE, {
-    path: '/favicons',
+    path: '/generated/favicons',
     appName: 'Mark Freeman Resume',
     appDescription: 'Virtual resume of Mark Freeman',
     appShortName: 'Mark Freeman Resume',

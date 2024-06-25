@@ -6,5 +6,7 @@
   "phone": "Phone",
   "location": "Location",
   "current": "Current",
-  "related_skills": "Related skills"
+  "related_skills": "Related skills",
+  "toggle_theme": "Toggle theme",
+  "popover_trigger": "Read more"
 }

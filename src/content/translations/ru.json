@@ -7,5 +7,7 @@
   "phone": "Телефон",
   "location": "Местоположение",
   "current": "н.в.",
-  "related_skills": "Развитые навыки"
+  "related_skills": "Развитые навыки",
+  "toggle_theme": "Сменить тему",
+  "popover_trigger": "Узнать больше"
 }

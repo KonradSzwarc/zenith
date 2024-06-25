@@ -1,6 +1,8 @@
 ---
 import { nanoid } from 'nanoid';
 
+import type { ContextSlice } from '@/types/context';
+import { getGlobalContext } from '@/utils/get-global-context';
 import { addElementAttributes } from '@/utils/html-string';
 
 const trigger = await Astro.slots.render('trigger');
@@ -10,9 +12,11 @@ if (!trigger) {
 }
 
 const id = nanoid();
+const context = getGlobalContext<ContextSlice<'i18n'>>(Astro);
+const triggerProps = { popovertarget: `popover-${id}`, ['aria-label']: context.i18n.t('popover_trigger') };
 ---
 
-<Fragment set:html={addElementAttributes(trigger, { popovertarget: `popover-${id}` })} />
+<Fragment set:html={addElementAttributes(trigger, triggerProps)} />
 <div
   popover
   id={`popover-${id}`}

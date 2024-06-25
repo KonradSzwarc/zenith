@@ -6,6 +6,8 @@ import * as locales from 'date-fns/locale';
 
 import { GridList, HorizontalList, VerticalList } from '@/components/list';
 import Separator from '@/components/separator.astro';
+import type { TemplateSection } from '@/types/templates';
+import { pickSectionProps } from '@/utils/templates';
 import Achievement from '@/web/components/achievement.astro';
 import { Basics } from '@/web/components/basics';
 import Education from '@/web/components/education.astro';
@@ -20,8 +22,6 @@ import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/web/compon
 import { Skill } from '@/web/components/skills';
 import type { WebContextData } from '@/web/utils/initialize-web-context';
 import { initializeWebContext } from '@/web/utils/initialize-web-context';
-import type { TemplateSection } from '@/types/templates';
-import { pickSectionProps } from '@/utils/templates';
 
 interface Props {
   context: Omit<WebContextData, 'locale' | 'translations'> & {

@@ -7,5 +7,7 @@
   "phone": "Telefon",
   "location": "Lokalizacja",
   "current": "Obecnie",
-  "related_skills": "Powiązane umiejętności"
+  "related_skills": "Powiązane umiejętności",
+  "toggle_theme": "Zmień motyw kolorystyczny",
+  "popover_trigger": "Dowiedz się więcej"
 }

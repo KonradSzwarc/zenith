@@ -10,7 +10,7 @@ interface Props {
 
 const { bodyClass } = Astro.props;
 
-const lang = Astro.props.lang ?? (await getGlobalContext<ContextSlice<'locale'>>(Astro)).locale.code;
+const lang = Astro.props.lang ?? getGlobalContext<ContextSlice<'locale'>>(Astro).locale.code;
 ---
 
 <!doctype html>

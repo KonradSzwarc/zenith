@@ -3,7 +3,7 @@ import type { ContextSlice } from '@/types/context';
 import { getGlobalContext } from '@/utils/get-global-context';
 import { Icon } from '@/web/components/icon';
 
-const context = getGlobalContext<ContextSlice<'theme'>>(Astro);
+const context = getGlobalContext<ContextSlice<'theme' | 'i18n'>>(Astro);
 ---
 
 {
@@ -11,6 +11,7 @@ const context = getGlobalContext<ContextSlice<'theme'>>(Astro);
     <button
       id="theme-switch-button"
       class="fixed bottom-5 right-5 rounded-full border border-color-border bg-color-bg-card p-3 text-color-icon-dark shadow"
+      aria-label={context.i18n.t('toggle_theme')}
     >
       <Icon data-mode="light" name="lucide:sun" class="hidden size-5 dark:flex" />
       <Icon data-mode="dark" name="lucide:moon" class="flex size-5 dark:hidden" />

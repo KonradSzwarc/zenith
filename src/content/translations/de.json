@@ -6,5 +6,7 @@
   "phone": "Telefon",
   "location": "Standort",
   "current": "Aktuell",
-  "related_skills": "Verwandte Fähigkeiten"
+  "related_skills": "Verwandte Fähigkeiten",
+  "toggle_theme": "Thema wechseln",
+  "popover_trigger": "Mehr erfahren"
 }
