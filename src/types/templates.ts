@@ -41,9 +41,11 @@ type NestedSection<C extends keyof ContentEntryMap, P extends Component> = Secti
 export type TemplateSection =
   | FlatSection<'achievements', typeof Achievement>
   | FlatSection<'education', typeof Education>
+  | FlatSection<'favorites', typeof Education>
   | NestedSection<'favorites', typeof Favorite>
   | FlatSection<'interests', typeof Interest>
   | FlatSection<'jobs', typeof Job>
   | FlatSection<'projects', typeof Project>
   | FlatSection<'references', typeof Reference>
+  | FlatSection<'skills', typeof Skill>
   | NestedSection<'skills', typeof Skill>;

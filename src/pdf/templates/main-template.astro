@@ -86,20 +86,27 @@ await initializePdfContext(Astro, {
           </VerticalList>
         )}
 
-        {section.collection === 'favorites' && (
-          <VerticalList class="gap-5">
-            {section.subsections.map((subsection) => (
-              <Subsection class="gap-2">
-                <SubsectionTitle>{subsection.title}</SubsectionTitle>
-                <VerticalList class="gap-3">
-                  {subsection.entries.map((entry) => (
-                    <Favorite entry={getEntry('favorites', entry)} {...pickSectionProps(subsection)} />
-                  ))}
-                </VerticalList>
-              </Subsection>
-            ))}
-          </VerticalList>
-        )}
+        {section.collection === 'favorites' &&
+          ('subsections' in section ? (
+            <VerticalList class="gap-5">
+              {section.subsections.map((subsection) => (
+                <Subsection class="gap-2">
+                  <SubsectionTitle>{subsection.title}</SubsectionTitle>
+                  <VerticalList class="gap-3">
+                    {subsection.entries.map((entry) => (
+                      <Favorite entry={getEntry('favorites', entry)} {...pickSectionProps(subsection)} />
+                    ))}
+                  </VerticalList>
+                </Subsection>
+              ))}
+            </VerticalList>
+          ) : (
+            <VerticalList class="gap-3">
+              {section.entries.map((entry) => (
+                <Favorite entry={getEntry('favorites', entry)} {...pickSectionProps(section)} />
+              ))}
+            </VerticalList>
+          ))}
 
         {section.collection === 'interests' && (
           <HorizontalList class="gap-3">
@@ -142,20 +149,27 @@ await initializePdfContext(Astro, {
           </VerticalList>
         )}
 
-        {section.collection === 'skills' && (
-          <VerticalList class="gap-4">
-            {section.subsections.map((subsection) => (
-              <Subsection class="gap-2">
-                <SubsectionTitle>{subsection.title}</SubsectionTitle>
-                <HorizontalList class="gap-3">
-                  {subsection.entries.map((entry) => (
-                    <Skill entry={getEntry('skills', entry)} {...pickSectionProps(subsection)} />
-                  ))}
-                </HorizontalList>
-              </Subsection>
-            ))}
-          </VerticalList>
-        )}
+        {section.collection === 'skills' &&
+          ('subsections' in section ? (
+            <VerticalList class="gap-4">
+              {section.subsections.map((subsection) => (
+                <Subsection class="gap-2">
+                  <SubsectionTitle>{subsection.title}</SubsectionTitle>
+                  <HorizontalList class="gap-3">
+                    {subsection.entries.map((entry) => (
+                      <Skill entry={getEntry('skills', entry)} {...pickSectionProps(subsection)} />
+                    ))}
+                  </HorizontalList>
+                </Subsection>
+              ))}
+            </VerticalList>
+          ) : (
+            <HorizontalList class="gap-3">
+              {section.entries.map((entry) => (
+                <Skill entry={getEntry('skills', entry)} {...pickSectionProps(section)} />
+              ))}
+            </HorizontalList>
+          ))}
       </Section>
     ))
   }

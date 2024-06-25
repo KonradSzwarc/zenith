@@ -83,20 +83,27 @@ await initializeWebContext(Astro, {
           </VerticalList>
         )}
 
-        {section.collection === 'favorites' && (
-          <VerticalList class="gap-10">
-            {section.subsections.map((subsection) => (
-              <Subsection class="gap-2">
-                <SubsectionTitle>{subsection.title}</SubsectionTitle>
-                <GridList class="gap-4 lg:grid-cols-2">
-                  {subsection.entries.map((entry) => (
-                    <Favorite entry={getEntry('favorites', entry)} {...pickSectionProps(subsection)} />
-                  ))}
-                </GridList>
-              </Subsection>
-            ))}
-          </VerticalList>
-        )}
+        {section.collection === 'favorites' &&
+          ('subsections' in section ? (
+            <VerticalList class="gap-10">
+              {section.subsections.map((subsection) => (
+                <Subsection class="gap-2">
+                  <SubsectionTitle>{subsection.title}</SubsectionTitle>
+                  <GridList class="gap-4 lg:grid-cols-2">
+                    {subsection.entries.map((entry) => (
+                      <Favorite entry={getEntry('favorites', entry)} {...pickSectionProps(subsection)} />
+                    ))}
+                  </GridList>
+                </Subsection>
+              ))}
+            </VerticalList>
+          ) : (
+            <GridList class="gap-4 lg:grid-cols-2">
+              {section.entries.map((entry) => (
+                <Favorite entry={getEntry('favorites', entry)} {...pickSectionProps(section)} />
+              ))}
+            </GridList>
+          ))}
 
         {section.collection === 'interests' && (
           <HorizontalList class="gap-x-4 gap-y-3">
@@ -139,28 +146,41 @@ await initializeWebContext(Astro, {
           </VerticalList>
         )}
 
-        {section.collection === 'skills' && (
-          <VerticalList class="gap-8">
-            {section.subsections.map((subsection) => (
-              <Subsection class="gap-2">
-                <SubsectionTitle>{subsection.title}</SubsectionTitle>
-                {subsection.withLevel ? (
-                  <GridList class="gap-8" minColWidth="200px">
-                    {subsection.entries.map((entry) => (
-                      <Skill withLevel entry={getEntry('skills', entry)} />
-                    ))}
-                  </GridList>
-                ) : (
-                  <HorizontalList class="gap-3">
-                    {subsection.entries.map((entry) => (
-                      <Skill entry={getEntry('skills', entry)} />
-                    ))}
-                  </HorizontalList>
-                )}
-              </Subsection>
-            ))}
-          </VerticalList>
-        )}
+        {section.collection === 'skills' &&
+          ('subsections' in section ? (
+            <VerticalList class="gap-8">
+              {section.subsections.map((subsection) => (
+                <Subsection class="gap-2">
+                  <SubsectionTitle>{subsection.title}</SubsectionTitle>
+                  {subsection.withLevel ? (
+                    <GridList class="gap-8" minColWidth="200px">
+                      {subsection.entries.map((entry) => (
+                        <Skill withLevel entry={getEntry('skills', entry)} />
+                      ))}
+                    </GridList>
+                  ) : (
+                    <HorizontalList class="gap-3">
+                      {subsection.entries.map((entry) => (
+                        <Skill entry={getEntry('skills', entry)} />
+                      ))}
+                    </HorizontalList>
+                  )}
+                </Subsection>
+              ))}
+            </VerticalList>
+          ) : section.withLevel ? (
+            <GridList class="gap-8" minColWidth="200px">
+              {section.entries.map((entry) => (
+                <Skill withLevel entry={getEntry('skills', entry)} />
+              ))}
+            </GridList>
+          ) : (
+            <HorizontalList class="gap-3">
+              {section.entries.map((entry) => (
+                <Skill entry={getEntry('skills', entry)} />
+              ))}
+            </HorizontalList>
+          ))}
       </Section>
     ))
   }
