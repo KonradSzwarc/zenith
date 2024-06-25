@@ -1,15 +1,16 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 
-import chalk from 'chalk';
 import type { FaviconFile, FaviconImage } from 'favicons';
 import { favicons } from 'favicons';
 import { existsSync } from 'fs';
 import { mkdir, rm, writeFile } from 'fs/promises';
 
-const FAVICON_SOURCE = 'src/assets/me.jpg';
-const PUBLIC_FAVICONS_PATH = 'public/favicons';
-const ASTRO_FAVICONS_FILE_PATH = 'src/web/components/metadata/generated-favicons.astro';
+import { log } from './script-helpers';
+
+const INPUT_IMAGE = 'src/assets/me.jpg';
+const OUTPUT_PATH = 'public/favicons';
+const OUTPUT_ASTRO_COMPONENT = 'src/web/components/metadata/generated-favicons.astro';
 
 await main();
 
@@ -22,11 +23,11 @@ async function main() {
 
   await generateAstroFile(html);
 
-  console.log(chalk.green(`[SUCCESS] Favicons generated successfully`));
+  log.success('Favicons generated successfully');
 }
 
 async function generateFavicons() {
-  return favicons(FAVICON_SOURCE, {
+  return favicons(INPUT_IMAGE, {
     path: '/favicons',
     appName: 'Mark Freeman Resume',
     appDescription: 'Virtual resume of Mark Freeman',
@@ -45,21 +46,21 @@ async function generateFavicons() {
 }
 
 async function prepareDir() {
-  if (existsSync(PUBLIC_FAVICONS_PATH)) {
-    await rm(PUBLIC_FAVICONS_PATH, { recursive: true, force: true });
+  if (existsSync(OUTPUT_PATH)) {
+    await rm(OUTPUT_PATH, { recursive: true, force: true });
   }
 
-  await mkdir(PUBLIC_FAVICONS_PATH);
+  await mkdir(OUTPUT_PATH);
 }
 
 async function saveFile(file: FaviconFile | FaviconImage) {
-  console.log(chalk.blue(`[INFO] Creating ${file.name} file...`));
+  log.info(`Creating ${file.name} file...`);
 
-  await writeFile(`${PUBLIC_FAVICONS_PATH}/${file.name}`, file.contents);
+  await writeFile(`${OUTPUT_PATH}/${file.name}`, file.contents);
 }
 
 async function generateAstroFile(html: string[]) {
-  console.log(chalk.blue(`[INFO] Creating ${ASTRO_FAVICONS_FILE_PATH.split('/').pop()} file...`));
+  log.info(`Creating ${OUTPUT_ASTRO_COMPONENT.split('/').pop()} file...`);
 
   const topComment = `
 <!--
@@ -68,6 +69,6 @@ async function generateAstroFile(html: string[]) {
 -->
 `.trim();
 
-  await writeFile(ASTRO_FAVICONS_FILE_PATH, [topComment, ...html].join('\n'));
-  await promisify(exec)(`prettier --write ${ASTRO_FAVICONS_FILE_PATH}`);
+  await writeFile(OUTPUT_ASTRO_COMPONENT, [topComment, ...html].join('\n'));
+  await promisify(exec)(`prettier --write ${OUTPUT_ASTRO_COMPONENT}`);
 }

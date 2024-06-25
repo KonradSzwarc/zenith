@@ -1,50 +1,41 @@
-import chalk from 'chalk';
-import { readdir } from 'fs/promises';
-import puppeteer, { Page } from 'puppeteer';
+import type { Page } from 'puppeteer';
 
-const LOCAL_PDF_URL = 'http://localhost:4321/pdf';
-const PUBLIC_PDF_PATH = 'public/pdf';
-const ASTRO_PDF_SITES_PATH = 'src/pages/pdf';
+import { ensureDirExists, ensureServerIsRunning, forAllPages, log, runBrowser, visitPage } from './script-helpers';
+
+const INPUT_URL = 'http://localhost:4321/pdf';
+const INPUT_PATH = 'src/pages/pdf';
+const OUTPUT_PATH = 'public/pdf';
 
 await main();
 
 async function main() {
-  await ensureServerIsRunning();
+  await ensureServerIsRunning(INPUT_URL);
+  await ensureDirExists(OUTPUT_PATH);
 
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  await runBrowser(async (page) => {
+    const [name] = process.argv.slice(2);
 
-  const [name] = process.argv.slice(2);
+    if (name) {
+      await generatePdf(name, page);
+    } else {
+      await forAllPages(INPUT_PATH, (name) => generatePdf(name, page));
+    }
+  });
 
-  if (name) {
-    await generatePdf(name, page);
-  } else {
-    await forAllPdfPages((name) => generatePdf(name, page));
-  }
-
-  await browser.close();
-
-  console.log(chalk.green(`[SUCCESS] PDFs generated successfully`));
+  log.success(`PDFs generated successfully`);
+  process.exit(0);
 }
 
 async function generatePdf(name: string, page: Page) {
-  console.log(chalk.blue(`[INFO] Generating PDF for ${name}...`));
+  log.info(`Generating PDF for ${name}...`);
 
-  const url = `${LOCAL_PDF_URL}/${name.replace('index', '')}`;
-
-  if (!(await doesPageExist(url))) {
-    console.warn(chalk.yellow(`[WARNING] Page ${url} does not exist. Skipping...`));
-    return;
-  }
-
-  await page.goto(url, { waitUntil: 'networkidle0' });
-  await removeAstroToolbar(page);
+  await visitPage(INPUT_URL, name, page);
 
   const footer = await getFooter(page);
   const { margin } = await getPdfConfig(page);
 
   await page.pdf({
-    path: `${PUBLIC_PDF_PATH}/${name}.pdf`,
+    path: `${OUTPUT_PATH}/${name}.pdf`,
     format: 'A4',
     printBackground: true,
     margin,
@@ -52,29 +43,6 @@ async function generatePdf(name: string, page: Page) {
     footerTemplate: footer,
     headerTemplate: '<div></div>',
   });
-}
-
-async function forAllPdfPages(callback: (name: string) => Promise<void>) {
-  for (const file of await readdir(ASTRO_PDF_SITES_PATH)) {
-    if (file.endsWith('.astro')) {
-      await callback(file.replace('.astro', ''));
-    }
-  }
-}
-
-async function doesPageExist(url: string) {
-  const response = await fetch(url);
-
-  return response.ok;
-}
-
-async function ensureServerIsRunning() {
-  try {
-    await fetch(LOCAL_PDF_URL);
-  } catch {
-    console.error(chalk.red('[ERROR] Server is not running. Invoke `npm run dev` in another terminal and try again.'));
-    process.exit(1);
-  }
 }
 
 function getFooter(page: Page) {
@@ -115,8 +83,4 @@ async function getPdfConfig(page: Page) {
   });
 
   return { margin };
-}
-
-async function removeAstroToolbar(page: Page) {
-  await page.evaluate(() => document.querySelector('astro-dev-toolbar')?.remove());
 }

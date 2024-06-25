@@ -41,5 +41,8 @@
   /** Wraps long lines in Markdown and MDX files. */
   "[md][mdx]": {
     "editor.wordWrap": "on"
-  }
+  },
+
+  /** Adds project specific words to the spell checker. */
+  "cSpell.words": ["astro", "favicons"]
 }
