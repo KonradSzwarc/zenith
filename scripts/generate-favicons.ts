@@ -9,8 +9,8 @@ import { mkdir, rm, writeFile } from 'fs/promises';
 import { log } from './script-helpers';
 
 const INPUT_IMAGE = 'src/assets/me.jpg';
-const OUTPUT_PATH = 'public/favicons';
-const OUTPUT_ASTRO_COMPONENT = 'src/web/components/metadata/generated-favicons.astro';
+const OUTPUT_PATH = 'public/generated/favicons';
+const OUTPUT_ASTRO_COMPONENT = 'src/web/components/metadata/generated/favicons.astro';
 
 await main();
 

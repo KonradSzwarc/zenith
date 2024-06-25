@@ -4,7 +4,7 @@ import { ensureDirExists, ensureServerIsRunning, forAllPages, log, runBrowser, v
 
 const INPUT_URL = 'http://localhost:4321/pdf';
 const INPUT_PATH = 'src/pages/pdf';
-const OUTPUT_PATH = 'public/pdf';
+const OUTPUT_PATH = 'public/generated/pdf';
 
 await main();
 

@@ -4,7 +4,7 @@ import { ensureDirExists, ensureServerIsRunning, forAllPages, log, runBrowser, v
 
 const INPUT_URL = 'http://localhost:4321/og';
 const INPUT_PATH = 'src/pages/og';
-const OUTPUT_PATH = 'public/og';
+const OUTPUT_PATH = 'public/generated/og';
 
 await main();
 
