@@ -1,5 +1,4 @@
-import { exec } from 'node:child_process';
-import { promisify } from 'node:util';
+import { join } from 'node:path';
 
 import type { FaviconFile, FaviconImage } from 'favicons';
 import { favicons } from 'favicons';
@@ -7,16 +6,18 @@ import { writeFile } from 'fs/promises';
 
 import { ensureCleanDirExists, log } from './script-helpers';
 
-const INPUT_IMAGE = 'src/assets/me.jpg';
-const OUTPUT_PATH = 'public/generated/favicons';
-const OUTPUT_ASTRO_COMPONENT = 'src/web/components/metadata/generated/favicons.astro';
+const INPUT_IMAGE_PATH = 'src/assets/me.jpg';
+const OUTPUT_ASSETS_DIR = 'public/generated/favicons';
+const OUTPUT_ASTRO_DIR = 'src/web/components/metadata/generated';
+const OUTPUT_ASTRO_FILE = 'favicons.astro';
 
 await main();
 
 async function main() {
   const { images, files, html } = await generateFavicons();
 
-  await ensureCleanDirExists(OUTPUT_PATH);
+  await ensureCleanDirExists(OUTPUT_ASSETS_DIR);
+  await ensureCleanDirExists(OUTPUT_ASTRO_DIR);
 
   await Promise.all([...images, ...files].map(saveFile));
 
@@ -27,8 +28,8 @@ async function main() {
 }
 
 async function generateFavicons() {
-  return favicons(INPUT_IMAGE, {
-    path: '/generated/favicons',
+  return favicons(INPUT_IMAGE_PATH, {
+    path: OUTPUT_ASSETS_DIR.replace('public', ''),
     appName: 'Mark Freeman Resume',
     appDescription: 'Virtual resume of Mark Freeman',
     appShortName: 'Mark Freeman Resume',
@@ -48,11 +49,11 @@ async function generateFavicons() {
 async function saveFile(file: FaviconFile | FaviconImage) {
   log.info(`Creating ${file.name} file...`);
 
-  await writeFile(`${OUTPUT_PATH}/${file.name}`, file.contents);
+  await writeFile(`${OUTPUT_ASSETS_DIR}/${file.name}`, file.contents);
 }
 
 async function generateAstroFile(html: string[]) {
-  log.info(`Creating ${OUTPUT_ASTRO_COMPONENT.split('/').pop()} file...`);
+  log.info(`Creating ${OUTPUT_ASTRO_FILE} file...`);
 
   const topComment = `
 <!--
@@ -61,6 +62,7 @@ async function generateAstroFile(html: string[]) {
 -->
 `.trim();
 
-  await writeFile(OUTPUT_ASTRO_COMPONENT, [topComment, ...html].join('\n'));
-  await promisify(exec)(`prettier --write ${OUTPUT_ASTRO_COMPONENT}`);
+  const astroFilePath = join(OUTPUT_ASTRO_DIR, OUTPUT_ASTRO_FILE);
+
+  await writeFile(astroFilePath, [topComment, ...html].join('\n'));
 }
