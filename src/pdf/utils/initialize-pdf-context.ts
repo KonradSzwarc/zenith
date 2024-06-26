@@ -30,12 +30,23 @@ export async function initializePdfContext(astro: AstroGlobal, data: PdfContextD
     resources: { [data.locale.code]: { translation: (await data.translations).data } },
   });
 
-  const url = astro.site ?? new URL(astro.url.origin);
   const context: PdfContext = {
     ...data,
     i18n: i18next,
-    website: data.website?.startsWith('/') ? `${url.protocol}//${url.host}${data.website}` : data.website,
+    website: getWebsiteUrl(astro, data.website),
   };
 
   astro.locals.globalContext = context;
+}
+
+function getWebsiteUrl(astro: AstroGlobal, providedUrl?: string) {
+  if (!providedUrl?.startsWith('/')) {
+    return providedUrl;
+  }
+
+  if (!astro.site) {
+    throw new Error('To generate PDFs with relative path, you must set the `site` field in your astro.config.js.');
+  }
+
+  return `${astro.site.protocol}//${astro.site.host}${providedUrl}`;
 }

@@ -11,7 +11,7 @@ import metaTags from 'astro-meta-tags';
 
 // https://astro.build/config
 export default defineConfig({
-  site: getPlatformSpecificUrl(),
+  site: getSiteUrl(),
   experimental: {
     env: {
       schema: {
@@ -44,10 +44,17 @@ async function removeIfExists(path: string) {
   }
 }
 
-function getPlatformSpecificUrl() {
+function getSiteUrl() {
   if (process.env.NETLIFY) return process.env.URL;
   if (process.env.VERCEL) return `https://${process.env.VERCEL_URL}`;
   if (process.env.RENDER) return process.env.RENDER_EXTERNAL_URL;
   if (process.env.CF_PAGES) return process.env.CF_PAGES_URL;
-  return;
+  if (process.env.ASTRO_SITE_URL) return process.env.ASTRO_SITE_URL;
+
+  if (process.env.CI) {
+    console.error('Site URL not not found. Please set the ASTRO_SITE_URL environment variable.');
+    process.exit(1);
+  }
+
+  return 'http://localhost:4321';
 }
