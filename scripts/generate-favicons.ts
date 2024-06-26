@@ -3,10 +3,9 @@ import { promisify } from 'node:util';
 
 import type { FaviconFile, FaviconImage } from 'favicons';
 import { favicons } from 'favicons';
-import { existsSync } from 'fs';
-import { mkdir, rm, writeFile } from 'fs/promises';
+import { writeFile } from 'fs/promises';
 
-import { log } from './script-helpers';
+import { ensureCleanDirExists, log } from './script-helpers';
 
 const INPUT_IMAGE = 'src/assets/me.jpg';
 const OUTPUT_PATH = 'public/generated/favicons';
@@ -17,7 +16,7 @@ await main();
 async function main() {
   const { images, files, html } = await generateFavicons();
 
-  await prepareDir();
+  await ensureCleanDirExists(OUTPUT_PATH);
 
   await Promise.all([...images, ...files].map(saveFile));
 
@@ -44,14 +43,6 @@ async function generateFavicons() {
       favicons: ['favicon-16x16.png', 'favicon-32x32.png', 'favicon.ico'],
     },
   });
-}
-
-async function prepareDir() {
-  if (existsSync(OUTPUT_PATH)) {
-    await rm(OUTPUT_PATH, { recursive: true, force: true });
-  }
-
-  await mkdir(OUTPUT_PATH);
 }
 
 async function saveFile(file: FaviconFile | FaviconImage) {

@@ -1,6 +1,6 @@
 import type { Page } from 'puppeteer';
 
-import { ensureDirExists, ensureServerIsRunning, forAllPages, log, runBrowser, visitPage } from './script-helpers';
+import { ensureCleanDirExists, ensureServerIsRunning, forAllPages, log, runBrowser, visitPage } from './script-helpers';
 
 const INPUT_URL = 'http://localhost:4321/pdf';
 const INPUT_PATH = 'src/pages/pdf';
@@ -10,7 +10,7 @@ await main();
 
 async function main() {
   await ensureServerIsRunning(INPUT_URL);
-  await ensureDirExists(OUTPUT_PATH);
+  await ensureCleanDirExists(OUTPUT_PATH);
 
   await runBrowser(async (page) => {
     const [name] = process.argv.slice(2);

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { existsSync } from 'fs';
-import { mkdir, readdir } from 'fs/promises';
+import { mkdir, readdir, rm } from 'fs/promises';
 import puppeteer, { Page } from 'puppeteer';
 
 export const log = {
@@ -19,10 +19,12 @@ export async function ensureServerIsRunning(url: string) {
   }
 }
 
-export async function ensureDirExists(dir: string) {
-  if (!existsSync(dir)) {
-    await mkdir(dir);
+export async function ensureCleanDirExists(dir: string) {
+  if (existsSync(dir)) {
+    await rm(dir, { recursive: true, force: true });
   }
+
+  await mkdir(dir, { recursive: true });
 }
 
 export async function runBrowser(cb: (page: Page) => Promise<void>) {
