@@ -30,10 +30,11 @@ export async function initializePdfContext(astro: AstroGlobal, data: PdfContextD
     resources: { [data.locale.code]: { translation: (await data.translations).data } },
   });
 
+  const url = astro.site ?? new URL(astro.url.origin);
   const context: PdfContext = {
     ...data,
     i18n: i18next,
-    website: data.website ? `${astro.url.protocol}//${astro.url.host}${data.website}` : undefined,
+    website: data.website?.startsWith('/') ? `${url.protocol}//${url.host}${data.website}` : data.website,
   };
 
   astro.locals.globalContext = context;

@@ -11,7 +11,7 @@ import metaTags from 'astro-meta-tags';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: getPlatformSpecificUrl(),
   experimental: {
     env: {
       schema: {
@@ -42,4 +42,12 @@ async function removeIfExists(path: string) {
   if (existsSync(path)) {
     await rm(path, { recursive: true });
   }
+}
+
+function getPlatformSpecificUrl() {
+  if (process.env.NETLIFY) return process.env.URL;
+  if (process.env.VERCEL) return `https://${process.env.VERCEL_URL}`;
+  if (process.env.RENDER) return process.env.RENDER_EXTERNAL_URL;
+  if (process.env.CF_PAGES) return process.env.CF_PAGES_URL;
+  return;
 }
