@@ -8,13 +8,19 @@ interface Props extends Omit<HTMLAttributes<'footer'>, 'id'> {}
 const { class: className, ...props } = Astro.props;
 ---
 
-<div
+<footer
   class={cn(
-    'flex w-full justify-center rounded border border-color-border bg-color-bg-light px-2 py-0.5 text-justify font-body text-[11px] text-color-text-secondary',
+    'mx-auto flex justify-center rounded border border-color-border bg-color-bg-light px-2 py-1 text-justify font-body text-[11px] text-color-text-secondary',
     className,
   )}
-  id="footer"
   {...props}
 >
   <slot />
-</div>
+</footer>
+
+<style>
+  footer {
+    /* In PDF, when generating footer with full width, side borders are cutted. */
+    width: calc(100% - 2px);
+  }
+</style>

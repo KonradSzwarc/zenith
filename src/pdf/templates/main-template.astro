@@ -1,5 +1,4 @@
 ---
-import type { ComponentProps } from 'astro/types';
 import type { ValidContentEntrySlug } from 'astro:content';
 import type { DataEntryMap } from 'astro:content';
 import { getEntry } from 'astro:content';
@@ -24,8 +23,6 @@ import { initializePdfContext } from '@/pdf/utils/initialize-pdf-context';
 import type { TemplateSection } from '@/types/templates';
 import { pickSectionProps } from '@/utils/templates';
 
-import PdfConfig from '../components/pdf-config.astro';
-
 interface Props {
   /** Basic configuration of the page used for PDF generation. */
   context: Omit<PdfContextData, 'locale' | 'translations'> & {
@@ -35,9 +32,6 @@ interface Props {
     /** Name of translations file from `src/content/translations` */
     translations: keyof DataEntryMap['translations'];
   };
-
-  /** Configuration of the PDF document generation. */
-  pdfConfig: ComponentProps<typeof PdfConfig>;
 
   /** Name of file from `src/content/basics``to use for the top resume section. */
   basics: ValidContentEntrySlug<'basics'>;
@@ -59,7 +53,6 @@ await initializePdfContext(Astro, {
 <Layout class="gap-6">
   <Fragment slot="head">
     <slot name="head" />
-    <PdfConfig {...Astro.props.pdfConfig} />
   </Fragment>
   <Basics entry={getEntry('basics', Astro.props.basics)} />
   {
@@ -90,9 +83,9 @@ await initializePdfContext(Astro, {
           ('subsections' in section ? (
             <VerticalList class="gap-5">
               {section.subsections.map((subsection) => (
-                <Subsection class="gap-2">
+                <Subsection class="gap-1.5">
                   <SubsectionTitle>{subsection.title}</SubsectionTitle>
-                  <VerticalList class="gap-3">
+                  <VerticalList class="gap-2.5">
                     {subsection.entries.map((entry) => (
                       <Favorite entry={getEntry('favorites', entry)} {...pickSectionProps(subsection)} />
                     ))}

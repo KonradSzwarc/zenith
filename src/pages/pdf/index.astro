@@ -12,7 +12,6 @@ import Footer from '@/pdf/components/footer.astro';
 import Interest from '@/pdf/components/interest.astro';
 import Job from '@/pdf/components/job.astro';
 import Layout from '@/pdf/components/layout.astro';
-import PdfConfig from '@/pdf/components/pdf-config.astro';
 import Project from '@/pdf/components/project.astro';
 import Reference from '@/pdf/components/reference.astro';
 import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/pdf/components/section';
@@ -37,7 +36,6 @@ await initializePdfContext(Astro, {
     <GrayscaleColors />
     <PrimaryColors />
     <ElementColors />
-    <PdfConfig margin="11mm" />
   </Fragment>
   <Basics entry={getEntry('basics', 'main-pdf')} />
   <Section class="gap-4">
@@ -109,7 +107,6 @@ await initializePdfContext(Astro, {
   <Section class="gap-4">
     <SectionTitle>Achievements</SectionTitle>
     <VerticalList class="gap-3">
-      <Achievement entry={getEntry('achievements', 'advanced-react-developer')} />
       <Achievement entry={getEntry('achievements', 'google-developer-expert')} />
       <Achievement entry={getEntry('achievements', 'reactathon-hackathon')} />
       <Achievement entry={getEntry('achievements', 'redux-toolkit-contributor')} />
@@ -126,9 +123,9 @@ await initializePdfContext(Astro, {
   <Section class="gap-4">
     <SectionTitle>Favorites</SectionTitle>
     <VerticalList class="gap-5">
-      <Subsection class="gap-2">
+      <Subsection class="gap-1.5">
         <SubsectionTitle>Books I read</SubsectionTitle>
-        <VerticalList class="gap-3">
+        <VerticalList class="gap-2.5">
           <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/domain-driven-design')} />
           <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/grokkking-simplicity')} />
           <Favorite
@@ -138,9 +135,9 @@ await initializePdfContext(Astro, {
           <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/the-pragmatic-programmer')} />
         </VerticalList>
       </Subsection>
-      <Subsection class="gap-2">
+      <Subsection class="gap-1.5">
         <SubsectionTitle>Articles I come back to</SubsectionTitle>
-        <VerticalList class="gap-3">
+        <VerticalList class="gap-2.5">
           <Favorite
             withSource
             icon="material-symbols:article"
@@ -163,9 +160,9 @@ await initializePdfContext(Astro, {
           />
         </VerticalList>
       </Subsection>
-      <Subsection class="gap-2">
+      <Subsection class="gap-1.5">
         <SubsectionTitle>People I learn from</SubsectionTitle>
-        <VerticalList class="gap-3">
+        <VerticalList class="gap-2.5">
           <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/addy-osmani')} />
           <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/anthony-fu')} />
           <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/dan-abramov')} />

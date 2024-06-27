@@ -17,3 +17,10 @@ const { class: className, bodyClass, ...props } = Astro.props;
     <slot />
   </main>
 </BaseLayout>
+
+<style is:global>
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+</style>
