@@ -4,6 +4,7 @@ import Img from '@/components/img.astro';
 import Linkable from '@/components/linkable.astro';
 import type { AsyncEntry } from '@/types/entries';
 import { cn } from '@/utils/cn';
+import { fitImage } from '@/utils/fit-image';
 import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import Popover from '@/web/components/popover.astro';
@@ -42,17 +43,34 @@ const rootClass = cn(
 );
 const iconSizeClass = cn('my-0.5 mr-2 size-4 shrink-0 sm:size-5');
 const imageSizes = {
-  poster: cn('mr-4 h-24 w-18 rounded-sm object-contain object-top sm:h-32 sm:w-24'),
-  person: cn('mr-3 size-10 rounded-full object-cover sm:mr-4 sm:size-12'),
-  favicon: cn(iconSizeClass, 'object-contain'),
-  video: cn('mr-3 h-[54px] w-24 rounded-sm object-cover object-top sm:mr-4 sm:h-18 sm:w-32'),
+  poster: {
+    class: cn('mr-4 h-24 w-18 rounded-sm object-contain object-top sm:h-32 sm:w-24'),
+    getSize: fitImage({ width: 96, height: 128 }),
+  },
+  person: {
+    class: cn('mr-3 size-10 rounded-full object-cover sm:mr-4 sm:size-12'),
+    getSize: fitImage({ width: 48, height: 48 }),
+  },
+  favicon: {
+    class: cn(iconSizeClass, 'object-contain'),
+    getSize: fitImage({ width: 20, height: 20 }),
+  },
+  video: {
+    class: cn('mr-3 h-[54px] w-24 rounded-sm object-cover object-top sm:mr-4 sm:h-18 sm:w-32'),
+    getSize: fitImage({ width: 128, height: 72 }),
+  },
 };
 ---
 
 <div class={rootClass}>
   {
     favorite.image && image ? (
-      <Img class={imageSizes[image]} src={favorite.image} alt={favorite.title} />
+      <Img
+        class={imageSizes[image].class}
+        src={favorite.image}
+        alt={favorite.title}
+        {...imageSizes[image].getSize(favorite.image)}
+      />
     ) : icon ? (
       <Icon name={icon} class={cn(iconSizeClass, 'text-color-icon-dark')} />
     ) : null
@@ -64,7 +82,7 @@ const imageSizes = {
     {
       subtitle && (
         <div
-          class="py-0.5 text-sm text-color-text-primary sm:text-base [&_a:not(:hover)]:no-underline"
+          class="-mt-0.5 pt-1 text-sm text-color-text-primary sm:text-base [&_a:not(:hover)]:no-underline"
           set:html={subtitle}
         />
       )

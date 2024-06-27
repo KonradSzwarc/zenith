@@ -1,16 +1,13 @@
-<link rel="preconnect" href="https://rsms.me/" />
-<link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+---
+import '@fontsource-variable/inter';
+---
 
 <style is:global>
   :root {
     /* prettier-ignore */
-    font-feature-settings: 'liga' 1, 'calt' 1; /* Inter font fix for Chrome */
+    font-feature-settings: 'liga' 1, 'calt' 1; /* Fix for Chrome */
 
-    --font-header: Inter;
-    --font-body: Inter;
-    @supports (font-variation-settings: normal) {
-      --font-header: InterVariable;
-      --font-body: InterVariable;
-    }
+    --font-header: 'Inter Variable';
+    --font-body: 'Inter Variable';
   }
 </style>
