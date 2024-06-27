@@ -11,6 +11,8 @@ export interface WebContextData extends Omit<WebContext, 'iconStore' | 'i18n'> {
 }
 
 export interface WebContext {
+  type: 'web';
+
   /** Initialized instance of i18next. */
   i18n: i18n;
 

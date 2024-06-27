@@ -1,6 +1,7 @@
 ---
 import type { ComponentProps } from 'astro/types';
 
+import { Icon } from '@/components/icon';
 import Linkable from '@/components/linkable.astro';
 import type { AsyncEntry } from '@/types/entries';
 import { cn } from '@/utils/cn';
@@ -9,7 +10,6 @@ import { shouldDisplay } from '@/utils/configurable';
 import { formatDate } from '@/utils/format-date';
 import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
-import { Icon } from '@/web/components/icon';
 import RenderedContent from '@/web/components/rendered-content.astro';
 import { RelatedSkills } from '@/web/components/skills';
 

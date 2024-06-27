@@ -3,13 +3,16 @@ import type { Locale } from 'date-fns';
 import type { i18n } from 'i18next';
 import i18next from 'i18next';
 
+import type { IconStore } from '@/types/context';
 import type { AsyncEntry } from '@/types/entries';
 
-export interface PdfContextData extends Omit<PdfContext, 'i18n'> {
+export interface PdfContextData extends Omit<PdfContext, 'iconStore' | 'i18n'> {
   translations: AsyncEntry<'translations'>;
 }
 
 export interface PdfContext {
+  type: 'pdf';
+
   /** Initialized instance of i18next. */
   i18n: i18n;
 
@@ -18,6 +21,9 @@ export interface PdfContext {
 
   /** [Format](https://date-fns.org/v3.6.0/docs/format) of all dates across the resume. */
   dateFormat: string;
+
+  /** Store used for server icon caching. */
+  iconStore: IconStore;
 
   /** Path of the website linked in the resume. Leave `/` for index page. */
   website?: string;
@@ -33,6 +39,7 @@ export async function initializePdfContext(astro: AstroGlobal, data: PdfContextD
   const context: PdfContext = {
     ...data,
     i18n: i18next,
+    iconStore: new Map<string, string | Promise<string>>(),
     website: getWebsiteUrl(astro, data.website),
   };
 

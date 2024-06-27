@@ -1,13 +1,12 @@
 ---
+import { Icon } from '@/components/icon';
+import Img from '@/components/img.astro';
 import Linkable from '@/components/linkable.astro';
 import type { AsyncEntry } from '@/types/entries';
 import { cn } from '@/utils/cn';
 import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
-import { Icon } from '@/web/components/icon';
 import Popover from '@/web/components/popover.astro';
-
-import Img from './img.astro';
 
 interface Props {
   entry: AsyncEntry<'favorites'>;

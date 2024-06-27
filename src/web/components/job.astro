@@ -2,13 +2,13 @@
 import type { ComponentProps } from 'astro/types';
 
 import DateRange from '@/components/date-range.astro';
+import Img from '@/components/img.astro';
 import type { AsyncEntry } from '@/types/entries';
 import type { Configurable } from '@/utils/configurable';
 import { shouldDisplay } from '@/utils/configurable';
 import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import Details from '@/web/components/details.astro';
-import Img from '@/web/components/img.astro';
 import RenderedContent from '@/web/components/rendered-content.astro';
 import { RelatedSkills } from '@/web/components/skills';
 

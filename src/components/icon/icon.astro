@@ -1,5 +1,7 @@
 ---
+import type { ContextSlice } from '@/types/context';
 import type { IconProps } from '@/types/icon-props';
+import { getGlobalContext } from '@/utils/get-global-context';
 import { getIconData } from '@/utils/get-icon-data';
 
 import IconClient from './icon-client.astro';
@@ -24,7 +26,9 @@ interface Props extends IconProps {
   loading?: 'lazy' | 'eager';
 }
 
-const { name, loading = 'lazy', ...props } = Astro.props;
+const context = getGlobalContext<ContextSlice<'type'>>(Astro);
+
+const { name, loading = context.type === 'web' ? 'lazy' : 'eager', ...props } = Astro.props;
 
 const icon = await getIconData(name);
 ---
