@@ -63,7 +63,10 @@ const imageSizes = {
     </Linkable>
     {
       subtitle && (
-        <div class="text-sm text-color-text-primary sm:text-base [&_a:not(:hover)]:no-underline" set:html={subtitle} />
+        <div
+          class="py-0.5 text-sm text-color-text-primary sm:text-base [&_a:not(:hover)]:no-underline"
+          set:html={subtitle}
+        />
       )
     }
     {
