@@ -31,7 +31,6 @@
     "@astrojs/mdx": "3.1.1",
     "@astrojs/sitemap": "3.1.6",
     "@astrojs/tailwind": "5.1.0",
-    "@astrojs/ts-plugin": "1.8.0",
     "@floating-ui/dom": "1.6.5",
     "@fontsource-variable/inter": "5.0.18",
     "@playform/compress": "0.0.13",
@@ -49,6 +48,7 @@
     "type-fest": "4.20.1"
   },
   "devDependencies": {
+    "@astrojs/ts-plugin": "1.8.0",
     "@eslint/js": "9.5.0",
     "@tailwindcss/typography": "0.5.13",
     "@total-typescript/ts-reset": "0.5.1",
