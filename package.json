@@ -23,7 +23,8 @@
     "generate:pdf:watch": "nodemon --exec \"tsx cli pdf\"",
     "generate:og": "tsx cli og",
     "generate:og:watch": "nodemon --exec \"tsx cli og\"",
-    "generate:favicons": "tsx cli favicons"
+    "generate:favicons": "tsx cli favicons",
+    "update:colors": "tsx cli colors"
   },
   "dependencies": {
     "@astrojs/check": "0.7.0",
@@ -43,6 +44,7 @@
     "marked": "13.0.0",
     "mime": "4.0.3",
     "nanoid": "5.0.7",
+    "polished": "4.3.1",
     "tailwind-merge": "2.3.0",
     "type-fest": "4.20.1"
   },

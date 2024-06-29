@@ -1,6 +1,11 @@
 <style is:global>
   :root {
     &:not(.dark) {
+      --button-bg: var(--accent-700);
+      --button-bg-contrast: var(--white);
+      --web-heading-underline: var(--accent-300);
+      --pdf-heading-underline: var(--accent-500);
+
       --text-title: var(--dusk-900);
       --text-primary: var(--dusk-700);
       --text-secondary: var(--dusk-500);
@@ -22,6 +27,11 @@
     }
 
     &.dark {
+      --button-bg: var(--accent-600);
+      --button-bg-contrast: var(--white);
+      --web-heading-underline: var(--accent-500);
+      --pdf-heading-underline: var(--accent-500);
+
       --text-title: var(--white);
       --text-primary: var(--dusk-50);
       --text-secondary: var(--dusk-100);

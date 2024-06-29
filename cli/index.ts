@@ -3,6 +3,7 @@
 import { program } from 'commander';
 
 import { buildCommand } from './commands/build';
+import { colorsCommand } from './commands/colors';
 import { faviconsCommand } from './commands/favicons';
 import { generateCommand } from './commands/generate';
 import { ogCommand } from './commands/og';
@@ -30,5 +31,10 @@ program
   .action(generateCommand);
 
 program.command('build').description('Build the project').action(buildCommand);
+
+program
+  .command('colors')
+  .description('Generate color styles based on the config in `cli/commands/colors.ts`')
+  .action(colorsCommand);
 
 program.parse(process.argv);

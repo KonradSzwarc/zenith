@@ -20,7 +20,7 @@ const { class: className, classes, ...props } = Astro.props;
     <slot />
   </h2>
   <div class={cn('flex', classes?.lineContainer)}>
-    <hr class={cn('border-2 border-color-primary', classes?.leftLine)} />
+    <hr class={cn('border-2 border-color-pdf-heading-underline', classes?.leftLine)} />
     <hr class={cn('flex-1 border-2 border-color-separator', classes?.rightLine)} />
   </div>
 </div>

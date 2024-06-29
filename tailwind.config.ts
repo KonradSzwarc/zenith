@@ -14,28 +14,7 @@ export default {
         50: '12.5rem',
       },
       colors: {
-        ['color-primary-dark']: 'hsl(var(--primary-dark) / <alpha-value>)',
-        ['color-primary']: 'hsl(var(--primary) / <alpha-value>)',
-        ['color-primary-light']: 'hsl(var(--primary-light) / <alpha-value>)',
-        ['color-primary-contrast']: 'hsl(var(--primary-contrast) / <alpha-value>)',
-
-        ['color-text-title']: 'hsl(var(--text-title) / <alpha-value>)',
-        ['color-text-primary']: 'hsl(var(--text-primary) / <alpha-value>)',
-        ['color-text-secondary']: 'hsl(var(--text-secondary) / <alpha-value>)',
-
-        ['color-icon-light']: 'hsl(var(--icon-light) / <alpha-value>)',
-        ['color-icon-main']: 'hsl(var(--icon-main) / <alpha-value>)',
-        ['color-icon-dark']: 'hsl(var(--icon-dark) / <alpha-value>)',
-
-        ['color-border']: 'hsl(var(--border) / <alpha-value>)',
-        ['color-separator']: 'hsl(var(--separator) / <alpha-value>)',
-
-        ['color-bg-body']: 'hsl(var(--bg-body) / <alpha-value>)',
-        ['color-bg-card']: 'hsl(var(--bg-card) / <alpha-value>)',
-        ['color-bg-popover']: 'hsl(var(--bg-popover) / <alpha-value>)',
-        ['color-bg-light']: 'hsl(var(--bg-light) / <alpha-value>)',
-        ['color-bg-main']: 'hsl(var(--bg-main) / <alpha-value>)',
-        ['color-bg-dark']: 'hsl(var(--bg-dark) / <alpha-value>)',
+        ...getCustomColors(),
       },
       fontFamily: {
         header: ['var(--font-header)', ...defaultTheme.fontFamily.sans],
@@ -69,3 +48,28 @@ export default {
   },
   plugins: [typographyPlugin],
 } satisfies Config;
+
+function getCustomColors() {
+  // Tailwind shades used for base colors.
+  const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+
+  // Base color palettes used in the project. Related CSS variables are located in `src/styles/colors/(dusk|accent)`.
+  const baseColors = ['dusk', 'accent'];
+
+  // Colors used in the code for styling. Related CSS variables are located in `src/styles/colors/elements`.
+  // prettier-ignore
+  const elementColors = ['button-bg', 'button-bg-contrast', 'web-heading-underline', 'pdf-heading-underline', 'primary-dark', 'primary', 'primary-light', 'primary-contrast', 'text-title', 'text-primary', 'text-secondary', 'icon-light', 'icon-main', 'icon-dark', 'border', 'separator', 'bg-body', 'bg-card', 'bg-popover', 'bg-light', 'bg-main', 'bg-dark'];
+
+  const result: Record<string, Record<string, string>> = {};
+
+  for (const color of baseColors) {
+    result[color] = Object.fromEntries(shades.map((shade) => [shade, `hsl(var(--${color}-${shade}) / <alpha-value>)`]));
+  }
+
+  result.color = {};
+  for (const color of elementColors) {
+    result.color[color] = `hsl(var(--${color}) / <alpha-value>)`;
+  }
+
+  return result;
+}

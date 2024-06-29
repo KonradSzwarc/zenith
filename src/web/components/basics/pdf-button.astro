@@ -17,7 +17,7 @@ const context = getGlobalContext<ContextSlice<'pdf'>>(Astro);
       data-pdf-button
       href={context.pdf.path}
       class={cn(
-        'flex h-9 items-center justify-center text-nowrap rounded-md bg-color-primary-dark px-4 font-medium text-color-primary-contrast transition-colors hover:bg-color-primary-dark/90',
+        'flex h-9 items-center justify-center text-nowrap rounded-md bg-color-button-bg px-4 font-medium text-color-button-bg-contrast transition-colors hover:bg-color-button-bg/90',
         className,
       )}
       download={context.pdf.filename}
