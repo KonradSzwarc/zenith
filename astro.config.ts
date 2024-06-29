@@ -36,7 +36,14 @@ export default defineConfig({
         },
       },
     },
-    compress(),
+    compress({
+      CSS: false,
+      HTML: {
+        'html-minifier-terser': {
+          minifyCSS: false,
+        },
+      },
+    }),
   ],
 });
 
