@@ -47,13 +47,13 @@ async function removeIfExists(path: string) {
 }
 
 function getSiteUrl() {
-  if (process.env.ASTRO_SITE_URL) return process.env.ASTRO_SITE_URL;
+  if (process.env.ASTRO_SITE) return process.env.ASTRO_SITE;
   if (process.env.NETLIFY) return process.env.URL;
   if (process.env.RENDER) return process.env.RENDER_EXTERNAL_URL;
   if (process.env.CF_PAGES) return process.env.CF_PAGES_URL;
 
   if (process.env.CI) {
-    console.error('Site URL not not found. Please set the ASTRO_SITE_URL environment variable.');
+    console.error('Site URL not not found. Please set the ASTRO_SITE environment variable.');
     process.exit(1);
   }
 
