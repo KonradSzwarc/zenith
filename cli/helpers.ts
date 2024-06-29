@@ -1,7 +1,14 @@
 import chalk from 'chalk';
+import { execa } from 'execa';
 import { existsSync } from 'fs';
 import { mkdir, readdir, rm } from 'fs/promises';
 import puppeteer, { Page } from 'puppeteer';
+
+import { SERVER_URL } from './constants';
+
+export function exec(command: string) {
+  return execa(command, { shell: true, stdio: ['ignore', 'inherit', 'inherit'] });
+}
 
 export const log = {
   info: (message: string) => console.log(chalk.blue(`[INFO] ${message}`)),
@@ -9,15 +16,6 @@ export const log = {
   warn: (message: string) => console.log(chalk.yellow(`[WARNING] ${message}`)),
   error: (message: string) => console.error(chalk.red(`[ERROR] ${message}`)),
 };
-
-export async function ensureServerIsRunning(url: string) {
-  try {
-    await fetch(url);
-  } catch {
-    log.error('Server is not running. Invoke `npm run dev` in another terminal and try again.');
-    process.exit(1);
-  }
-}
 
 export async function ensureCleanDirExists(dir: string) {
   if (existsSync(dir)) {
@@ -64,4 +62,40 @@ async function doesPageExist(url: string) {
 
 async function removeAstroToolbar(page: Page) {
   await page.evaluate(() => document.querySelector('astro-dev-toolbar')?.remove());
+}
+
+export async function withLocalServer(cb: () => Promise<void>) {
+  if (await isServerRunning()) return cb();
+
+  const server = exec('npm run dev');
+
+  try {
+    await waitForServer();
+    await cb();
+  } finally {
+    server.kill();
+  }
+}
+
+async function isServerRunning() {
+  try {
+    await fetch(SERVER_URL);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function waitForServer() {
+  let attempts = 10;
+
+  while (!(await isServerRunning())) {
+    if (attempts === 0) {
+      log.error('Cannot start the server. Exiting...');
+      process.exit(1);
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    attempts -= 1;
+  }
 }

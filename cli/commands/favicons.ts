@@ -4,16 +4,14 @@ import type { FaviconFile, FaviconImage } from 'favicons';
 import { favicons } from 'favicons';
 import { writeFile } from 'fs/promises';
 
-import { ensureCleanDirExists, log } from './script-helpers';
+import { ensureCleanDirExists, log } from '../helpers';
 
 const INPUT_IMAGE_PATH = 'src/assets/me.jpg';
 const OUTPUT_ASSETS_DIR = 'public/generated/favicons';
 const OUTPUT_ASTRO_DIR = 'src/web/components/metadata/generated';
 const OUTPUT_ASTRO_FILE = 'favicons.astro';
 
-await main();
-
-async function main() {
+export async function faviconsCommand() {
   const { images, files, html } = await generateFavicons();
 
   await ensureCleanDirExists(OUTPUT_ASSETS_DIR);

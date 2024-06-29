@@ -6,7 +6,7 @@ import i18next from 'i18next';
 import type { IconStore, Theme } from '@/types/context';
 import type { AsyncEntry } from '@/types/entries';
 
-export interface WebContextData extends Omit<WebContext, 'iconStore' | 'i18n'> {
+export interface WebContextData extends Omit<WebContext, 'type' | 'iconStore' | 'i18n'> {
   translations: AsyncEntry<'translations'>;
 }
 
@@ -55,6 +55,7 @@ export async function initializeWebContext(astro: AstroGlobal, data: WebContextD
 
   const context: WebContext = {
     ...data,
+    type: 'web',
     i18n: i18next,
     iconStore: new Map<string, string | Promise<string>>(),
   };

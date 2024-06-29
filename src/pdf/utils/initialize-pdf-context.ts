@@ -6,7 +6,7 @@ import i18next from 'i18next';
 import type { IconStore } from '@/types/context';
 import type { AsyncEntry } from '@/types/entries';
 
-export interface PdfContextData extends Omit<PdfContext, 'iconStore' | 'i18n'> {
+export interface PdfContextData extends Omit<PdfContext, 'type' | 'iconStore' | 'i18n'> {
   translations: AsyncEntry<'translations'>;
 }
 
@@ -38,6 +38,7 @@ export async function initializePdfContext(astro: AstroGlobal, data: PdfContextD
 
   const context: PdfContext = {
     ...data,
+    type: 'pdf',
     i18n: i18next,
     iconStore: new Map<string, string | Promise<string>>(),
     website: getWebsiteUrl(astro, data.website),
