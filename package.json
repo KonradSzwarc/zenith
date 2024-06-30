@@ -23,7 +23,7 @@
     "generate:pdf:watch": "nodemon --exec \"tsx cli pdf\"",
     "generate:og": "tsx cli og",
     "generate:og:watch": "nodemon --exec \"tsx cli og\"",
-    "generate:favicons": "tsx cli favicons",
+    "generate:favicons": "tsx cli favicons src/assets/me.jpg",
     "update:colors": "tsx cli colors"
   },
   "dependencies": {

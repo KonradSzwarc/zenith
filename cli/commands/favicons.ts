@@ -6,13 +6,12 @@ import { writeFile } from 'fs/promises';
 
 import { ensureCleanDirExists, log } from '../helpers';
 
-const INPUT_IMAGE_PATH = 'src/assets/me.jpg';
 const OUTPUT_ASSETS_DIR = 'public/generated/favicons';
 const OUTPUT_ASTRO_DIR = 'src/web/components/metadata/generated';
 const OUTPUT_ASTRO_FILE = 'favicons.astro';
 
-export async function faviconsCommand() {
-  const { images, files, html } = await generateFavicons();
+export async function faviconsCommand(baseImagePath: string) {
+  const { images, files, html } = await generateFavicons(baseImagePath);
 
   await ensureCleanDirExists(OUTPUT_ASSETS_DIR);
   await ensureCleanDirExists(OUTPUT_ASTRO_DIR);
@@ -25,8 +24,8 @@ export async function faviconsCommand() {
   process.exit(0);
 }
 
-async function generateFavicons() {
-  return favicons(INPUT_IMAGE_PATH, {
+async function generateFavicons(baseImagePath: string) {
+  return favicons(baseImagePath, {
     path: OUTPUT_ASSETS_DIR.replace('public', ''),
     appName: 'Mark Freeman Resume',
     appDescription: 'Virtual resume of Mark Freeman',

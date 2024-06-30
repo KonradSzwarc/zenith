@@ -11,7 +11,11 @@ import { pdfCommand } from './commands/pdf';
 
 program.name('zenith').description('Zenith CLI utilities').version('0.0.1');
 
-program.command('favicons').description('Generate favicons').action(faviconsCommand);
+program
+  .command('favicons')
+  .description('Generate favicons')
+  .argument('<path>', 'relative path to the base image for favicons generation.')
+  .action(faviconsCommand);
 
 program
   .command('pdf')
