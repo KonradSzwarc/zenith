@@ -14,7 +14,7 @@ const { entry } = Astro.props;
 const { data: reference, body, render } = await entry;
 const { author } = reference;
 
-const role = author.role && removeTopElement(markdownToHtml(author.role));
+const position = author.position && removeTopElement(markdownToHtml(author.position));
 const relation = author.relation && removeTopElement(markdownToHtml(author.relation));
 ---
 
@@ -26,7 +26,7 @@ const relation = author.relation && removeTopElement(markdownToHtml(author.relat
       <Linkable class="text-base font-black leading-tight text-color-text-title" href={author.url}>
         {author.name}
       </Linkable>
-      {role && <div class="text-sm font-medium text-color-text-title" set:html={role} />}
+      {position && <div class="text-sm font-medium text-color-text-title" set:html={position} />}
       {relation && <div class="text-sm font-normal text-color-text-primary" set:html={relation} />}
     </div>
   </div>

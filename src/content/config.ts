@@ -116,7 +116,7 @@ export const collections = {
       z.object({
         author: z.object({
           name: z.string(),
-          role: z.string().optional(),
+          position: z.string().optional(),
           relation: z.string().optional(),
           image: image().optional(),
           url: z.string().url().optional(),

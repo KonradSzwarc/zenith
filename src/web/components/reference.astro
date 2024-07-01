@@ -14,7 +14,7 @@ const { entry } = Astro.props;
 const { data: reference, body, render } = await entry;
 const { author } = reference;
 
-const role = author.role && removeTopElement(markdownToHtml(author.role));
+const position = author.position && removeTopElement(markdownToHtml(author.position));
 const relation = author.relation && removeTopElement(markdownToHtml(author.relation));
 ---
 
@@ -24,7 +24,7 @@ const relation = author.relation && removeTopElement(markdownToHtml(author.relat
     {author.image && <Img class="size-14 rounded-full" src={author.image} alt={author.name} width={96} height={96} />}
     <div class="grid">
       <Linkable class="text-base font-bold text-color-text-title sm:text-lg" href={author.url}>{author.name}</Linkable>
-      {role && <div class="text-sm font-medium text-color-text-title sm:text-base" set:html={role} />}
+      {position && <div class="text-sm font-medium text-color-text-title sm:text-base" set:html={position} />}
       {relation && <div class="text-sm font-normal text-color-text-primary sm:text-base" set:html={relation} />}
     </div>
   </div>
