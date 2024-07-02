@@ -1,13 +1,14 @@
 ---
-import { Image } from 'astro:assets';
+import type { ComponentProps } from 'astro/types';
 
 import { Icon } from '@/components/icon';
+import Img from '@/components/img.astro';
 import BaseLayout from '@/layouts/base-layout.astro';
 
 type Props = {
   title: string;
   subtitle?: string;
-  image?: ImageMetadata;
+  image?: ComponentProps<typeof Img>['src'];
 } & ({ tag?: string; icons?: never } | { tag?: never; icons?: string[] });
 
 const { title, subtitle, image, tag, icons } = Astro.props;
@@ -16,11 +17,7 @@ const { title, subtitle, image, tag, icons } = Astro.props;
 <BaseLayout lang="en" bodyClass="bg-black">
   <slot name="default" slot="head" />
   <main class="flex h-[630px] w-[1200px] flex-col items-center justify-center bg-color-bg-card pb-4 text-center">
-    {
-      image && (
-        <Image loading="eager" src={image} alt={title} width={400} height={400} class="mb-6 size-50 rounded-2xl" />
-      )
-    }
+    {image && <Img src={image} alt={title} width={400} height={400} class="mb-6 size-50 rounded-2xl" />}
     <h1 class="text-7xl font-black leading-tight text-color-text-title">{title}</h1>
     {subtitle && <p class="text-5xl font-medium leading-tight text-color-text-primary">{subtitle}</p>}
     {

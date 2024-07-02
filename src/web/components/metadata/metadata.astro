@@ -14,12 +14,12 @@ const ogImage = typeof meta.openGraph?.image === 'string' ? meta.openGraph.image
 ---
 
 <title>{meta.title}</title>
+<link rel="sitemap" href="/sitemap-index.xml" />
+<GeneratedFavicons />
 <meta name="title" content={meta.title} />
 <meta name="description" content={meta.description} />
-<GeneratedFavicons />
 <meta property="og:title" content={meta.openGraph?.title ?? meta.title} />
 <meta property="og:description" content={meta.openGraph?.description ?? meta.description} />
 {ogImage && <meta property="og:image" content={ogImage} />}
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
-<link rel="sitemap" href="/sitemap-index.xml" />

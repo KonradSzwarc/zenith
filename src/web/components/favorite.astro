@@ -44,7 +44,7 @@ const rootClass = cn(
 const iconSizeClass = cn('my-0.5 mr-2 size-4 shrink-0 sm:size-5');
 const imageSizes = {
   poster: {
-    class: cn('mr-4 h-24 w-18 rounded-sm object-contain object-top sm:h-32 sm:w-24'),
+    class: cn('mr-4 h-24 w-18 rounded-sm object-contain sm:h-32 sm:w-24'),
     getSize: fitImage({ width: 96, height: 128 }),
   },
   person: {
@@ -56,7 +56,7 @@ const imageSizes = {
     getSize: fitImage({ width: 20, height: 20 }),
   },
   video: {
-    class: cn('mr-3 h-[54px] w-24 rounded-sm object-cover object-top sm:mr-4 sm:h-18 sm:w-32'),
+    class: cn('mr-3 h-[54px] w-24 shrink-0 rounded-sm object-cover sm:mr-4 sm:h-18 sm:w-32'),
     getSize: fitImage({ width: 128, height: 72 }),
   },
 };
@@ -66,10 +66,10 @@ const imageSizes = {
   {
     favorite.image && image ? (
       <Img
-        class={imageSizes[image].class}
+        class={cn(imageSizes[image].class, 'shrink-0 object-center')}
         src={favorite.image}
         alt={favorite.title}
-        {...imageSizes[image].getSize(favorite.image)}
+        {...imageSizes[image].getSize(typeof favorite.image === 'object' ? favorite.image : undefined)}
       />
     ) : icon ? (
       <Icon name={icon} class={cn(iconSizeClass, 'text-color-icon-dark')} />

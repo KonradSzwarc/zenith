@@ -23,7 +23,7 @@ export const collections = {
       z.object({
         name: z.string(),
         label: z.string().optional(),
-        image: image().optional(),
+        image: image().or(z.string()).optional(),
         birthdate: z.date().optional(),
         email: z.string().email().optional(),
         phone: z.string().optional(),
@@ -45,7 +45,7 @@ export const collections = {
       z.object({
         title: z.string(),
         institution: z.string(),
-        image: image().optional(),
+        image: image().or(z.string()).optional(),
         startDate: z.date(),
         endDate: z.date().optional(),
         details: z.array(labelledValueSchema).min(1).optional(),
@@ -59,7 +59,7 @@ export const collections = {
         title: z.string(),
         subtitle: z.string().optional(),
         url: z.string().url(),
-        image: image().optional(),
+        image: image().or(z.string()).optional(),
       }),
   }),
   interests: defineCollection({
@@ -75,7 +75,7 @@ export const collections = {
       z.object({
         position: z.string(),
         organization: z.string(),
-        image: image().optional(),
+        image: image().or(z.string()).optional(),
         startDate: z.date(),
         endDate: z.date().optional(),
         details: z.array(labelledValueSchema).min(1).optional(),
@@ -103,7 +103,7 @@ export const collections = {
       z.object({
         name: z.string(),
         description: z.string(),
-        image: image().optional(),
+        image: image().or(z.string()).optional(),
         startDate: z.date(),
         endDate: z.date().optional(),
         details: z.array(labelledValueSchema).min(1).optional(),
@@ -118,7 +118,7 @@ export const collections = {
           name: z.string(),
           position: z.string().optional(),
           relation: z.string().optional(),
-          image: image().optional(),
+          image: image().or(z.string()).optional(),
           url: z.string().url().optional(),
         }),
       }),

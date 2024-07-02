@@ -4,7 +4,11 @@ interface Dimensions {
 }
 
 /** Returns image width and height suitable to fit given container dimensions. */
-export const fitImage = (dimensions: Dimensions) => (image: Dimensions) => {
+export const fitImage = (dimensions: Dimensions) => (image?: Dimensions) => {
+  if (!image) {
+    return { width: dimensions.width * 2, height: dimensions.height * 2 };
+  }
+
   const ratio = image.width / image.height;
 
   // Double the dimensions to get better image quality.

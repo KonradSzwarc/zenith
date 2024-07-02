@@ -1,15 +1,17 @@
 ---
-import type { ComponentProps } from 'astro/types';
+import type { LocalImageProps, RemoteImageProps } from 'astro:assets';
 import { Image } from 'astro:assets';
 
 import type { ContextSlice } from '@/types/context';
 import { getGlobalContext } from '@/utils/get-global-context';
 
-type Props = ComponentProps<typeof Image>;
+type Props = Omit<LocalImageProps | RemoteImageProps, 'src'> & {
+  src: LocalImageProps['src'] | RemoteImageProps['src'];
+};
 
-const context = getGlobalContext<ContextSlice<'type'>>(Astro);
+const context = getGlobalContext<ContextSlice<'type'>>(Astro, { optional: true });
 
-const { loading = context.type === 'web' ? 'lazy' : 'eager', ...props } = Astro.props;
+const { loading = context?.type === 'web' ? 'lazy' : 'eager', ...props } = Astro.props;
 ---
 
-<Image loading={loading} {...props} />
+<Image loading={loading} {...props as LocalImageProps | RemoteImageProps} />
