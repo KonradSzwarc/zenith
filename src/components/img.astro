@@ -5,8 +5,26 @@ import { Image } from 'astro:assets';
 import type { ContextSlice } from '@/types/context';
 import { getGlobalContext } from '@/utils/get-global-context';
 
-type Props = Omit<LocalImageProps | RemoteImageProps, 'src'> & {
+type AnyImageProps = LocalImageProps | RemoteImageProps;
+
+type Props = Omit<AnyImageProps, 'src'> & {
+  /**
+   * Path to the image file. It can be:
+   * - An image imported using the `import` statement.
+   * - A path to the /public directory (should start with `/`).
+   * - A URL to a remote image from an [authorized source](https://docs.astro.build/en/guides/images/#authorizing-remote-images).
+   */
   src: LocalImageProps['src'] | RemoteImageProps['src'];
+
+  /**
+   * Controls the loading strategy of the image.
+   *
+   * - `"lazy"`: The image will be loaded when it becomes visible on the screen.
+   * - `"eager"`: The image will be loaded immediately.
+   *
+   * @default 'lazy' on the web, 'eager' on other platforms
+   */
+  loading?: AnyImageProps['loading'];
 };
 
 const context = getGlobalContext<ContextSlice<'type'>>(Astro, { optional: true });
@@ -14,4 +32,4 @@ const context = getGlobalContext<ContextSlice<'type'>>(Astro, { optional: true }
 const { loading = context?.type === 'web' ? 'lazy' : 'eager', ...props } = Astro.props;
 ---
 
-<Image loading={loading} {...props as LocalImageProps | RemoteImageProps} />
+<Image loading={loading} {...props as AnyImageProps} />

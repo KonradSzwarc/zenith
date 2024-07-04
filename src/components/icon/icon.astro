@@ -21,7 +21,7 @@ interface Props extends IconProps {
    * - `"lazy"`: The icon will be loaded client-side.
    * - `"eager"`: The icon will be loaded server-side.
    *
-   * @default "lazy"
+   * @default 'lazy' on the web, 'eager' on other platforms
    **/
   loading?: 'lazy' | 'eager';
 }
