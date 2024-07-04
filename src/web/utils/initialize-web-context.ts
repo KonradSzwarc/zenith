@@ -19,7 +19,7 @@ export interface WebContext {
   /** Locale imported from date-fns/locale. */
   locale: Locale;
 
-  /** [Format](https://date-fns.org/v3.6.0/docs/format) of all dates across the resume. */
+  /** [Format](https://date-fns.org/docs/format) of all dates across the resume. */
   dateFormat: string;
 
   /** Store used for server icon caching. */
@@ -35,7 +35,7 @@ export interface WebContext {
 
   /** Details of the PDF resume linked on the website. */
   pdf?: {
-    /** Path of the PDF resume within the `/public` directory. */
+    /** Path to the PDF resume within the `/public` directory. */
     path: string;
 
     /** Label displayed on the PDF download button. */

@@ -19,7 +19,7 @@ export interface PdfContext {
   /** Locale imported from date-fns/locale. */
   locale: Locale;
 
-  /** [Format](https://date-fns.org/v3.6.0/docs/format) of all dates across the resume. */
+  /** [Format](https://date-fns.org/docs/format) of all dates across the resume. */
   dateFormat: string;
 
   /** Store used for server icon caching. */
