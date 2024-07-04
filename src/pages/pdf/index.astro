@@ -18,7 +18,7 @@ import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/pdf/compon
 import { Skill } from '@/pdf/components/skills';
 import { initializePdfContext } from '@/pdf/utils/initialize-pdf-context';
 import AccentColors from '@/styles/colors/accent/indigo.astro';
-import GrayscaleColors from '@/styles/colors/dusk/slate.astro';
+import DuskColors from '@/styles/colors/dusk/slate.astro';
 import ElementColors from '@/styles/colors/elements/default.astro';
 import Font from '@/styles/fonts/inter.astro';
 
@@ -33,7 +33,7 @@ await initializePdfContext(Astro, {
 <Layout class="gap-6">
   <Fragment slot="head">
     <Font />
-    <GrayscaleColors />
+    <DuskColors />
     <AccentColors />
     <ElementColors />
   </Fragment>

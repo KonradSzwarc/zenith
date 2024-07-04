@@ -3,7 +3,7 @@ import type { ComponentProps } from 'astro/types';
 
 import MainTemplate from '@/pdf/templates/main-template.astro';
 import AccentColors from '@/styles/colors/accent/indigo.astro';
-import GrayscaleColors from '@/styles/colors/dusk/slate.astro';
+import DuskColors from '@/styles/colors/dusk/slate.astro';
 import ElementColors from '@/styles/colors/elements/default.astro';
 import Font from '@/styles/fonts/inter.astro';
 
@@ -114,7 +114,7 @@ const props: ComponentProps<typeof MainTemplate> = {
 <MainTemplate {...props}>
   <Fragment slot="head">
     <Font />
-    <GrayscaleColors />
+    <DuskColors />
     <AccentColors />
     <ElementColors />
   </Fragment>

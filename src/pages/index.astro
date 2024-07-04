@@ -5,7 +5,7 @@ import { enUS } from 'date-fns/locale';
 import { GridList, HorizontalList, VerticalList } from '@/components/list';
 import Separator from '@/components/separator.astro';
 import AccentColors from '@/styles/colors/accent/indigo.astro';
-import GrayscaleColors from '@/styles/colors/dusk/slate.astro';
+import DuskColors from '@/styles/colors/dusk/slate.astro';
 import ElementColors from '@/styles/colors/elements/default.astro';
 import Font from '@/styles/fonts/inter.astro';
 import Achievement from '@/web/components/achievement.astro';
@@ -38,7 +38,7 @@ await initializeWebContext(Astro, {
 <Layout class="gap-16">
   <Fragment slot="head">
     <Font />
-    <GrayscaleColors />
+    <DuskColors />
     <AccentColors />
     <ElementColors />
     <Metadata entry={getEntry('metadata', 'main')} />

@@ -3,7 +3,7 @@ import { getEntry } from 'astro:content';
 
 import OpenGraph from '@/components/open-graph.astro';
 import AccentColors from '@/styles/colors/accent/indigo.astro';
-import GrayscaleColors from '@/styles/colors/dusk/slate.astro';
+import DuskColors from '@/styles/colors/dusk/slate.astro';
 import ElementColors from '@/styles/colors/elements/default.astro';
 import Font from '@/styles/fonts/inter.astro';
 
@@ -21,7 +21,7 @@ const footerProps = {
 
 <OpenGraph title={name} subtitle={label} image={image} {...footerProps}>
   <Font />
-  <GrayscaleColors />
+  <DuskColors />
   <AccentColors />
   <ElementColors />
 </OpenGraph>
