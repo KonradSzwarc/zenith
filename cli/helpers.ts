@@ -69,6 +69,12 @@ export async function withLocalServer(cb: () => Promise<void>) {
 
   const server = exec('npm run dev');
 
+  server.catch((ex) => {
+    if (!ex.isTerminated || ex.signal !== 'SIGTERM') {
+      throw ex;
+    }
+  });
+
   try {
     await waitForServer();
     await cb();
