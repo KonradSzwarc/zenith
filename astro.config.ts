@@ -59,7 +59,7 @@ function getSiteUrl() {
   if (process.env.RENDER) return process.env.RENDER_EXTERNAL_URL;
   if (process.env.CF_PAGES) return process.env.CF_PAGES_URL;
 
-  if (process.env.CI) {
+  if (process.env.CI && process.env.CI_CHECKS !== 'true') {
     console.error('Site URL not not found. Please set the ASTRO_SITE environment variable.');
     process.exit(1);
   }

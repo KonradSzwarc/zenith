@@ -2,8 +2,7 @@
 import type { LocalImageProps, RemoteImageProps } from 'astro:assets';
 import { Image } from 'astro:assets';
 
-import type { ContextSlice } from '@/types/context';
-import { getGlobalContext } from '@/utils/get-global-context';
+import { getLoadingStrategy } from '@/utils/get-loading-strategy';
 
 type AnyImageProps = LocalImageProps | RemoteImageProps;
 
@@ -27,9 +26,7 @@ type Props = Omit<AnyImageProps, 'src'> & {
   loading?: AnyImageProps['loading'];
 };
 
-const context = getGlobalContext<ContextSlice<'type'>>(Astro, { optional: true });
-
-const { loading = context?.type === 'web' ? 'lazy' : 'eager', ...props } = Astro.props;
+const { loading = getLoadingStrategy(Astro), ...props } = Astro.props;
 ---
 
 <Image loading={loading} {...props as AnyImageProps} />

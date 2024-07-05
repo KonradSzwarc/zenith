@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "snapshot": {
+    "widths": [375, 1280],
+    "min-height": 1024,
+    "enable-javascript": true
+  },
+  "discovery": {
+    "allowed-hostnames": ["api.iconify.design"],
+    "network-idle-timeout": 750
+  },
+  "upload": {
+    "files": "**/*.{png,jpg,jpeg,svg,webp}"
+  }
+}
