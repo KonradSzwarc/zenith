@@ -1,9 +1,17 @@
 {
-  "name": "@dev-skills-hub/zenith",
-  "description": "Template for creating a comprehensive virtual resume for developers.",
-  "type": "module",
-  "private": true,
+  "name": "zenith",
   "version": "0.0.1",
+  "private": true,
+  "description": "Template for creating a comprehensive virtual resume for developers.",
+  "homepage": "https://github.com/KonradSzwarc/zenith#readme",
+  "bugs": "https://github.com/KonradSzwarc/zenith/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KonradSzwarc/zenith.git"
+  },
+  "license": "MIT",
+  "author": "Konrad Szwarc <konrad.szwarc.dev@gmail.com> (https://github.com/KonradSzwarc)",
+  "type": "module",
   "engines": {
     "node": "20.x",
     "npm": "10.x",
@@ -15,8 +23,7 @@
     "dev": "astro dev",
     "build": "tsx cli build",
     "preview": "astro preview",
-    "lint": "eslint .",
-    "check": "astro check",
+    "check": "concurrently \"eslint .\" \"astro check\" \"prettier --check .\" -n eslint,astro,prettier -c magenta,red,yellow",
     "format": "prettier --write .",
     "generate": "tsx cli generate",
     "generate:pdf": "tsx cli pdf",
