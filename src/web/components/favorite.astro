@@ -3,6 +3,7 @@ import { Icon } from '@/components/icon';
 import Img from '@/components/img.astro';
 import Linkable from '@/components/linkable.astro';
 import type { AsyncEntry } from '@/types/entries';
+import type { ImageProps } from '@/types/image';
 import { cn } from '@/utils/cn';
 import { fitImage } from '@/utils/fit-image';
 import { removeTopElement } from '@/utils/html-string';
@@ -10,6 +11,7 @@ import { markdownToHtml } from '@/utils/markdown-to-html';
 import Popover from '@/web/components/popover.astro';
 
 interface Props {
+  /** An entry from the `favorites` collection. */
   entry: AsyncEntry<'favorites'>;
 
   /**
@@ -27,11 +29,14 @@ interface Props {
    **/
   image?: keyof typeof imageSizes;
 
+  /** Loading strategy passed to the <Img /> component. */
+  loading?: ImageProps['loading'];
+
   /** Whether to display an origin address of the favorite's url. **/
   withSource?: boolean;
 }
 
-const { entry, icon, image, withSource } = Astro.props;
+const { entry, icon, image, loading, withSource } = Astro.props;
 const { data: favorite, body, render } = await entry;
 
 const Description = body.trim().length > 0 && (await render()).Content;
@@ -69,6 +74,7 @@ const imageSizes = {
         class={cn(imageSizes[image].class, 'shrink-0 object-center')}
         src={favorite.image}
         alt={favorite.title}
+        {loading}
         {...imageSizes[image].getSize(typeof favorite.image === 'object' ? favorite.image : undefined)}
       />
     ) : icon ? (

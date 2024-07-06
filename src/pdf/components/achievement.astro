@@ -12,6 +12,7 @@ import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 
 interface Props {
+  /** An entry from the `achievements` collection. */
   entry: AsyncEntry<'achievements'>;
 
   /** Configuration for achievement related skills. Pass `null` to hide related skills. */

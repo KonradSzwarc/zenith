@@ -14,6 +14,7 @@ import RenderedContent from '@/web/components/rendered-content.astro';
 import { RelatedSkills } from '@/web/components/skills';
 
 interface Props {
+  /** An entry from the `achievements` collection. */
   entry: AsyncEntry<'achievements'>;
 
   /** Configuration for achievement related skills. Pass `null` to hide related skills. */

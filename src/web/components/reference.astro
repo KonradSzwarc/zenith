@@ -2,15 +2,20 @@
 import Img from '@/components/img.astro';
 import Linkable from '@/components/linkable.astro';
 import type { AsyncEntry } from '@/types/entries';
+import type { ImageProps } from '@/types/image';
 import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 import RenderedContent from '@/web/components/rendered-content.astro';
 
 interface Props {
+  /** An entry from the `references` collection. */
   entry: AsyncEntry<'references'>;
+
+  /** Loading strategy passed to the <Img /> component. */
+  loading?: ImageProps['loading'];
 }
 
-const { entry } = Astro.props;
+const { entry, loading } = Astro.props;
 const { data: reference, body, render } = await entry;
 const { author } = reference;
 
@@ -21,7 +26,11 @@ const relation = author.relation && removeTopElement(markdownToHtml(author.relat
 <div class="flex flex-col gap-6">
   {body.trim().length > 0 && <RenderedContent render={render} />}
   <div class="flex flex-col gap-1.5 sm:flex-row sm:gap-4">
-    {author.image && <Img class="size-14 rounded-full" src={author.image} alt={author.name} width={96} height={96} />}
+    {
+      author.image && (
+        <Img class="size-14 rounded-full" src={author.image} alt={author.name} width={96} height={96} {loading} />
+      )
+    }
     <div class="grid">
       <Linkable class="text-base font-bold text-color-text-title sm:text-lg" href={author.url}>{author.name}</Linkable>
       {position && <div class="text-sm font-medium text-color-text-title sm:text-base" set:html={position} />}

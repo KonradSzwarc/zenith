@@ -1,5 +1,6 @@
 ---
 import type { IconProps } from '@/types/icon-props';
+import type { ImageProps } from '@/types/image';
 import { getIconData } from '@/utils/get-icon-data';
 import { getLoadingStrategy } from '@/utils/get-loading-strategy';
 
@@ -22,7 +23,7 @@ interface Props extends IconProps {
    *
    * @default 'lazy' on the web, 'eager' on other platforms
    **/
-  loading?: 'lazy' | 'eager';
+  loading?: ImageProps['loading'];
 }
 
 const { name, loading = getLoadingStrategy(Astro), ...props } = Astro.props;

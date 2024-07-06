@@ -13,6 +13,7 @@ import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 
 interface Props {
+  /** An entry from the `jobs` collection. */
   entry: AsyncEntry<'jobs'>;
 
   /** Configuration for job related skills. Pass `null` to hide related skills. */

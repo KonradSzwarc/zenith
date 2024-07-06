@@ -4,6 +4,7 @@ import type { ComponentProps } from 'astro/types';
 import DateRange from '@/components/date-range.astro';
 import Img from '@/components/img.astro';
 import type { AsyncEntry } from '@/types/entries';
+import type { ImageProps } from '@/types/image';
 import type { Configurable } from '@/utils/configurable';
 import { shouldDisplay } from '@/utils/configurable';
 import { removeTopElement } from '@/utils/html-string';
@@ -13,13 +14,17 @@ import RenderedContent from '@/web/components/rendered-content.astro';
 import { RelatedSkills } from '@/web/components/skills';
 
 interface Props {
+  /** An entry from the `education` collection. */
   entry: AsyncEntry<'education'>;
+
+  /** Loading strategy passed to the <Img /> component. */
+  loading?: ImageProps['loading'];
 
   /** Configuration for education related skills. Pass `null` to hide related skills. */
   relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
 }
 
-const { entry, relatedSkills } = Astro.props;
+const { entry, loading, relatedSkills } = Astro.props;
 const { data: education, body, render } = await entry;
 ---
 
@@ -33,6 +38,7 @@ const { data: education, body, render } = await entry;
           alt={education.institution}
           width={160}
           height={160}
+          {loading}
         />
       )
     }
@@ -49,6 +55,7 @@ const { data: education, body, render } = await entry;
               alt={education.institution}
               width={40}
               height={40}
+              {loading}
             />
           )
         }

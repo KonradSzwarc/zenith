@@ -5,6 +5,7 @@ import SkillWithLevel from './skill-with-level.astro';
 import SkillWithoutLevel from './skill-without-level.astro';
 
 interface Props {
+  /** An entry from the `skills` collection. */
   entry: AsyncEntry<'skills'>;
 
   /** Whether to display the skill level. */

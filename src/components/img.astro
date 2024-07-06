@@ -2,11 +2,10 @@
 import type { LocalImageProps, RemoteImageProps } from 'astro:assets';
 import { Image } from 'astro:assets';
 
+import type { ImageProps } from '@/types/image';
 import { getLoadingStrategy } from '@/utils/get-loading-strategy';
 
-type AnyImageProps = LocalImageProps | RemoteImageProps;
-
-type Props = Omit<AnyImageProps, 'src'> & {
+type Props = Omit<ImageProps, 'src'> & {
   /**
    * Path to the image file. It can be:
    * - An image imported using the `import` statement.
@@ -23,10 +22,10 @@ type Props = Omit<AnyImageProps, 'src'> & {
    *
    * @default 'lazy' on the web, 'eager' on other platforms
    */
-  loading?: AnyImageProps['loading'];
+  loading?: ImageProps['loading'];
 };
 
 const { loading = getLoadingStrategy(Astro), ...props } = Astro.props;
 ---
 
-<Image loading={loading} {...props as AnyImageProps} />
+<Image loading={loading} {...props as ImageProps} />
