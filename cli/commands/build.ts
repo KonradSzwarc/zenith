@@ -1,4 +1,4 @@
-import { exec, log, withLocalServer } from '../helpers';
+import { exec, execWithLocalServer, log } from '../helpers';
 
 export async function buildCommand() {
   // Netlify caching mechanism causes chromium used by puppeteer not to work properly.
@@ -6,11 +6,10 @@ export async function buildCommand() {
     await reinstallPuppeteer();
   }
 
-  await withLocalServer(async () => {
-    await exec('npm run generate');
-  });
+  await execWithLocalServer('npm run generate');
 
   await exec('astro build');
+  process.exit(0);
 }
 
 async function reinstallPuppeteer() {

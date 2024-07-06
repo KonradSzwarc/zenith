@@ -1,23 +1,22 @@
 import type { Page } from 'puppeteer';
 
 import { SERVER_URL } from '../constants';
-import { ensureCleanDirExists, forAllPages, log, runBrowser, visitPage, withLocalServer } from '../helpers';
+import { assertServerIsRunning, ensureCleanDirExists, forAllPages, log, runBrowser, visitPage } from '../helpers';
 
 const INPUT_URL = `${SERVER_URL}/pdf`;
 const INPUT_PATH = 'src/pages/pdf';
 const OUTPUT_PATH = 'public/generated/pdf';
 
 export async function pdfCommand(name?: string) {
+  await assertServerIsRunning();
   await ensureCleanDirExists(OUTPUT_PATH);
 
-  await withLocalServer(async () => {
-    await runBrowser(async (page) => {
-      if (name) {
-        await generatePdf(name, page);
-      } else {
-        await forAllPages(INPUT_PATH, (name) => generatePdf(name, page));
-      }
-    });
+  await runBrowser(async (page) => {
+    if (name) {
+      await generatePdf(name, page);
+    } else {
+      await forAllPages(INPUT_PATH, (name) => generatePdf(name, page));
+    }
   });
 
   log.success(`PDFs generated successfully`);

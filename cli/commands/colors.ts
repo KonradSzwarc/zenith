@@ -19,6 +19,7 @@ export async function colorsCommand() {
     ...Object.entries(accents).map(([name, shades]) => saveStyles(`accent/${name}`, shadesToVars('accent', shades))),
   ]);
   await exec('prettier --write src/styles/colors/**/*.astro --log-level error');
+  process.exit(0);
 }
 
 function shadesToVars(name: string, shades: Shades) {

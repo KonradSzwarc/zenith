@@ -10,6 +10,10 @@ export function exec(command: string) {
   return execa(command, { shell: true, stdio: ['ignore', 'inherit', 'inherit'] });
 }
 
+export function execWithLocalServer(command: string) {
+  return exec(`start-server-and-test "npm run dev" ${SERVER_URL} "${command}"`);
+}
+
 export const log = {
   info: (message: string) => console.log(chalk.blue(`[INFO] ${message}`)),
   success: (message: string) => console.log(chalk.green(`[SUCCESS] ${message}`)),
@@ -23,6 +27,14 @@ export async function ensureCleanDirExists(dir: string) {
   }
 
   await mkdir(dir, { recursive: true });
+}
+
+export async function assertServerIsRunning() {
+  try {
+    await fetch(SERVER_URL);
+  } catch {
+    throw new Error('Cannot connect to the server. Please run `npm run dev` before running this command.');
+  }
 }
 
 export async function runBrowser(cb: (page: Page) => Promise<void>) {
@@ -62,46 +74,4 @@ async function doesPageExist(url: string) {
 
 async function removeAstroToolbar(page: Page) {
   await page.evaluate(() => document.querySelector('astro-dev-toolbar')?.remove());
-}
-
-export async function withLocalServer(cb: () => Promise<void>) {
-  if (await isServerRunning()) return cb();
-
-  const server = exec('npm run dev');
-
-  server.catch((ex) => {
-    if (!ex.isTerminated || ex.signal !== 'SIGTERM') {
-      throw ex;
-    }
-  });
-
-  try {
-    await waitForServer();
-    await cb();
-  } finally {
-    server.kill();
-  }
-}
-
-async function isServerRunning() {
-  try {
-    await fetch(SERVER_URL);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-async function waitForServer() {
-  let attempts = 10;
-
-  while (!(await isServerRunning())) {
-    if (attempts === 0) {
-      log.error('Cannot start the server. Exiting...');
-      process.exit(1);
-    }
-
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    attempts -= 1;
-  }
 }
