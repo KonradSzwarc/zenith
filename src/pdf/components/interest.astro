@@ -1,19 +1,23 @@
 ---
 import { Icon } from '@/components/icon';
 import type { AsyncEntry } from '@/types/entries';
+import type { ImageProps } from '@/types/image';
 
 interface Props {
   /** An entry from the `interests` collection. */
   entry: AsyncEntry<'interests'>;
+
+  /** Loading strategy passed to the <Icon /> component. */
+  loading?: ImageProps['loading'];
 }
 
-const { entry } = Astro.props;
+const { entry, loading } = Astro.props;
 const { data: interest } = await entry;
 ---
 
 <div class="flex flex-wrap gap-6 rounded border border-color-border px-3 py-1">
   <div class="flex items-center gap-2">
-    {interest.icon && <Icon name={interest.icon} class="size-4 text-color-icon-dark" />}
+    {interest.icon && <Icon name={interest.icon} class="size-4 text-color-icon-dark" {loading} />}
     <div class="text-sm font-medium text-color-text-primary">
       {interest.name}
     </div>

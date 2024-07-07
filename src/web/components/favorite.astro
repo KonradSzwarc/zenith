@@ -29,7 +29,7 @@ interface Props {
    **/
   image?: keyof typeof imageSizes;
 
-  /** Loading strategy passed to the <Img /> component. */
+  /** Loading strategy passed to the <Img /> and <Icon /> components. */
   loading?: ImageProps['loading'];
 
   /** Whether to display an origin address of the favorite's url. **/
@@ -78,7 +78,7 @@ const imageSizes = {
         {...imageSizes[image].getSize(typeof favorite.image === 'object' ? favorite.image : undefined)}
       />
     ) : icon ? (
-      <Icon name={icon} class={cn(iconSizeClass, 'text-color-icon-dark')} />
+      <Icon name={icon} class={cn(iconSizeClass, 'text-color-icon-dark')} {loading} />
     ) : null
   }
   <div class="flex w-full flex-col">

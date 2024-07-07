@@ -2,6 +2,7 @@
 import { Icon } from '@/components/icon';
 import Linkable from '@/components/linkable.astro';
 import type { AsyncEntry } from '@/types/entries';
+import type { ImageProps } from '@/types/image';
 import { removeTopElement } from '@/utils/html-string';
 import { markdownToHtml } from '@/utils/markdown-to-html';
 
@@ -12,11 +13,14 @@ interface Props {
   /** [Iconify](https://icon-sets.iconify.design/) icon to display for the favorite. */
   icon?: string;
 
+  /** Loading strategy passed to the <Icon /> component. */
+  loading?: ImageProps['loading'];
+
   /** Whether to display an origin address of the favorite's url. **/
   withSource?: boolean;
 }
 
-const { entry, icon, withSource } = Astro.props;
+const { entry, icon, loading, withSource } = Astro.props;
 const { data: favorite } = await entry;
 
 const subtitle = favorite.subtitle && removeTopElement(markdownToHtml(favorite.subtitle));
@@ -24,7 +28,7 @@ const url = withSource && new URL(favorite.url);
 ---
 
 <div class="relative flex overflow-hidden">
-  {icon && <Icon name={icon} class="my-0.5 mr-1.5 size-4 text-color-icon-dark" />}
+  {icon && <Icon name={icon} class="my-0.5 mr-1.5 size-4 text-color-icon-dark" {loading} />}
   <div class="flex w-full">
     <Linkable class="text-sm font-medium leading-snug text-color-text-title" href={favorite.url}>
       {favorite.title}

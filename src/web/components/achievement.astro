@@ -4,6 +4,7 @@ import type { ComponentProps } from 'astro/types';
 import { Icon } from '@/components/icon';
 import Linkable from '@/components/linkable.astro';
 import type { AsyncEntry } from '@/types/entries';
+import type { ImageProps } from '@/types/image';
 import { cn } from '@/utils/cn';
 import type { Configurable } from '@/utils/configurable';
 import { shouldDisplay } from '@/utils/configurable';
@@ -17,11 +18,14 @@ interface Props {
   /** An entry from the `achievements` collection. */
   entry: AsyncEntry<'achievements'>;
 
+  /** Loading strategy passed to the <Icon /> component. */
+  loading?: ImageProps['loading'];
+
   /** Configuration for achievement related skills. Pass `null` to hide related skills. */
   relatedSkills?: Configurable<Pick<ComponentProps<typeof RelatedSkills>, 'label' | 'include' | 'exclude'>>;
 }
 
-const { entry, relatedSkills } = Astro.props;
+const { entry, loading, relatedSkills } = Astro.props;
 const { data: achievement, body, render } = await entry;
 
 const date = achievement.date && formatDate(achievement.date, Astro);
@@ -33,7 +37,7 @@ const date = achievement.date && formatDate(achievement.date, Astro);
       {
         achievement.icon && (
           <div class="my-0.5 flex size-6 shrink-0 items-center justify-center rounded bg-color-bg-main">
-            <Icon name={achievement.icon} class="size-3.5 text-color-icon-dark" />
+            <Icon name={achievement.icon} class="size-3.5 text-color-icon-dark" {loading} />
           </div>
         )
       }
