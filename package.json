@@ -65,6 +65,7 @@
     "commander": "12.1.0",
     "concurrently": "8.2.2",
     "cross-env": "7.0.3",
+    "dotenv": "16.4.5",
     "eslint": "9.6.0",
     "eslint-config-flat-gitignore": "0.1.5",
     "eslint-config-prettier": "9.1.0",
