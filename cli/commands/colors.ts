@@ -7,10 +7,13 @@ type Shades = Record<50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 
 
 const dusks: Record<string, Shades> = {
   ...pick(colors, ['slate', 'gray', 'zinc', 'neutral', 'stone'] as const),
+  // Add custom dusk presets here
 };
+
 const accents: Record<string, Shades> = {
   // prettier-ignore
   ...pick(colors, ['rose', 'pink', 'fuchsia', 'purple', 'violet', 'indigo', 'blue', 'sky', 'cyan', 'teal', 'emerald', 'green', 'lime', 'yellow', 'amber', 'orange', 'red'] as const),
+  // Add custom accent presets here
 };
 
 export async function colorsCommand() {
