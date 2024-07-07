@@ -29,7 +29,7 @@ const context = getGlobalContext<ContextSlice<'pdf'>>(Astro);
 }
 
 <script>
-  import { trackEvent } from '@/web/services/analytics';
+  import { trackEvent } from '@/web/utils/analytics';
 
   const button = document.querySelector('[data-pdf-button]');
 
