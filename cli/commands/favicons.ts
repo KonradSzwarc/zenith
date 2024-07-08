@@ -4,14 +4,15 @@ import type { FaviconFile, FaviconImage } from 'favicons';
 import { favicons } from 'favicons';
 import { writeFile } from 'fs/promises';
 
+import data from '../../favicons.data.json';
 import { ensureCleanDirExists, log } from '../helpers';
 
 const OUTPUT_ASSETS_DIR = 'public/generated/favicons';
 const OUTPUT_ASTRO_DIR = 'src/web/components/metadata/generated';
 const OUTPUT_ASTRO_FILE = 'favicons.astro';
 
-export async function faviconsCommand(baseImagePath: string) {
-  const { images, files, html } = await generateFavicons(baseImagePath);
+export async function faviconsCommand() {
+  const { images, files, html } = await generateFavicons();
 
   await ensureCleanDirExists(OUTPUT_ASSETS_DIR);
   await ensureCleanDirExists(OUTPUT_ASTRO_DIR);
@@ -24,13 +25,13 @@ export async function faviconsCommand(baseImagePath: string) {
   process.exit(0);
 }
 
-async function generateFavicons(baseImagePath: string) {
-  return favicons(baseImagePath, {
+async function generateFavicons() {
+  return favicons(data.baseImage, {
     path: OUTPUT_ASSETS_DIR.replace('public', ''),
-    appName: 'Mark Freeman Resume',
-    appDescription: 'Virtual resume of Mark Freeman',
-    appShortName: 'Mark Freeman Resume',
-    lang: 'en',
+    appName: data.appName,
+    appDescription: data.appDescription,
+    appShortName: data.appShortName,
+    lang: data.lang,
     start_url: '.',
     icons: {
       android: ['android-chrome-192x192.png', 'android-chrome-512x512.png'],

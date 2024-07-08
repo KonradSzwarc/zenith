@@ -1,0 +1,10 @@
+{
+  "//": "Path to the image used as a base for favicon generation.",
+  "baseImage": "src/assets/me.jpg",
+
+  "//": "Data used to generate webmanifest file describing the website.",
+  "appName": "Mark Freeman Resume",
+  "appShortName": "Mark Freeman Resume",
+  "appDescription": "Virtual resume of Mark Freeman",
+  "lang": "en"
+}
