@@ -1,54 +1,13 @@
-# Astro Starter Kit: Basics
+# Zenith
 
-```sh
-npm create astro@latest -- --template basics
-```
+A fully customizable Astro template for creating web and PDF resume.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+<div style="display: flex; flex-wrap: wrap; gap: 12px;">
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+![What is Zenith](https://img.shields.io/badge/what_is_zenith-059669?style=for-the-badge&logoColor=white&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJtMTUuMDcgMTEuMjVsLS45LjkyQzEzLjQ1IDEyLjg5IDEzIDEzLjUgMTMgMTVoLTJ2LS41YzAtMS4xMS40NS0yLjExIDEuMTctMi44M2wxLjI0LTEuMjZjLjM3LS4zNi41OS0uODYuNTktMS40MWEyIDIgMCAwIDAtMi0yYTIgMiAwIDAgMC0yIDJIOGE0IDQgMCAwIDEgNC00YTQgNCAwIDAgMSA0IDRhMy4yIDMuMiAwIDAgMS0uOTMgMi4yNU0xMyAxOWgtMnYtMmgyTTEyIDJBMTAgMTAgMCAwIDAgMiAxMmExMCAxMCAwIDAgMCAxMCAxMGExMCAxMCAwIDAgMCAxMC0xMGMwLTUuNTMtNC41LTEwLTEwLTEwIi8+PC9zdmc+)
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+![Read the documentation](https://img.shields.io/badge/documentation-2563eb?style=for-the-badge&logoColor=white&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJNNCA0djE4aDE2djJINGMtMS4xIDAtMi0uOS0yLTJWNHptMTEgM2g1LjVMMTUgMS41ek04IDBoOGw2IDZ2MTJjMCAxLjExLS44OSAyLTIgMkg4YTIgMiAwIDAgMS0yLTJWMmMwLTEuMTEuODktMiAyLTJtOSAxNnYtMkg4djJ6bTMtNHYtMkg4djJ6Ii8+PC9zdmc+)
 
-## 🚀 Project Structure
+![Check the example resume](https://img.shields.io/badge/example_resume-7c3aed?style=for-the-badge&logoColor=white&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJNMTMgOWg1LjVMMTMgMy41ek02IDJoOGw2IDZ2MTJhMiAyIDAgMCAxLTIgMkg2YTIgMiAwIDAgMS0yLTJWNGMwLTEuMTEuODktMiAyLTJtOCAxOHYtMWMwLTEuMzMtMi42Ny0yLTQtMnMtNCAuNjctNCAydjF6bS00LThhMiAyIDAgMCAwLTIgMmEyIDIgMCAwIDAgMiAyYTIgMiAwIDAgMCAyLTJhMiAyIDAgMCAwLTItMiIvPjwvc3ZnPg==)
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+</div>
