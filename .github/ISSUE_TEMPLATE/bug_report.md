@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: 'step: to refine'
+labels: 'step: to refine, type: bug'
 assignees: ''
 ---
 

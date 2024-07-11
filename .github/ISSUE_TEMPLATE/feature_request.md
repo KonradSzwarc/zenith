@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest an idea for this project
 title: ''
-labels: 'step: to refine'
+labels: 'step: to refine, type: feature'
 assignees: ''
 ---
 
