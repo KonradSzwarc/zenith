@@ -30,13 +30,13 @@ const lang = Astro.props.lang ?? getGlobalContext<ContextSlice<'locale'>>(Astro)
   :root {
     --black: 0 0% 0%;
     --white: 0 0% 100%;
+  }
 
-    &:not(.dark) {
-      color-scheme: light;
-    }
+  :root:not(.dark) {
+    color-scheme: light;
+  }
 
-    &.dark {
-      color-scheme: dark;
-    }
+  :root.dark {
+    color-scheme: dark;
   }
 </style>
