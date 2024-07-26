@@ -13,24 +13,26 @@ if (!trigger) {
 
 const id = nanoid();
 const context = getGlobalContext<ContextSlice<'i18n'>>(Astro);
-const triggerProps = { popovertarget: `popover-${id}`, ['aria-label']: context.i18n.t('popover_trigger') };
+const triggerProps = { 'data-target': `popover-${id}`, 'aria-label': context.i18n.t('popover_trigger') };
 ---
 
 <Fragment set:html={addElementAttributes(trigger, triggerProps)} />
 <div
-  popover
+  data-popover
   id={`popover-${id}`}
+  role="tooltip"
   class="prose prose-sm max-w-[520px] rounded-lg border border-color-border bg-color-bg-popover px-4 py-3 shadow-md sm:prose-base"
 >
   <slot />
 </div>
 
 <style is:global>
-  [popover] {
+  [data-popover] {
     margin: 0 !important;
     position: absolute;
-    animation: show 200ms ease-out 50ms forwards;
+    animation: show 200ms ease-out 100ms forwards;
     opacity: 0;
+    display: none;
   }
 
   @keyframes show {
@@ -45,7 +47,19 @@ const triggerProps = { popovertarget: `popover-${id}`, ['aria-label']: context.i
 <script>
   import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
 
-  const popovers = document.querySelectorAll('[popover]');
+  const elements = [...document.querySelectorAll('[data-target]')].flatMap((trigger) => {
+    if (!(trigger instanceof HTMLElement)) return [];
+
+    const popoverId = trigger.dataset['target'];
+
+    if (!popoverId || !popoverId.startsWith('popover')) return [];
+
+    const popover = document.getElementById(popoverId);
+
+    if (!popover) return [];
+
+    return [{ trigger, popover }];
+  });
 
   function updatePosition(trigger: HTMLElement, popover: HTMLElement) {
     computePosition(trigger, popover, {
@@ -59,34 +73,42 @@ const triggerProps = { popovertarget: `popover-${id}`, ['aria-label']: context.i
     });
   }
 
-  const cleanups: Record<string, () => void> = {};
+  function addHidePopoverListeners(trigger: HTMLElement, popover: HTMLElement) {
+    const hidePopover = () => {
+      popover.style.display = 'none';
+      document.removeEventListener('keydown', escapeKey);
+      document.removeEventListener('click', clickOutside);
+    };
 
-  function positionPopover(event: Event) {
-    const popover = event.target as HTMLElement;
-    const popoverId = popover.getAttribute('id');
+    const clickOutside = (event: MouseEvent) => {
+      if (!popover.contains(event.target as Node) && !trigger.contains(event.target as Node)) {
+        hidePopover();
+      }
+    };
 
-    if (!popoverId) {
-      throw new Error('Popover must have an id');
-    }
+    const escapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        hidePopover();
+      }
+    };
 
-    const trigger = document.querySelector(`[popovertarget="${popoverId}"`) as HTMLElement;
-
-    if (!trigger) {
-      throw new Error('Popover must have a target');
-    }
-
-    if ('newState' in event && event.newState === 'open' && trigger) {
-      updatePosition(trigger, popover);
-      cleanups[popoverId] = autoUpdate(trigger, popover, () => updatePosition(trigger, popover));
-    }
-
-    if ('newState' in event && event.newState === 'closed') {
-      cleanups[popoverId]?.();
-      delete cleanups[popoverId];
-    }
+    document.addEventListener('click', clickOutside);
+    document.addEventListener('keydown', escapeKey);
   }
 
-  popovers.forEach((popover) => {
-    popover.addEventListener('toggle', positionPopover);
+  function addOpenPopoverListeners(trigger: HTMLElement, popover: HTMLElement, updateFn: () => void) {
+    trigger.addEventListener('click', () => {
+      popover.style.display = 'block';
+      updateFn();
+
+      addHidePopoverListeners(trigger, popover);
+    });
+  }
+
+  elements.forEach(({ trigger, popover }) => {
+    const updateFn = () => updatePosition(trigger, popover);
+
+    autoUpdate(trigger, popover, updateFn);
+    addOpenPopoverListeners(trigger, popover, updateFn);
   });
 </script>
