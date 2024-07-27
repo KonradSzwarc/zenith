@@ -22,8 +22,8 @@
   "eslint.runtime": "node",
   "eslint.validate": ["javascript", "typescript", "astro", "css"],
 
-  /** Enables Prettier in .astro files. */
-  "prettier.documentSelectors": ["**/*.astro"],
+  /** Enables Prettier in .astro and .svg files. */
+  "prettier.documentSelectors": ["**/*.astro", "**/*.svg"],
 
   /** Disables formatting if we remove Prettier config file. */
   "prettier.requireConfig": true,
