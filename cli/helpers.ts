@@ -1,3 +1,5 @@
+import os from 'node:os';
+
 import chalk from 'chalk';
 import { execa } from 'execa';
 import { existsSync } from 'fs';
@@ -38,7 +40,8 @@ export async function assertServerIsRunning() {
 }
 
 export async function runBrowser(cb: (page: Page) => Promise<void>) {
-  const browser = await puppeteer.launch();
+  const options = os.platform() === 'win32' ? { args: ['--no-sandbox', '--disable-setuid-sandbox'] } : undefined;
+  const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
 
   await cb(page);
