@@ -19,6 +19,7 @@ import { Metadata } from '@/web/components/metadata';
 import Project from '@/web/components/project.astro';
 import Reference from '@/web/components/reference.astro';
 import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/web/components/section';
+import { Sidebar, SidebarItem } from '@/web/components/sidebar';
 import { Skill } from '@/web/components/skills';
 import type { WebContextData } from '@/web/utils/initialize-web-context';
 import { initializeWebContext } from '@/web/utils/initialize-web-context';
@@ -35,6 +36,18 @@ interface Props {
 
   /** Name of file from `src/content/metadata``to use as page metadata. */
   metadata: keyof DataEntryMap['metadata'];
+
+  /** Array of sidebar items to be displayed. */
+  sidebar?: {
+    /** Id of the section to link to. By default section ids equals their collection keys.  */
+    sectionId: string;
+
+    /** [Iconify](https://icon-sets.iconify.design/) icon to display in the sidebar. */
+    icon: string;
+
+    /** Text for the tooltip displayed on sidebar item hover. */
+    text: string;
+  }[];
 
   /** Name of file from `src/content/basics``to use for the top resume section. */
   basics: ValidContentEntrySlug<'basics'>;
@@ -55,10 +68,21 @@ await initializeWebContext(Astro, {
     <slot name="head" />
     <Metadata entry={getEntry('metadata', Astro.props.metadata)} />
   </Fragment>
-  <Basics entry={getEntry('basics', Astro.props.basics)} />
+  {
+    Astro.props.sidebar && (
+      <Sidebar>
+        {Astro.props.sidebar.map(({ icon, sectionId, text }) => (
+          <SidebarItem {icon} {sectionId}>
+            {text}
+          </SidebarItem>
+        ))}
+      </Sidebar>
+    )
+  }
+  <Basics entry={getEntry('basics', Astro.props.basics)} id="basics" />
   {
     Astro.props.sections.map((section) => (
-      <Section class="gap-8">
+      <Section class="gap-8" id={section.collection}>
         <SectionTitle>{section.title}</SectionTitle>
 
         {section.collection === 'achievements' && (

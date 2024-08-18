@@ -20,7 +20,10 @@ const { class: className, bodyClass, ...props } = Astro.props;
   </Fragment>
   <ThemeSwitcher />
   <main
-    class={cn('mx-auto grid w-full max-w-screen-lg bg-color-bg-card p-6 shadow-2xl sm:rounded-3xl sm:p-10', className)}
+    class={cn(
+      'relative mx-auto grid w-full max-w-screen-lg bg-color-bg-card p-6 shadow-2xl sm:rounded-3xl sm:p-10',
+      className,
+    )}
     {...props}
   >
     <slot />
