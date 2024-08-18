@@ -11,6 +11,12 @@ export default tseslint.config(
   { name: 'eslint/recommended', ...eslint.configs.recommended },
   ...simpleImportSortPlugin(),
   ...tseslint.configs.recommended.map(withAstroFiles),
+  {
+    name: 'typescript-eslint/custom',
+    rules: {
+      '@typescript-eslint/no-empty-object-type': ['error', { allowInterfaces: 'with-single-extends' }],
+    },
+  },
   ...astro.configs.recommended,
   ...tailwindPlugin(),
   { name: 'prettier', ...prettierConfig }, // Must be the last one.
