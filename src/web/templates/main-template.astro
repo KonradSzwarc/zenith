@@ -63,7 +63,7 @@ await initializeWebContext(Astro, {
 });
 ---
 
-<Layout class="gap-16">
+<Layout class="gap-16 [&_section]:scroll-mt-8">
   <Fragment slot="head">
     <slot name="head" />
     <Metadata entry={getEntry('metadata', Astro.props.metadata)} />
