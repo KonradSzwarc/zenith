@@ -19,6 +19,7 @@ import { Metadata } from '@/web/components/metadata';
 import Project from '@/web/components/project.astro';
 import Reference from '@/web/components/reference.astro';
 import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/web/components/section';
+import { Sidebar, SidebarItem } from '@/web/components/sidebar';
 import { Skill } from '@/web/components/skills';
 import { initializeWebContext } from '@/web/utils/initialize-web-context';
 
@@ -35,7 +36,7 @@ await initializeWebContext(Astro, {
 });
 ---
 
-<Layout class="gap-16">
+<Layout class="gap-16 [&_section]:scroll-mt-8">
   <Fragment slot="head">
     <Font />
     <DuskColors />
@@ -43,8 +44,18 @@ await initializeWebContext(Astro, {
     <ElementColors />
     <Metadata entry={getEntry('metadata', 'main')} />
   </Fragment>
-  <Basics entry={getEntry('basics', 'main')} />
-  <Section class="gap-8">
+  <Sidebar>
+    <SidebarItem sectionId="basics" icon="fa6-solid:user">About me</SidebarItem>
+    <SidebarItem sectionId="skills" icon="fa6-solid:bars-progress">Skills</SidebarItem>
+    <SidebarItem sectionId="jobs" icon="fa6-solid:suitcase">Work experience</SidebarItem>
+    <SidebarItem sectionId="projects" icon="fa6-solid:rocket">Projects</SidebarItem>
+    <SidebarItem sectionId="references" icon="fa6-solid:comment">References</SidebarItem>
+    <SidebarItem sectionId="achievements" icon="fa6-solid:trophy">Achievements</SidebarItem>
+    <SidebarItem sectionId="education" icon="fa6-solid:graduation-cap">Education</SidebarItem>
+    <SidebarItem sectionId="favorites" icon="fa6-solid:star">Favorites</SidebarItem>
+  </Sidebar>
+  <Basics entry={getEntry('basics', 'main')} id="basics" />
+  <Section class="gap-8" id="skills">
     <SectionTitle>Skills</SectionTitle>
     <VerticalList class="gap-8">
       <Subsection class="gap-2">
@@ -84,7 +95,7 @@ await initializeWebContext(Astro, {
       </Subsection>
     </VerticalList>
   </Section>
-  <Section class="gap-8">
+  <Section class="gap-8" id="jobs">
     <SectionTitle>Work</SectionTitle>
     <VerticalList class="gap-10">
       <Job entry={getEntry('jobs', 'meta')} />
@@ -94,7 +105,7 @@ await initializeWebContext(Astro, {
       <Job entry={getEntry('jobs', 'codepen')} />
     </VerticalList>
   </Section>
-  <Section class="gap-8">
+  <Section class="gap-8" id="projects">
     <SectionTitle>Projects</SectionTitle>
     <VerticalList class="gap-10">
       <Project entry={getEntry('projects', 'moni-buddy')} />
@@ -102,7 +113,7 @@ await initializeWebContext(Astro, {
       <Project entry={getEntry('projects', 'user-board')} />
     </VerticalList>
   </Section>
-  <Section class="gap-8">
+  <Section class="gap-8" id="references">
     <SectionTitle>References</SectionTitle>
     <VerticalList class="gap-10">
       <Reference entry={getEntry('references', 'jane-smith')} />
@@ -110,7 +121,7 @@ await initializeWebContext(Astro, {
       <Reference entry={getEntry('references', 'john-doe')} />
     </VerticalList>
   </Section>
-  <Section class="gap-8">
+  <Section class="gap-8" id="achievements">
     <SectionTitle>Achievements</SectionTitle>
     <VerticalList class="gap-8">
       <Achievement entry={getEntry('achievements', 'advanced-react-developer')} />
@@ -122,7 +133,7 @@ await initializeWebContext(Astro, {
       <Achievement entry={getEntry('achievements', 'redux-toolkit-contributor')} />
     </VerticalList>
   </Section>
-  <Section class="gap-8">
+  <Section class="gap-8" id="education">
     <SectionTitle>Education</SectionTitle>
     <VerticalList class="gap-10">
       <Education entry={getEntry('education', 'master')} />
@@ -130,7 +141,7 @@ await initializeWebContext(Astro, {
       <Education entry={getEntry('education', 'bachelor')} />
     </VerticalList>
   </Section>
-  <Section class="gap-8">
+  <Section class="gap-8" id="favorites">
     <SectionTitle>Favorites</SectionTitle>
     <VerticalList class="gap-10">
       <Subsection class="gap-2">

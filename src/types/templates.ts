@@ -20,6 +20,9 @@ type SectionBase<C extends keyof ContentEntryMap> = {
 
   /** Title displayed above the section content. */
   title: string;
+
+  /** Unique identifier for the section. Used to display the sidebar. */
+  id?: string;
 };
 
 type SectionEntries<C extends keyof ContentEntryMap, P extends Component> = Omit<ComponentProps<P>, 'entry'> & {

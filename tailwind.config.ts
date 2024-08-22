@@ -58,7 +58,7 @@ function getCustomColors() {
 
   // Colors used in the code for styling. Related CSS variables are located in `src/styles/colors/elements`.
   // prettier-ignore
-  const elementColors = ['button-bg', 'button-bg-contrast', 'web-heading-underline', 'pdf-heading-underline', 'primary-dark', 'primary', 'primary-light', 'primary-contrast', 'text-title', 'text-primary', 'text-secondary', 'icon-light', 'icon-main', 'icon-dark', 'border', 'separator', 'bg-body', 'bg-card', 'bg-popover', 'bg-light', 'bg-main', 'bg-dark'];
+  const elementColors = ['button-bg', 'button-bg-contrast', 'web-heading-underline', 'pdf-heading-underline', 'primary-dark', 'primary', 'primary-light', 'primary-contrast', 'text-title', 'text-primary', 'text-secondary', 'text-contrast', 'icon-light', 'icon-main', 'icon-dark', 'border', 'separator', 'bg-body', 'bg-card', 'bg-popover', 'bg-tooltip', 'bg-light', 'bg-main', 'bg-dark'];
 
   const result: Record<string, Record<string, string>> = {};
 

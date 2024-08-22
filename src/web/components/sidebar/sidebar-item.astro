@@ -1,0 +1,93 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+import { Icon } from '@/components/icon';
+import Tooltip from '@/web/components/tooltip.astro';
+
+export interface Props extends HTMLAttributes<'main'> {
+  icon: string;
+  sectionId: string;
+}
+
+const { icon, sectionId, title } = Astro.props;
+---
+
+<li>
+  <Tooltip>
+    <a
+      slot="trigger"
+      href={`#${sectionId}`}
+      class="inline-flex size-10 items-center justify-center rounded-lg transition"
+      data-sidebar-link
+      aria-label={`${title} section`}
+    >
+      <Icon name={icon} class="size-5" />
+    </a>
+    <slot />
+  </Tooltip>
+</li>
+
+<style>
+  a[aria-current='page'] {
+    @apply bg-color-button-bg text-color-button-bg-contrast;
+  }
+
+  a:not([aria-current='page']) {
+    @apply text-color-icon-main hover:bg-color-bg-main;
+  }
+</style>
+
+<script>
+  import { throttle } from 'throttle-debounce';
+
+  // Works best when set to the half of the gap between sections.
+  const DETECT_SECTION_OFFSET = 32;
+
+  const sidebarLinks = [...document.querySelectorAll('[data-sidebar-link]')].flatMap((link) =>
+    link instanceof HTMLAnchorElement ? [link] : [],
+  );
+  const sections = [...document.querySelectorAll('section[id]')].flatMap((section) =>
+    section instanceof HTMLElement && sidebarLinks.some((link) => link.hash === `#${section.id}`) ? [section] : [],
+  );
+
+  function setCurrentNavlinkFromHash() {
+    const currentHash = location.hash;
+
+    sidebarLinks.forEach((link) => {
+      if (link.getAttribute('href') === currentHash) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  function setCurrentHashFromScroll() {
+    const section = sections.find((section) => {
+      const { top, bottom } = section.getBoundingClientRect();
+      return top <= DETECT_SECTION_OFFSET && bottom > -DETECT_SECTION_OFFSET;
+    });
+
+    console.log(section?.id || null);
+
+    if (!section && location.hash) {
+      return setHash(null);
+    }
+
+    if (section && location.hash !== `#${section.id}`) {
+      return setHash(section.id);
+    }
+  }
+
+  function setHash(sectionId: string | null) {
+    history.replaceState(null, '', sectionId ? `#${sectionId}` : location.pathname + location.search);
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+  }
+
+  addEventListener('hashchange', setCurrentNavlinkFromHash);
+  addEventListener('scroll', throttle(250, setCurrentHashFromScroll));
+  addEventListener('load', () => {
+    setCurrentNavlinkFromHash();
+    setCurrentHashFromScroll();
+  });
+</script>

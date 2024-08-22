@@ -1,0 +1,90 @@
+---
+import { nanoid } from 'nanoid';
+
+import { addElementAttributes } from '@/utils/html-string';
+
+const trigger = await Astro.slots.render('trigger');
+
+if (!trigger) {
+  throw new Error('Tooltip must have a trigger slot');
+}
+
+const id = nanoid();
+const triggerProps = { 'data-target': `tooltip-${id}` };
+---
+
+<Fragment set:html={addElementAttributes(trigger, triggerProps)} />
+<div
+  data-tooltip
+  id={`tooltip-${id}`}
+  role="tooltip"
+  class="w-max rounded-lg bg-color-bg-tooltip px-3 py-1 text-sm text-color-text-contrast shadow-md sm:text-base"
+>
+  <slot />
+</div>
+
+<style is:global>
+  [data-tooltip] {
+    margin: 0 !important;
+    position: absolute;
+    animation: show 200ms ease-out 100ms forwards;
+    opacity: 0;
+    display: none;
+  }
+
+  @keyframes show {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+<script>
+  import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
+
+  const elements = [...document.querySelectorAll('[data-target]')].flatMap((trigger) => {
+    if (!(trigger instanceof HTMLElement)) return [];
+
+    const tooltipId = trigger.dataset['target'];
+
+    if (!tooltipId || !tooltipId.startsWith('tooltip')) return [];
+
+    const tooltip = document.getElementById(tooltipId);
+
+    if (!tooltip) return [];
+
+    return [{ trigger, tooltip }];
+  });
+
+  function updatePosition(trigger: HTMLElement, tooltip: HTMLElement) {
+    computePosition(trigger, tooltip, {
+      middleware: [offset(12), flip(), shift({ padding: 8 })],
+      placement: 'left',
+    }).then(({ x, y }) => {
+      Object.assign(tooltip.style, {
+        left: `${x}px`,
+        top: `${y}px`,
+      });
+    });
+  }
+
+  function addTooltipListeners(trigger: HTMLElement, tooltip: HTMLElement, updateFn: () => void) {
+    trigger.addEventListener('mouseenter', () => {
+      tooltip.style.display = 'block';
+      updateFn();
+    });
+
+    trigger.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+  }
+
+  elements.forEach(({ trigger, tooltip }) => {
+    const updateFn = () => updatePosition(trigger, tooltip);
+
+    autoUpdate(trigger, tooltip, updateFn);
+    addTooltipListeners(trigger, tooltip, updateFn);
+  });
+</script>
