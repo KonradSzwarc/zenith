@@ -3,8 +3,8 @@
   "baseImage": "src/assets/me.jpg",
 
   "//": "Data used to generate webmanifest file describing the website.",
-  "appName": "Mark Freeman Resume",
-  "appShortName": "Mark Freeman Resume",
-  "appDescription": "Virtual resume of Mark Freeman",
+  "appName": "Miłosz Resume",
+  "appShortName": "Miłosz Godyń Resume",
+  "appDescription": "Virtual resume of Miłosz Godyń",
   "lang": "en"
 }

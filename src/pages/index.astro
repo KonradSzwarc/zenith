@@ -2,22 +2,20 @@
 import { getEntry } from 'astro:content';
 import { enUS } from 'date-fns/locale';
 
+import { Icon } from '@/components/icon';
 import { GridList, HorizontalList, VerticalList } from '@/components/list';
 import Separator from '@/components/separator.astro';
 import AccentColors from '@/styles/colors/accent/indigo.astro';
 import DuskColors from '@/styles/colors/dusk/slate.astro';
 import ElementColors from '@/styles/colors/elements/default.astro';
 import Font from '@/styles/fonts/inter.astro';
-import Achievement from '@/web/components/achievement.astro';
 import { Basics } from '@/web/components/basics';
 import Education from '@/web/components/education.astro';
-import Favorite from '@/web/components/favorite.astro';
 import Interest from '@/web/components/interest.astro';
 import Job from '@/web/components/job.astro';
 import Layout from '@/web/components/layout.astro';
 import { Metadata } from '@/web/components/metadata';
 import Project from '@/web/components/project.astro';
-import Reference from '@/web/components/reference.astro';
 import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/web/components/section';
 import { Sidebar, SidebarItem } from '@/web/components/sidebar';
 import { Skill } from '@/web/components/skills';
@@ -31,7 +29,7 @@ await initializeWebContext(Astro, {
   pdf: {
     path: '/generated/pdf/index.pdf',
     label: 'Download resume',
-    filename: 'mark-freeman-resume.pdf',
+    filename: 'milosz-godyn-resume.pdf',
   },
 });
 ---
@@ -49,10 +47,7 @@ await initializeWebContext(Astro, {
     <SidebarItem sectionId="skills" icon="fa6-solid:bars-progress">Skills</SidebarItem>
     <SidebarItem sectionId="jobs" icon="fa6-solid:suitcase">Work experience</SidebarItem>
     <SidebarItem sectionId="projects" icon="fa6-solid:rocket">Projects</SidebarItem>
-    <SidebarItem sectionId="references" icon="fa6-solid:comment">References</SidebarItem>
-    <SidebarItem sectionId="achievements" icon="fa6-solid:trophy">Achievements</SidebarItem>
     <SidebarItem sectionId="education" icon="fa6-solid:graduation-cap">Education</SidebarItem>
-    <SidebarItem sectionId="favorites" icon="fa6-solid:star">Favorites</SidebarItem>
   </Sidebar>
   <Basics entry={getEntry('basics', 'main')} id="basics" />
   <Section class="gap-8" id="skills">
@@ -62,35 +57,33 @@ await initializeWebContext(Astro, {
         <SubsectionTitle>Technologies</SubsectionTitle>
         <GridList class="gap-8" minColWidth="200px">
           <Skill withLevel entry={getEntry('skills', 'astro')} />
-          <Skill withLevel entry={getEntry('skills', 'drizzle-orm')} />
-          <Skill withLevel entry={getEntry('skills', 'eslint')} />
-          <Skill withLevel entry={getEntry('skills', 'next')} />
-          <Skill withLevel entry={getEntry('skills', 'playwright')} />
+          <Skill withLevel entry={getEntry('skills', 'java')} />
+          <Skill withLevel entry={getEntry('skills', 'spring')} />
+          <Skill withLevel entry={getEntry('skills', 'hibernate')} />
+          <Skill withLevel entry={getEntry('skills', 'python')} />
+          <Skill withLevel entry={getEntry('skills', 'oracledb')} />
           <Skill withLevel entry={getEntry('skills', 'postgresql')} />
-          <Skill withLevel entry={getEntry('skills', 'react-testing-library')} />
-          <Skill withLevel entry={getEntry('skills', 'react')} />
-          <Skill withLevel entry={getEntry('skills', 'shadcn')} />
-          <Skill withLevel entry={getEntry('skills', 'tailwind')} />
-          <Skill withLevel entry={getEntry('skills', 'tanstack-query')} />
-          <Skill withLevel entry={getEntry('skills', 'trpc')} />
-          <Skill withLevel entry={getEntry('skills', 'typescript')} />
-          <Skill withLevel entry={getEntry('skills', 'vitest')} />
+          <Skill withLevel entry={getEntry('skills', 'aws')} />
+          <Skill withLevel entry={getEntry('skills', 'talend')} />
+          <Skill withLevel entry={getEntry('skills', 'project-management')} />
         </GridList>
       </Subsection>
       <Subsection class="gap-2">
         <SubsectionTitle>Tools</SubsectionTitle>
         <HorizontalList class="gap-3">
-          <Skill entry={getEntry('skills', 'neon')} />
-          <Skill entry={getEntry('skills', 'sentry')} />
-          <Skill entry={getEntry('skills', 'stripe')} />
-          <Skill entry={getEntry('skills', 'vercel')} />
+          <Skill entry={getEntry('skills', 'intellij')} />
+          <Skill entry={getEntry('skills', 'vsc')} />
+          <Skill entry={getEntry('skills', 'git')} />
+          <Skill entry={getEntry('skills', 'chat-gpt')} />
+          <Skill entry={getEntry('skills', 'deepl')} />
         </HorizontalList>
       </Subsection>
       <Subsection class="gap-2">
         <SubsectionTitle>Languages</SubsectionTitle>
         <HorizontalList class="gap-3">
+          <Skill entry={getEntry('skills', 'polish')} />
           <Skill entry={getEntry('skills', 'english')} />
-          <Skill entry={getEntry('skills', 'spanish')} />
+          <Skill entry={getEntry('skills', 'german')} />
         </HorizontalList>
       </Subsection>
     </VerticalList>
@@ -98,39 +91,32 @@ await initializeWebContext(Astro, {
   <Section class="gap-8" id="jobs">
     <SectionTitle>Work</SectionTitle>
     <VerticalList class="gap-10">
-      <Job entry={getEntry('jobs', 'meta')} />
+      <Job entry={getEntry('jobs', 'kontial')} />
       <Separator />
-      <Job entry={getEntry('jobs', 'shopify')} />
+      <Job entry={getEntry('jobs', 'cisco')} />
       <Separator />
-      <Job entry={getEntry('jobs', 'codepen')} />
+      <Job entry={getEntry('jobs', 'capgemini')} />
     </VerticalList>
+    <Separator />
+    <div>
+      <span style="display: flex; align-items: center;">
+        I am in IT industry since 2016. To see my full employment history, certificates and references, visit my&nbsp;
+        <a
+          href="https://www.linkedin.com/in/milgodyn/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex size-7 items-center justify-center rounded bg-color-bg-main"
+        >
+          <Icon class="size-3 text-color-icon-dark" name="fa6-brands:linkedin-in" />
+        </a>
+        &nbsp;profile.
+      </span>
+    </div>
   </Section>
   <Section class="gap-8" id="projects">
     <SectionTitle>Projects</SectionTitle>
     <VerticalList class="gap-10">
-      <Project entry={getEntry('projects', 'moni-buddy')} />
-      <Separator />
-      <Project entry={getEntry('projects', 'user-board')} />
-    </VerticalList>
-  </Section>
-  <Section class="gap-8" id="references">
-    <SectionTitle>References</SectionTitle>
-    <VerticalList class="gap-10">
-      <Reference entry={getEntry('references', 'jane-smith')} />
-      <Separator />
-      <Reference entry={getEntry('references', 'john-doe')} />
-    </VerticalList>
-  </Section>
-  <Section class="gap-8" id="achievements">
-    <SectionTitle>Achievements</SectionTitle>
-    <VerticalList class="gap-8">
-      <Achievement entry={getEntry('achievements', 'advanced-react-developer')} />
-      <Separator />
-      <Achievement entry={getEntry('achievements', 'google-developer-expert')} />
-      <Separator />
-      <Achievement entry={getEntry('achievements', 'reactathon-hackathon')} />
-      <Separator />
-      <Achievement entry={getEntry('achievements', 'redux-toolkit-contributor')} />
+      <Project entry={getEntry('projects', 'ascii-art')} />
     </VerticalList>
   </Section>
   <Section class="gap-8" id="education">
@@ -139,64 +125,13 @@ await initializeWebContext(Astro, {
       <Education entry={getEntry('education', 'bachelor')} />
     </VerticalList>
   </Section>
-  <Section class="gap-8" id="favorites">
-    <SectionTitle>Favorites</SectionTitle>
-    <VerticalList class="gap-10">
-      <Subsection class="gap-2">
-        <SubsectionTitle>Books I read</SubsectionTitle>
-        <GridList class="gap-4 lg:grid-cols-2">
-          <Favorite image="poster" entry={getEntry('favorites', 'books/domain-driven-design')} />
-          <Favorite image="poster" entry={getEntry('favorites', 'books/grokkking-simplicity')} />
-          <Favorite image="poster" entry={getEntry('favorites', 'books/learning-javascript-design-patterns')} />
-          <Favorite image="poster" entry={getEntry('favorites', 'books/the-pragmatic-programmer')} />
-        </GridList>
-      </Subsection>
-      <Subsection class="gap-2">
-        <SubsectionTitle>Articles I come back to</SubsectionTitle>
-        <GridList class="gap-4 lg:grid-cols-2">
-          <Favorite
-            withSource
-            image="favicon"
-            entry={getEntry('favorites', 'articles/client-side-architecture-basics')}
-          />
-          <Favorite
-            withSource
-            image="favicon"
-            entry={getEntry('favorites', 'articles/future-facing-frontend-architectures')}
-          />
-          <Favorite withSource image="favicon" entry={getEntry('favorites', 'articles/practical-react-query')} />
-          <Favorite withSource image="favicon" entry={getEntry('favorites', 'articles/the-least-worst-architecture')} />
-        </GridList>
-      </Subsection>
-      <Subsection class="gap-2">
-        <SubsectionTitle>Videos I watched</SubsectionTitle>
-        <GridList class="gap-4 lg:grid-cols-2">
-          <Favorite image="video" entry={getEntry('favorites', 'videos/principled-coders')} />
-          <Favorite image="video" entry={getEntry('favorites', 'videos/scaling-yourself')} />
-          <Favorite image="video" entry={getEntry('favorites', 'videos/mind-the-gap')} />
-          <Favorite image="video" entry={getEntry('favorites', 'videos/monads')} />
-        </GridList>
-      </Subsection>
-      <Subsection class="gap-2">
-        <SubsectionTitle>People I learn from</SubsectionTitle>
-        <GridList class="gap-4 md:grid-cols-2">
-          <Favorite image="person" entry={getEntry('favorites', 'people/addy-osmani')} />
-          <Favorite image="person" entry={getEntry('favorites', 'people/anthony-fu')} />
-          <Favorite image="person" entry={getEntry('favorites', 'people/dan-abramov')} />
-          <Favorite image="person" entry={getEntry('favorites', 'people/josh-w-comeau')} />
-          <Favorite image="person" entry={getEntry('favorites', 'people/kent-c-dodds')} />
-          <Favorite image="person" entry={getEntry('favorites', 'people/lee-robinson')} />
-        </GridList>
-      </Subsection>
-    </VerticalList>
-  </Section>
   <Section class="gap-8">
     <SectionTitle>Interests</SectionTitle>
     <HorizontalList class="gap-x-4 gap-y-3">
-      <Interest entry={getEntry('interests', 'cooking')} />
-      <Interest entry={getEntry('interests', 'running')} />
-      <Interest entry={getEntry('interests', 'technical-blogging')} />
-      <Interest entry={getEntry('interests', 'video-montage')} />
+      <Interest entry={getEntry('interests', 'kettlebell')} />
+      <Interest entry={getEntry('interests', 'gaming')} />
+      <Interest entry={getEntry('interests', 'martial-arts')} />
+      <Interest entry={getEntry('interests', 'chess')} />
     </HorizontalList>
   </Section>
 </Layout>

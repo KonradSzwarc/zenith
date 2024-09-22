@@ -4,16 +4,13 @@ import { enUS } from 'date-fns/locale';
 
 import { HorizontalList, VerticalList } from '@/components/list';
 import Separator from '@/components/separator.astro';
-import Achievement from '@/pdf/components/achievement.astro';
 import Basics from '@/pdf/components/basics.astro';
 import Education from '@/pdf/components/education.astro';
-import Favorite from '@/pdf/components/favorite.astro';
 import Footer from '@/pdf/components/footer.astro';
 import Interest from '@/pdf/components/interest.astro';
 import Job from '@/pdf/components/job.astro';
 import Layout from '@/pdf/components/layout.astro';
 import Project from '@/pdf/components/project.astro';
-import Reference from '@/pdf/components/reference.astro';
 import { Section, SectionTitle, Subsection, SubsectionTitle } from '@/pdf/components/section';
 import { Skill } from '@/pdf/components/skills';
 import { initializePdfContext } from '@/pdf/utils/initialize-pdf-context';
@@ -44,36 +41,33 @@ await initializePdfContext(Astro, {
       <Subsection class="gap-2">
         <SubsectionTitle>Technologies</SubsectionTitle>
         <HorizontalList class="gap-3">
-          <Skill withLevel entry={getEntry('skills', 'astro')} />
-          <Skill withLevel entry={getEntry('skills', 'drizzle-orm')} />
-          <Skill withLevel entry={getEntry('skills', 'eslint')} />
-          <Skill withLevel entry={getEntry('skills', 'next')} />
-          <Skill withLevel entry={getEntry('skills', 'playwright')} />
+          <Skill withLevel entry={getEntry('skills', 'java')} />
+          <Skill withLevel entry={getEntry('skills', 'spring')} />
+          <Skill withLevel entry={getEntry('skills', 'hibernate')} />
+          <Skill withLevel entry={getEntry('skills', 'python')} />
+          <Skill withLevel entry={getEntry('skills', 'oracledb')} />
           <Skill withLevel entry={getEntry('skills', 'postgresql')} />
-          <Skill withLevel entry={getEntry('skills', 'react-testing-library')} />
-          <Skill withLevel entry={getEntry('skills', 'react')} />
-          <Skill withLevel entry={getEntry('skills', 'shadcn')} />
-          <Skill withLevel entry={getEntry('skills', 'tailwind')} />
-          <Skill withLevel entry={getEntry('skills', 'tanstack-query')} />
-          <Skill withLevel entry={getEntry('skills', 'trpc')} />
-          <Skill withLevel entry={getEntry('skills', 'typescript')} />
-          <Skill withLevel entry={getEntry('skills', 'vitest')} />
+          <Skill withLevel entry={getEntry('skills', 'aws')} />
+          <Skill withLevel entry={getEntry('skills', 'talend')} />
+          <Skill withLevel entry={getEntry('skills', 'project-management')} />
         </HorizontalList>
       </Subsection>
       <Subsection class="gap-2">
         <SubsectionTitle>Tools</SubsectionTitle>
         <HorizontalList class="gap-3">
-          <Skill entry={getEntry('skills', 'neon')} />
-          <Skill entry={getEntry('skills', 'sentry')} />
-          <Skill entry={getEntry('skills', 'stripe')} />
-          <Skill entry={getEntry('skills', 'vercel')} />
+          <Skill entry={getEntry('skills', 'intellij')} />
+          <Skill entry={getEntry('skills', 'vsc')} />
+          <Skill entry={getEntry('skills', 'git')} />
+          <Skill entry={getEntry('skills', 'chat-gpt')} />
+          <Skill entry={getEntry('skills', 'deepl')} />
         </HorizontalList>
       </Subsection>
       <Subsection class="gap-2">
         <SubsectionTitle>Languages</SubsectionTitle>
         <HorizontalList class="gap-3">
+          <Skill entry={getEntry('skills', 'polish')} />
           <Skill entry={getEntry('skills', 'english')} />
-          <Skill entry={getEntry('skills', 'spanish')} />
+          <Skill entry={getEntry('skills', 'german')} />
         </HorizontalList>
       </Subsection>
     </VerticalList>
@@ -81,35 +75,17 @@ await initializePdfContext(Astro, {
   <Section class="gap-4">
     <SectionTitle>Work</SectionTitle>
     <VerticalList class="gap-6">
-      <Job entry={getEntry('jobs', 'meta')} />
+      <Job entry={getEntry('jobs', 'kontial')} />
       <Separator />
-      <Job entry={getEntry('jobs', 'shopify')} />
+      <Job entry={getEntry('jobs', 'cisco')} />
       <Separator />
-      <Job entry={getEntry('jobs', 'codepen')} />
+      <Job entry={getEntry('jobs', 'capgemini')} />
     </VerticalList>
   </Section>
   <Section class="gap-4">
     <SectionTitle>Projects</SectionTitle>
     <VerticalList class="gap-6">
-      <Project entry={getEntry('projects', 'moni-buddy')} />
-      <Separator />
-      <Project entry={getEntry('projects', 'user-board')} />
-    </VerticalList>
-  </Section>
-  <Section class="gap-4">
-    <SectionTitle>References</SectionTitle>
-    <VerticalList class="gap-4">
-      <Reference entry={getEntry('references', 'jane-smith')} />
-      <Separator />
-      <Reference entry={getEntry('references', 'john-doe')} />
-    </VerticalList>
-  </Section>
-  <Section class="gap-4">
-    <SectionTitle>Achievements</SectionTitle>
-    <VerticalList class="gap-3">
-      <Achievement entry={getEntry('achievements', 'google-developer-expert')} />
-      <Achievement entry={getEntry('achievements', 'reactathon-hackathon')} />
-      <Achievement entry={getEntry('achievements', 'redux-toolkit-contributor')} />
+      <Project entry={getEntry('projects', 'ascii-art')} />
     </VerticalList>
   </Section>
   <Section class="gap-4">
@@ -119,65 +95,12 @@ await initializePdfContext(Astro, {
     </VerticalList>
   </Section>
   <Section class="gap-4">
-    <SectionTitle>Favorites</SectionTitle>
-    <VerticalList class="gap-5">
-      <Subsection class="gap-1.5">
-        <SubsectionTitle>Books I read</SubsectionTitle>
-        <VerticalList class="gap-2.5">
-          <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/domain-driven-design')} />
-          <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/grokkking-simplicity')} />
-          <Favorite
-            icon="material-symbols:book-2"
-            entry={getEntry('favorites', 'books/learning-javascript-design-patterns')}
-          />
-          <Favorite icon="material-symbols:book-2" entry={getEntry('favorites', 'books/the-pragmatic-programmer')} />
-        </VerticalList>
-      </Subsection>
-      <Subsection class="gap-1.5">
-        <SubsectionTitle>Articles I come back to</SubsectionTitle>
-        <VerticalList class="gap-2.5">
-          <Favorite
-            withSource
-            icon="material-symbols:article"
-            entry={getEntry('favorites', 'articles/client-side-architecture-basics')}
-          />
-          <Favorite
-            withSource
-            icon="material-symbols:article"
-            entry={getEntry('favorites', 'articles/future-facing-frontend-architectures')}
-          />
-          <Favorite
-            withSource
-            icon="material-symbols:article"
-            entry={getEntry('favorites', 'articles/practical-react-query')}
-          />
-          <Favorite
-            withSource
-            icon="material-symbols:article"
-            entry={getEntry('favorites', 'articles/the-least-worst-architecture')}
-          />
-        </VerticalList>
-      </Subsection>
-      <Subsection class="gap-1.5">
-        <SubsectionTitle>People I learn from</SubsectionTitle>
-        <VerticalList class="gap-2.5">
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/addy-osmani')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/anthony-fu')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/dan-abramov')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/josh-w-comeau')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/kent-c-dodds')} />
-          <Favorite icon="material-symbols:person" entry={getEntry('favorites', 'people/lee-robinson')} />
-        </VerticalList>
-      </Subsection>
-    </VerticalList>
-  </Section>
-  <Section class="gap-4">
     <SectionTitle>Interests</SectionTitle>
     <HorizontalList class="gap-3">
-      <Interest entry={getEntry('interests', 'cooking')} />
-      <Interest entry={getEntry('interests', 'running')} />
-      <Interest entry={getEntry('interests', 'technical-blogging')} />
-      <Interest entry={getEntry('interests', 'video-montage')} />
+      <Interest entry={getEntry('interests', 'kettlebell')} />
+      <Interest entry={getEntry('interests', 'gaming')} />
+      <Interest entry={getEntry('interests', 'martial-arts')} />
+      <Interest entry={getEntry('interests', 'chess')} />
     </HorizontalList>
   </Section>
   <Footer>
