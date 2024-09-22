@@ -66,5 +66,5 @@ function getSiteUrl() {
     process.exit(1);
   }
 
-  return 'http://localhost:4321';
+  return 'https://milgodyn.dev/';
 }
