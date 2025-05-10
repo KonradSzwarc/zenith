@@ -43,7 +43,7 @@ const Description = body.trim().length > 0 && (await render()).Content;
 const subtitle = favorite.subtitle && removeTopElement(markdownToHtml(favorite.subtitle));
 const url = withSource && new URL(favorite.url);
 const rootClass = cn(
-  'relative flex overflow-hidden rounded border border-color-border py-2 pl-2 sm:py-3 sm:pl-3',
+  'relative flex rounded border border-color-border py-2 pl-2 sm:py-3 sm:pl-3',
   Description ? 'pr-7 sm:pr-8' : 'pr-3 sm:pr-4',
 );
 const iconSizeClass = cn('my-0.5 mr-2 size-4 shrink-0 sm:size-5');
@@ -107,7 +107,7 @@ const imageSizes = {
         <Popover>
           <button
             slot="trigger"
-            class="absolute -right-px -top-px flex size-6 items-center justify-center rounded-bl bg-color-bg-main transition-colors hover:bg-color-bg-main/80"
+            class="absolute -right-px -top-px flex size-6 items-center justify-center rounded-bl rounded-tr bg-color-bg-main transition-colors hover:bg-color-bg-main/80"
           >
             <Icon name="fa6-solid:info" class="size-3 text-color-icon-main" />
           </button>

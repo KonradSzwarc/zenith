@@ -21,15 +21,18 @@ const triggerProps = { 'data-target': `popover-${id}`, 'aria-label': context.i18
   data-popover
   id={`popover-${id}`}
   role="tooltip"
-  class="prose prose-sm max-w-[520px] rounded-lg border border-color-border bg-color-bg-popover px-4 py-3 shadow-md sm:prose-base"
+  class="prose prose-sm z-20 max-w-[520px] rounded-lg border border-color-border bg-color-bg-popover px-4 py-3 shadow-md sm:prose-base"
 >
   <slot />
 </div>
 
 <style is:global>
   [data-popover] {
-    margin: 0 !important;
     position: absolute;
+    top: 0;
+    left: 0;
+    width: max-content;
+    margin: 0 !important;
     animation: show 200ms ease-out 100ms forwards;
     opacity: 0;
     display: none;

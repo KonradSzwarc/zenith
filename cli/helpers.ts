@@ -40,7 +40,9 @@ export async function assertServerIsRunning() {
 }
 
 export async function runBrowser(cb: (page: Page) => Promise<void>) {
-  const options = os.platform() === 'win32' ? { args: ['--no-sandbox', '--disable-setuid-sandbox'] } : undefined;
+  const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+  const options =
+    os.platform() === 'win32' || isCI ? { args: ['--no-sandbox', '--disable-setuid-sandbox'] } : undefined;
   const browser = await puppeteer.launch(options);
   const page = await browser.newPage();
 
