@@ -10,7 +10,7 @@ export interface Props extends HTMLAttributes<'nav'> {
 const { class: className, ...props } = Astro.props;
 ---
 
-<nav data-sidebar class={cn(['absolute -right-18 hidden h-full w-max xl:block', className])} {...props}>
+<nav data-sidebar class={cn(['absolute -right-18 z-10 hidden h-full w-max xl:block', className])} {...props}>
   <ul class={cn('sticky top-4 grid h-fit gap-2 rounded-lg bg-color-bg-card p-2 shadow-lg')}>
     <slot />
   </ul>

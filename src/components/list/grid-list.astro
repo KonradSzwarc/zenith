@@ -16,7 +16,7 @@ const { class: className, minColWidth, ...props } = Astro.props;
 </div>
 
 <style define:vars={{ minColWidth }}>
-  div[data-autocols] {
+  div[data-autocols='true'] {
     grid-template-columns: repeat(auto-fit, minmax(var(--minColWidth), 1fr));
   }
 </style>
