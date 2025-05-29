@@ -6,10 +6,13 @@ import { buildCommand } from './commands/build';
 import { colorsCommand } from './commands/colors';
 import { faviconsCommand } from './commands/favicons';
 import { generateCommand } from './commands/generate';
+import { generateSkillsCommand } from './commands/generate-skills';
 import { ogCommand } from './commands/og';
 import { pdfCommand } from './commands/pdf';
 
 program.name('zenith').description('Zenith CLI utilities').version('0.0.1');
+
+program.addCommand(generateSkillsCommand);
 
 program.command('favicons').description('Generate favicons').action(faviconsCommand);
 
