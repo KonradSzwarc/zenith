@@ -26,6 +26,7 @@
     "check": "concurrently \"eslint .\" \"astro check\" \"prettier --check .\" -n eslint,astro,prettier -c magenta,red,yellow",
     "format": "prettier --write .",
     "generate": "tsx cli generate",
+    "generate:skills": "tsx cli generate-skills --icons",
     "generate:pdf": "tsx cli pdf",
     "generate:pdf:watch": "nodemon --exec \"tsx cli pdf\"",
     "generate:og": "tsx cli og",
@@ -54,7 +55,8 @@
     "polished": "4.3.1",
     "tailwind-merge": "3.2.0",
     "throttle-debounce": "5.0.2",
-    "type-fest": "4.41.0"
+    "type-fest": "4.41.0",
+    "simple-icons": "14.15.0"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "1.10.4",
